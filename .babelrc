@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      },
+      "@parcel/babel-preset-env"
+    ]
+  ],
+  "plugins": ["@parcel/babel-plugin-transform-runtime"]
+}
