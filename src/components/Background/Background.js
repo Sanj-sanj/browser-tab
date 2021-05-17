@@ -2,7 +2,7 @@ import img from "url:../../images/dragisa-braunovic.jpg?as=webp"; //eslint-disab
 
 const Background = () => (
   <img
-    className="absolute h-screen w-max rounded-md top-0 object-cover pointer-events-none"
+    className="absolute z-30 h-screen w-max rounded-md top-0 object-cover pointer-events-none"
     src={img}
     alt="background vista of some mountainside overlooking a town"
   />
