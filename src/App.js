@@ -1,20 +1,25 @@
-import { useState } from "react";
 import { render } from "react-dom";
-
 import Background from "./components/Background/Background";
-import Header from "./components/Header/Header";
+import Nav from "./components/Nav/Nav";
+import SearchBar from "./components/SearchBar/SearchBar";
 import Time from "./components/Time/Time";
 
 const App = () => {
-  const [user, setUser] = useState(() => localStorage.getItem("user") || "");
-
   return (
     <>
-      <Background />
-      <div className="flex  flex-col justify-center w-full min-h-screen z-10 relative">
-        <Header />
-        <Time />
-        <button onClick={() => console.log(user)}>click</button>
+      <div className="flex flex-col w-full h-screen overflow-hidden">
+        {/* top status bar */}
+        <Nav />
+        <div className="flex  flex-col justify-center w-full h-screen relative">
+          <Background />
+          {/* This is where the contents of the screen will go */}
+          <section className="z-40">
+            <Time />
+            <div className="flex mt-4 justify-center items-center w-full">
+              <SearchBar />
+            </div>
+          </section>
+        </div>
       </div>
     </>
   );
