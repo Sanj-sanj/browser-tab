@@ -1,0 +1,54 @@
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+
+const menuRoot = document.getElementById("menu");
+
+const Dropdown = ({ children, rects, caller }) => {
+  const elRef = useRef(null);
+  if (!elRef.current) {
+    elRef.current = document.createElement("div");
+  }
+  useEffect(() => {
+    menuRoot.appendChild(elRef.current);
+    return () => menuRoot.removeChild(elRef.current);
+  }, []);
+
+  function getCenteredAsICanGet() {
+    let thisMenu;
+    caller === "◢" ? (thisMenu = 285) : (thisMenu = -500);
+    let left = rects.left + thisMenu / 2;
+    left = left - rects.width / 2;
+    left = Math.max(rects.width, left);
+    return (left = Math.min(
+      left,
+      document.body.clientWidth - thisMenu - rects.width
+    ));
+  }
+  return createPortal(
+    <>
+      <div
+        className={`menuThing mt-1 absolute rounded-lg p-3 text-left bg-gray-800 text-white z-50`}
+        style={{
+          left: getCenteredAsICanGet(),
+          top: rects.bottom + rects.bottom / 2,
+          width: caller === "◢" ? "19.2rem" : "48rem",
+          border: "1px solid #111827",
+        }}
+      >
+        <span
+          className="absolute bg-gray-800 w-4 h-4 transform rotate-45 "
+          style={{
+            top: (rects.bottom / 3) * -1,
+            right: caller === "◢" ? rects.width : rects.width * 3,
+            borderLeft: "1px solid #111827",
+            borderTop: "1px solid #111827",
+          }}
+        ></span>
+        {console.log(rects)}
+        <div className="overflow-hidden">{children}</div>{" "}
+      </div>
+    </>,
+    elRef.current
+  );
+};
+export default Dropdown;
