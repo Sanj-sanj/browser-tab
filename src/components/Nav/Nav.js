@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useTime from "../../hooks/useTime";
 import useDate from "../../hooks/useDate";
-import { focusEdgeStyle, blurEdgeStyle } from "../../js/windowTopEdge";
 import Dropdown from "../Dropdown/Dropdown";
 import Range from "../Dropdown/Range";
 import Volume from "../svg/Volume";
@@ -11,25 +10,16 @@ import Wifi from "../svg/Wifi";
 import Battery from "../svg/Battery";
 import Power from "../svg/Power";
 import Setting from "../svg/Setting";
+import Button from "../Dropdown/Button";
 
 const Nav = () => {
   const [menu, setMenu] = useState(null);
-  // const [focused, setFocused] = useState(false);
   const focused = useRef(false);
-  let fTimer;
 
   useEffect(() => {
     const doc = document.body;
-    let listner = (e) => {
-      // if (e.target.parentElement.className.includes("middleArea")) {
-      // if (focused.current?.v.match(/(time|◢)/g)) {
-      //   console.log(e);
-      //   console.log(focused.current);
-      //   console.log(e.target.parentElement.className);
-      //   return;
-      // }
-      hideMenu();
-      // setFocused(false);
+    let listner = () => {
+      hideAndResetMenu();
       return doc.removeEventListener("click", listner);
     };
     if (focused.current) {
@@ -41,16 +31,16 @@ const Nav = () => {
     return () => doc.removeEventListener("click", listner);
   }, [focused.current]);
 
-  function hideMenu() {
+  function hideAndResetMenu() {
     if (menu === null) return;
     focused.current = null;
     setMenu(null);
   }
-
+  //try to make this into a custom hook, return two states menu, and setMenu
   function makeMenu(e, caller) {
-    hideMenu();
     const rects = e.currentTarget.getBoundingClientRect();
     setMenu(
+      //none of this state is supplied from above so it doenst remember updates
       <Dropdown rects={rects} caller={caller}>
         {" "}
         <Range Component={Volume} label={"volume"} max={"100"} />
@@ -63,14 +53,7 @@ const Nav = () => {
         <span className="py-3 px-16 ">
           <hr className="w-full border-gray-900" />
         </span>
-        <div className="flex justify-between px-4 py-1 hover:bg-gray-700 ">
-          <div className="w-full flex items-center">
-            <span className="mr-2">
-              <Setting />
-            </span>
-            <span>Settings</span>
-          </div>
-        </div>
+        <Button Component={Setting} />
         <Selections Component={Power} label="Power" />
       </Dropdown>
     );
@@ -78,7 +61,11 @@ const Nav = () => {
 
   return (
     <div className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center">
-      <button className="flex items-center ml-1 pl-2 pr-3 font-bold z-40 text-white border-b-2 border-yellow-400">
+      {/* Left menu */}
+      <button
+        className="flex items-center ml-1 pl-2 pr-3 font-bold z-40 text-white border-b-2 border-yellow-400"
+        onFocus={hideAndResetMenu}
+      >
         Activities
       </button>
       {/* Left corner */}
@@ -86,12 +73,16 @@ const Nav = () => {
         className="absolute z-0 h-4 w-4 bg-yellow-400 "
         style={{ top: "93%", borderTopLeftRadius: "2px" }}
       />
-
+      {/* Middle Menu */}
       <div className="w-full h-full flex absolute justify-center ">
         <button
-          className="border-b-2  border-transparent transition ease-in focus:border-yellow-400 z-40 hover:text-white focus:text-white"
-          // onBlur=  {hideMenu}
+          className={`border-b-2 transition ease-in ${
+            focused.current?.v === "time"
+              ? "border-yellow-400"
+              : "border-transparent"
+          } z-40 hover:text-white focus:text-white`}
           onClick={(e) => {
+            e.stopPropagation();
             makeMenu(e);
             focused.current = { on: true, v: "time" };
           }}
@@ -106,6 +97,7 @@ const Nav = () => {
           </div>
         </button>
       </div>
+      {/* Right Menu */}
       <button
         className={`pr-3 ml-3 mr-1 w-32  flex items-stretch z-40 last:items-stretch hover:text-white border-b-2 transition ease-in ${
           focused.current?.v === "◢"
@@ -115,18 +107,9 @@ const Nav = () => {
         onFocus={(e) => {
           makeMenu(e, "right");
           focused.current = { on: true, v: "◢" };
-          // setFocused(true);
-          // mFoc();
         }}
-        // onBlur={(e) => {
-        //   blurEdgeStyle(e);
-        //   // mBlur();
-        // }}
         onClick={(e) => {
-          if (menu || focused.current?.on) {
-            return;
-          }
-          // setFocused(true);
+          e.stopPropagation();
           makeMenu(e, "right");
           focused.current = { on: true, v: "◢" };
         }}
