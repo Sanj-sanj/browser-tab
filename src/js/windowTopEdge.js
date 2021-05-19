@@ -4,6 +4,6 @@ function focusEdgeStyle(e) {
 }
 function blurEdgeStyle(e) {
   e.target.nextSibling.classList.remove("inline-block");
-  e.target.nextSibling.classList.add("hidden");
+  // e.target.nextSibling.classList.add("hidden");
 }
 export { focusEdgeStyle, blurEdgeStyle };

@@ -1,27 +1,77 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useTime from "../../hooks/useTime";
 import useDate from "../../hooks/useDate";
 import { focusEdgeStyle, blurEdgeStyle } from "../../js/windowTopEdge";
 import Dropdown from "../Dropdown/Dropdown";
+import Range from "../Dropdown/Range";
+import Volume from "../svg/Volume";
+import Display from "../svg/Display";
+import Selections from "../Dropdown/Selections";
+import Wifi from "../svg/Wifi";
+import Battery from "../svg/Battery";
+import Power from "../svg/Power";
+import Setting from "../svg/Setting";
 
 const Nav = () => {
   const [menu, setMenu] = useState(null);
+  // const [focused, setFocused] = useState(false);
+  const focused = useRef(false);
+  let fTimer;
+
+  useEffect(() => {
+    const doc = document.body;
+    let listner = (e) => {
+      // if (e.target.parentElement.className.includes("middleArea")) {
+      // if (focused.current?.v.match(/(time|◢)/g)) {
+      //   console.log(e);
+      //   console.log(focused.current);
+      //   console.log(e.target.parentElement.className);
+      //   return;
+      // }
+      hideMenu();
+      // setFocused(false);
+      return doc.removeEventListener("click", listner);
+    };
+    if (focused.current) {
+      setTimeout(() => doc.addEventListener("click", listner), 500);
+    }
+    if (!focused.current) {
+      return doc.removeEventListener("click", listner);
+    }
+    return () => doc.removeEventListener("click", listner);
+  }, [focused.current]);
 
   function hideMenu() {
     if (menu === null) return;
+    focused.current = null;
     setMenu(null);
   }
 
-  function makeMenu(e) {
+  function makeMenu(e, caller) {
+    hideMenu();
     const rects = e.currentTarget.getBoundingClientRect();
     setMenu(
-      <Dropdown stuff={e} rects={rects} caller={e.target.innerText}>
+      <Dropdown rects={rects} caller={caller}>
         {" "}
-        <div>{"dsdskdjsadlasjdksaasndskasdasadsdsdsassadasd -"}</div>
-        <div>{"dsdskdjsadlasjdksaasndskasd -"}</div>
-        <div>{"dsdskdjsadlasjdksaasndskasd -"}</div>
-        <div>{"dsdskdjsadlasjdksaasndskasd -"}</div>
-        <div>{"dsdskdjsadlasjdksaasndskasd -"}</div>
+        <Range Component={Volume} label={"volume"} max={"100"} />
+        <Range Component={Display} label={"display"} max={"10"} />
+        <div className="py-3 px-16 ">
+          <hr className="w-full border-gray-900" />
+        </div>
+        <Selections Component={Wifi} label="Wifi" />
+        <Selections Component={Battery} label="Battery" />
+        <span className="py-3 px-16 ">
+          <hr className="w-full border-gray-900" />
+        </span>
+        <div className="flex justify-between px-4 py-1 hover:bg-gray-700 ">
+          <div className="w-full flex items-center">
+            <span className="mr-2">
+              <Setting />
+            </span>
+            <span>Settings</span>
+          </div>
+        </div>
+        <Selections Component={Power} label="Power" />
       </Dropdown>
     );
   }
@@ -39,31 +89,64 @@ const Nav = () => {
 
       <div className="w-full h-full flex absolute justify-center ">
         <button
-          className="border-b-2  border-transparent focus:border-yellow-400 z-40 hover:text-white focus:text-white"
-          onBlur={hideMenu}
-          onClick={makeMenu}
+          className="border-b-2  border-transparent transition ease-in focus:border-yellow-400 z-40 hover:text-white focus:text-white"
+          // onBlur=  {hideMenu}
+          onClick={(e) => {
+            makeMenu(e);
+            focused.current = { on: true, v: "time" };
+          }}
+          onFocus={(e) => {
+            makeMenu(e);
+            focused.current = { on: true, v: "time" };
+          }}
         >
-          <div className="w-32 z-40 flex justify-evenly items-center font-bold   ">
+          <div className="middleArea w-32 z-40 flex justify-evenly items-center font-bold   ">
             <span>{useDate()}</span>
             <span>{useTime()}</span>
           </div>
         </button>
       </div>
       <button
-        className="pl-3 pr-4 flex items-stretch z-40 last:items-stretch hover:text-white border-b-2 border-transparent focus:border-yellow-400 focus:text-white"
-        onFocus={focusEdgeStyle}
-        onBlur={(e) => {
-          blurEdgeStyle(e);
-          hideMenu();
+        className={`pr-3 ml-3 mr-1 w-32  flex items-stretch z-40 last:items-stretch hover:text-white border-b-2 transition ease-in ${
+          focused.current?.v === "◢"
+            ? "border-yellow-400"
+            : "border-transparent"
+        }  focus:text-white`}
+        onFocus={(e) => {
+          makeMenu(e, "right");
+          focused.current = { on: true, v: "◢" };
+          // setFocused(true);
+          // mFoc();
         }}
-        onClick={makeMenu}
+        // onBlur={(e) => {
+        //   blurEdgeStyle(e);
+        //   // mBlur();
+        // }}
+        onClick={(e) => {
+          if (menu || focused.current?.on) {
+            return;
+          }
+          // setFocused(true);
+          makeMenu(e, "right");
+          focused.current = { on: true, v: "◢" };
+        }}
       >
+        <span className="flex w-full justify-evenly items-center">
+          <Wifi />
+          <Volume />
+          <Battery />
+        </span>
         <span className="transform rotate-45" style={{ fontSize: "xx-small" }}>
           ◢
         </span>
       </button>
       {/* Right corner */}
-      <div className="absolute top-full right-0 z-0 h-4 w-4 bg-yellow-400 hidden" />
+      <div
+        className={`absolute top-full right-0 z-0 h-4 w-4 transition ease-linear 
+        ${focused.current?.v === "◢" ? "bg-yellow-400" : "bg-transparent"}
+          `}
+        style={{ top: "93%", borderTopRightRadius: "2px" }}
+      />
       {/* dropdown menu */}
       {menu === null ? null : menu}
     </div>

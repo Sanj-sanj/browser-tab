@@ -15,7 +15,7 @@ const Dropdown = ({ children, rects, caller }) => {
 
   function getCenteredAsICanGet() {
     let thisMenu;
-    caller === "◢" ? (thisMenu = 285) : (thisMenu = -500);
+    caller === "right" ? (thisMenu = 192) : (thisMenu = -500);
     let left = rects.left + thisMenu / 2;
     left = left - rects.width / 2;
     left = Math.max(rects.width, left);
@@ -27,25 +27,27 @@ const Dropdown = ({ children, rects, caller }) => {
   return createPortal(
     <>
       <div
-        className={`menuThing mt-1 absolute rounded-lg p-3 text-left bg-gray-800 text-white z-50`}
+        className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50`}
         style={{
           left: getCenteredAsICanGet(),
           top: rects.bottom + rects.bottom / 2,
-          width: caller === "◢" ? "19.2rem" : "48rem",
+          width: caller === "right" ? "19.2rem" : "48rem",
           border: "1px solid #111827",
         }}
+        role="dialog"
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
       >
         <span
           className="absolute bg-gray-800 w-4 h-4 transform rotate-45 "
           style={{
             top: (rects.bottom / 3) * -1,
-            right: caller === "◢" ? rects.width : rects.width * 3,
+            right: caller === "right" ? rects.width / 2 : rects.width * 3,
             borderLeft: "1px solid #111827",
             borderTop: "1px solid #111827",
           }}
         ></span>
-        {console.log(rects)}
-        <div className="overflow-hidden">{children}</div>{" "}
+        <div className="overflow-hidden flex flex-col py-4">{children}</div>{" "}
       </div>
     </>,
     elRef.current
