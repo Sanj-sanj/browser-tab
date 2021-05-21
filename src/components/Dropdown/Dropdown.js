@@ -27,14 +27,15 @@ const Dropdown = ({ children, rects, caller }) => {
   return createPortal(
     <>
       <div
-        className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50`}
+        className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50 ${
+          caller === "right" ? "w-72" : "w-3/5"
+        }`}
         style={{
-          left: getCenteredAsICanGet(),
+          left: caller !== "right" ? "20%" : getCenteredAsICanGet(),
           top: rects.bottom + rects.bottom / 2,
-          width: caller === "right" ? "19.2rem" : "48rem",
           border: "1px solid #111827",
         }}
-        role="dialog"
+        role="presentation"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
       >
@@ -42,7 +43,7 @@ const Dropdown = ({ children, rects, caller }) => {
           className="absolute bg-gray-800 w-4 h-4 transform rotate-45 "
           style={{
             top: (rects.bottom / 3) * -1,
-            right: caller === "right" ? rects.width / 2 : rects.width * 3,
+            right: caller === "right" ? rects.width / 2 : "49%",
             borderLeft: "1px solid #111827",
             borderTop: "1px solid #111827",
           }}
