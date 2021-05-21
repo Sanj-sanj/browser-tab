@@ -14,9 +14,11 @@ const SearchBar = () => {
         onKeyPress={(e) => {
           e.key === "Enter" ? search(text) : null;
         }}
-        autoFocus={true} //eslint-disable-line
       />
-      <button className="absolute right-0" onClick={() => search(text)}>
+      <button
+        className="absolute right-0 focus:outline-none"
+        onClick={() => search(text)}
+      >
         <span
           className=" text-2xl pr-5 pl-3"
           role="img"

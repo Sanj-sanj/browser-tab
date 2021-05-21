@@ -7,6 +7,7 @@ module.exports = {
   variants: {
     extend: {
       alignItems: ["last"],
+      backgroundColor: ["active"],
     },
   },
   plugins: [],

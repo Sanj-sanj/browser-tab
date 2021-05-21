@@ -7,7 +7,7 @@ import Battery from "../svg/Battery";
 import useMenu from "../../hooks/useMenu";
 
 const Nav = () => {
-  const [menu, makeMenu] = useMenu();
+  const [menu, makeMenu] = useMenu(clearAndUnfocusMenu);
   const [focused, setFocused] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Nav = () => {
     <div className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center">
       {/* Left menu */}
       <button
-        className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40 text-white border-b-2 ${
+        className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40 focus:outline-none text-white border-b-2 ${
           focused === "left" ? " border-yellow-300" : "border-transparent"
         }`}
         onFocus={() => {
@@ -59,7 +59,7 @@ const Nav = () => {
       {/* Middle Menu */}
       <div className="w-full h-full flex absolute justify-center ">
         <button
-          className={`border-b-2 transition duration-75 ease-in 
+          className={`border-b-2 transition duration-75 ease-in focus:outline-none  
           ${
             focused === "middle" ? "border-yellow-300" : "border-transparent"
           } z-40 hover:text-white focus:text-white`}
@@ -81,7 +81,7 @@ const Nav = () => {
       </div>
       {/* Right Menu */}
       <button
-        className={`pr-3 ml-3 mr-1 w-32  flex items-stretch z-40 last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
+        className={`pr-3 ml-3 mr-1 w-32  flex items-stretch z-40 focus:outline-none last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
           focused === "right" ? "border-yellow-300" : "border-transparent"
         }  focus:text-white`}
         onFocus={(e) => {
@@ -93,6 +93,7 @@ const Nav = () => {
           makeMenu(e.currentTarget, "right");
           setFocused("right");
         }}
+        onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
       >
         <span className="flex w-full justify-evenly items-center">
           <Wifi />
@@ -106,7 +107,7 @@ const Nav = () => {
       {/* Right corner */}
       <div
         className={`absolute top-full right-0 z-0 h-4 w-4 transition duration-75 ease-linear 
-        ${focused === "◢" ? "bg-yellow-300" : "bg-transparent"}
+        ${focused === "right" ? "bg-yellow-300" : "bg-transparent"}
           `}
         style={{ top: "93%", borderTopRightRadius: "4px" }}
       />

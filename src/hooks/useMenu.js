@@ -11,7 +11,7 @@ import Battery from "../components/svg/Battery";
 import Display from "../components/svg/Display";
 import Power from "../components/svg/Power";
 
-const useMenu = () => {
+const useMenu = (clearAndUnfocusMenu) => {
   const [menu, setMenu] = useState(null);
 
   function getRects(currentTarget) {
@@ -23,7 +23,7 @@ const useMenu = () => {
       case "middle":
         setMenu(
           <Dropdown rects={getRects(currentTarget)} caller={caller}>
-            <Button Component={Setting} />
+            <Button Component={Setting} close={clearAndUnfocusMenu} />
           </Dropdown>
         );
         break;
@@ -36,13 +36,25 @@ const useMenu = () => {
             <div className="py-3 px-16 ">
               <hr className="w-full border-gray-900" />
             </div>
-            <Selections Component={Wifi} label="Wifi" />
-            <Selections Component={Battery} label="Battery" />
-            <span className="py-3 px-16 ">
+            <Selections
+              Component={Wifi}
+              label="Wifi"
+              close={clearAndUnfocusMenu}
+            />
+            <Selections
+              Component={Battery}
+              label="Battery"
+              close={clearAndUnfocusMenu}
+            />
+            <span className="py-2 px-16 ">
               <hr className="w-full border-gray-900" />
             </span>
-            <Button Component={Setting} />
-            <Selections Component={Power} label="Power" />
+            <Button Component={Setting} close={clearAndUnfocusMenu} />
+            <Selections
+              Component={Power}
+              label="Power"
+              close={clearAndUnfocusMenu}
+            />
           </Dropdown>
         );
         break;
