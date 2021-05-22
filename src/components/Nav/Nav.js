@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { UserContext } from "../../context/UserContext";
+
 import useTime from "../../hooks/useTime";
 import useDate from "../../hooks/useDate";
 import Volume from "../svg/Volume";
@@ -80,30 +82,37 @@ const Nav = () => {
         </button>
       </div>
       {/* Right Menu */}
-      <button
-        className={`pr-3 ml-3 mr-1 w-32  flex items-stretch z-40 focus:outline-none last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
-          focused === "right" ? "border-yellow-300" : "border-transparent"
-        }  focus:text-white`}
-        onFocus={(e) => {
-          makeMenu(e.currentTarget, "right");
-          setFocused("right");
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          makeMenu(e.currentTarget, "right");
-          setFocused("right");
-        }}
-        onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
-      >
-        <span className="flex w-full justify-evenly items-center">
-          <Wifi />
-          <Volume />
-          <Battery />
-        </span>
-        <span className="transform rotate-45" style={{ fontSize: "xx-small" }}>
-          ◢
-        </span>
-      </button>
+      <UserContext.Consumer>
+        {({ state }) => (
+          <button
+            className={`pr-3 ml-3 mr-1 w-32  flex items-stretch z-40 focus:outline-none last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
+              focused === "right" ? "border-yellow-300" : "border-transparent"
+            }  focus:text-white`}
+            onFocus={(e) => {
+              makeMenu(e.currentTarget, "right", state);
+              setFocused("right");
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              makeMenu(e.currentTarget, "right", state);
+              setFocused("right");
+            }}
+            onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
+          >
+            <span className="flex w-full justify-evenly items-center">
+              <Wifi state={state.wifi} />
+              <Volume value={state.volume} />
+              <Battery />
+            </span>
+            <span
+              className="transform rotate-45"
+              style={{ fontSize: "xx-small" }}
+            >
+              ◢
+            </span>
+          </button>
+        )}
+      </UserContext.Consumer>
       {/* Right corner */}
       <div
         className={`absolute top-full right-0 z-0 h-4 w-4 transition duration-75 ease-linear 
