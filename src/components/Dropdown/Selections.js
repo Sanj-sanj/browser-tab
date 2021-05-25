@@ -1,29 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
+//first timeout there to delay onBlur from closing, this lets user open next menu
+//second timeoute there to delay _onClick from closing before state is adjusted by onBlur
 const Selections = ({ Component, label, state, _onClick, children }) => {
   const [toggle, setToggle] = useState(true);
-  const [previousFocus, setPreviousFocus] = useState(null);
-
-  useEffect(() => {
-    const listener = (e) => {
-      const currentFocus = e.target?.offsetParent?.parentElement; //wtf
-      currentFocus !== previousFocus ? setToggle(true) : null;
-    };
-    const menu = document.querySelector(".menuThing");
-    if (menu) {
-      menu.addEventListener("click", listener);
-    }
-  }, [toggle]);
 
   return (
     <div className="flex flex-col justify-between cursor-default">
       <button
-        className={`w-full relative px-7   py-1 flex items-center focus:outline-none active:bg-yellow-600 focus:bg-gray-700  
+        className={`w-full relative px-7   py-1 flex items-center focus:outline-none active:bg-yellow-500 focus:bg-gray-700  
         ${toggle ? "hover:bg-gray-700" : ""}
-        ${toggle ? "bg-transparent" : "bg-yellow-600 focus:bg-yellow-600"}`}
-        onClick={(e) => {
+        ${toggle ? "bg-transparent" : "bg-yellow-500 focus:bg-yellow-500"}`}
+        onClick={() => {
           setToggle(!toggle);
-          setPreviousFocus(e.target.parentElement);
+        }}
+        onBlur={() => {
+          setTimeout(() => setToggle(true), 200);
         }}
       >
         <span className="mr-2">
@@ -37,18 +29,30 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
           ◢
         </span>
       </button>
-      {toggle ? null : (
-        <div
-          className={`w-full relative flex flex-col border-b border-transparent border-t items-center transition-all ease-linear h-full justify-start text-left`}
-        >
-          <button
-            className={`w-full  pl-14 py-1 text-left focus:outline-none bg-gray-900 focus:bg-gray-700 active:bg-yellow-600 hover:bg-gray-700 text-sm flex`}
-            onClick={_onClick}
+      <div
+        className={` border-b border-transparent border-t ease-in transition-all max-h-0 ${
+          toggle ? "max-h-0 opacity-0 z-0" : "max-h-24"
+        }
+         `}
+      >
+        {children.map((child) => (
+          <div
+            key={child}
+            className={`w-full relative flex-col items-center justify-start text-left ${
+              toggle ? "hidden" : "flex"
+            }`}
           >
-            <span className="transform -translate-x-1">{children}</span>
-          </button>
-        </div>
-      )}
+            <button
+              className={`w-full pl-14 py-1 text-left focus:outline-none bg-gray-900 focus:bg-gray-700 active:bg-yellow-500 hover:bg-gray-700 text-sm flex`}
+              onClick={() => {
+                setTimeout(() => _onClick(), 50);
+              }}
+            >
+              <span className="transform -translate-x-1">{child}</span>
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

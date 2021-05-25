@@ -21,9 +21,6 @@ const useMenu = (clearAndUnfocusMenu) => {
     dispatch({ type: "toggleWifi", payload: !state.wifi });
     clearAndUnfocusMenu();
   };
-  const foo = () => {
-    clearAndUnfocusMenu();
-  };
 
   function getRects(currentTarget) {
     return currentTarget.getBoundingClientRect();
@@ -65,17 +62,25 @@ const useMenu = (clearAndUnfocusMenu) => {
               state={state.wifi}
               _onClick={wifiOnclick}
             >
-              Toggle Wifi
+              {["Toggle Wifi", "Watfer"]}
             </Selections>
-            <Selections Component={Battery} label="Battery" _onClick={foo}>
-              Something battery.
+            <Selections
+              Component={Battery}
+              label="Battery"
+              _onClick={clearAndUnfocusMenu}
+            >
+              {["Something battery."]}
             </Selections>
             <span className="py-2 px-16 ">
               <hr className="w-full border-gray-900" />
             </span>
             <Button Component={Setting} close={clearAndUnfocusMenu} />
-            <Selections Component={Power} label="Power" _onClick={foo}>
-              Poweroff?
+            <Selections
+              Component={Power}
+              label="Power"
+              _onClick={clearAndUnfocusMenu}
+            >
+              {["Poweroff?"]}
             </Selections>
           </Dropdown>
         );

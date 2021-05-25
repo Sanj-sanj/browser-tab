@@ -4,10 +4,8 @@ export const UserContext = createContext({
   user: "Guest",
   wifi: true,
   volume: 50,
-  display: 5,
-  log: () => {
-    console.log("in theme");
-  },
+  display: 10,
+  apps: [],
 });
 
 export const reducer = (state, action) => {
@@ -21,6 +19,8 @@ export const reducer = (state, action) => {
       return { ...state, volume: payload };
     case "updateDisplay":
       return { ...state, display: payload };
+    case "openApp":
+      return { ...state, apps: [...state.apps, payload] };
     default:
       break;
   }

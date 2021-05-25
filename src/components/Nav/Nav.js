@@ -85,7 +85,7 @@ const Nav = () => {
       <UserContext.Consumer>
         {({ state }) => (
           <button
-            className={`pr-3 ml-3 mr-1 w-32  flex items-stretch z-40 focus:outline-none last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
+            className={`pr-3 ml-3 mr-1 w-32  flex items-center z-40 focus:outline-none last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
               focused === "right" ? "border-yellow-300" : "border-transparent"
             }  focus:text-white`}
             onFocus={(e) => {
@@ -99,13 +99,13 @@ const Nav = () => {
             }}
             onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
           >
-            <span className="flex w-full justify-evenly items-center">
+            <span className="flex w-full justify-evenly">
               <Wifi state={state.wifi} />
               <Volume value={state.volume} />
               <Battery />
             </span>
             <span
-              className="transform rotate-45"
+              className="transform rotate-45 -translate-y-0.5  "
               style={{ fontSize: "xx-small" }}
             >
               ◢

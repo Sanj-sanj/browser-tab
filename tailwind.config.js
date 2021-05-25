@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       alignItems: ["last"],
       backgroundColor: ["active"],
+      textColor: ["active"],
     },
   },
   plugins: [],
