@@ -6,7 +6,7 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
   const [toggle, setToggle] = useState(true);
 
   return (
-    <div className="flex flex-col justify-between cursor-default">
+    <div className="flex flex-col w-100 justify-between cursor-default">
       <button
         className={`w-full relative px-7   py-1 flex items-center focus:outline-none active:bg-yellow-500 focus:bg-gray-700  
         ${toggle ? "hover:bg-gray-700" : ""}
@@ -45,7 +45,7 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
             <button
               className={`w-full pl-14 py-1 text-left focus:outline-none bg-gray-900 focus:bg-gray-700 active:bg-yellow-500 hover:bg-gray-700 text-sm flex`}
               onClick={() => {
-                setTimeout(() => _onClick(), 50);
+                setTimeout(() => _onClick(), 100);
               }}
             >
               <span className="transform -translate-x-1">{child}</span>

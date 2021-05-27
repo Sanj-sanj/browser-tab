@@ -36,7 +36,7 @@ const Nav = () => {
     <div className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center">
       {/* Left menu */}
       <button
-        className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40 focus:outline-none text-white border-b-2 ${
+        className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40  focus:outline-none text-white border-b-2 ${
           focused === "left" ? " border-yellow-300" : "border-transparent"
         }`}
         onFocus={() => {
@@ -49,7 +49,7 @@ const Nav = () => {
         }}
         onBlur={clearAndUnfocusMenu}
       >
-        Activities
+        <span className="transform translate-y-0.5">Activities</span>
       </button>
       {/* Left corner */}
       <div
@@ -75,7 +75,7 @@ const Nav = () => {
             setFocused("middle");
           }}
         >
-          <div className="middleArea w-32 z-40 flex justify-evenly items-center font-bold">
+          <div className="w-32 z-40 flex justify-evenly items-center font-bold transform translate-y-0.5">
             <span>{useDate()}</span>
             <span>{useTime()}</span>
           </div>

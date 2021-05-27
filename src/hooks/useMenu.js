@@ -12,6 +12,7 @@ import Wifi from "../components/svg/Wifi";
 import Battery from "../components/svg/Battery";
 import Display from "../components/svg/Display";
 import Power from "../components/svg/Power";
+import CalendarBar from "../components/Dropdown/CalendarBar";
 
 const useMenu = (clearAndUnfocusMenu) => {
   const [menu, setMenu] = useState(null);
@@ -31,7 +32,15 @@ const useMenu = (clearAndUnfocusMenu) => {
       case "middle":
         setMenu(
           <Dropdown rects={getRects(currentTarget)} caller={caller}>
-            <Button Component={Setting} close={clearAndUnfocusMenu} />
+            <div className="flex flex-col sm:flex-row ">
+              <section className="flex-1">
+                <Button Component={Setting} close={clearAndUnfocusMenu} />
+              </section>
+              <div className="border-l border-gray-900"></div>
+              <section className="flex-1 max-w-max">
+                <CalendarBar />
+              </section>
+            </div>
           </Dropdown>
         );
         break;

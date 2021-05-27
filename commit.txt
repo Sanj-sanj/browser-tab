@@ -1,0 +1,7 @@
+Nav > minor css changes involving positioning labels with transforms
+useMenu > added CalendarBar component, divided the container in half, stacks in responsive.
+/Dropdown >
+Button & Selection > minor css changes and increased delay on setTimeout.
+Dropdown > hard coded menu positioning, no more CeneteredAs..() Use Effect now has a listner on document listens to key arrowDown for selecting focus to dropdown menu.
+CalendarBar & calendarComponent, Bar is the container, component imports react-calendar and custom css along with heavily edited functionality mostly done, might need a few css adjustments.
+Notifications > coming soon.. 
