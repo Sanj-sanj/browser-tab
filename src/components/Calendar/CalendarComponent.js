@@ -42,8 +42,7 @@ const CalendarComponent = () => {
               className={`flex justify-center items-center w-full focus:outline-none `}
             >
               <span
-                style={{ height: "2.1rem" }}
-                className={`flex justify-center items-center m-px rounded-full w-9
+                className={`flex justify-center items-center m-px py-2.5 rounded-full w-9
                     ${
                       date.getDay() === 0 || date.getDay() === 6
                         ? "text-gray-500"

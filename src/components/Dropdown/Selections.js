@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-//timeout there to delay _onClick from closing before state is adjusted by onBlur
+//timeout there to delay _onClick or body event listner from closing before state is adjusted by onBlur
 const Selections = ({ Component, label, state, _onClick, children }) => {
   const [toggle, setToggle] = useState(false);
   const [innerFocus, setInnerFocus] = useState(false);
+  //toggle opens the container, innerFocus applys focus to the inner elements
+
+  let clearToggle;
+  const onBlur = () => {
+    clearTimeout(clearToggle);
+    clearToggle = setTimeout(() => setToggle(false), 200);
+  };
+  useEffect(() => {
+    return () => clearTimeout(clearToggle);
+  });
 
   return (
     <div className="flex flex-col w-100 justify-between cursor-default">
@@ -12,7 +22,7 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
         ${!toggle ? "hover:bg-gray-700" : ""}
         ${!toggle ? "bg-transparent" : "bg-yellow-500 focus:bg-yellow-500"}`}
         onClick={() => setToggle(!toggle)}
-        onBlur={() => (!innerFocus ? setToggle(false) : null)}
+        onBlur={() => (!innerFocus ? onBlur() : null)}
         onKeyDown={(e) => {
           if (e.shiftKey && e.key === "Tab" && !innerFocus) {
             return setToggle(false), setInnerFocus(false);
@@ -32,8 +42,8 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
         </span>
       </button>
       <div
-        className={` border-b border-transparent border-t ease-in transition-all max-h-0 ${
-          !toggle ? "max-h-0 opacity-0 z-0" : "max-h-24"
+        className={` border-b border-transparent border-t ease-in transition-all ${
+          !toggle ? "max-h-0 opacity-0 z-0" : "max-h-96"
         }
          `}
         onBlur={(e) => {
@@ -55,7 +65,8 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
           >
             <button
               className={`w-full pl-14 py-1 text-left focus:outline-none bg-gray-900 focus:bg-gray-700 active:bg-yellow-500 hover:bg-gray-700 text-sm flex`}
-              onClick={() => setTimeout(() => _onClick(), 100)}
+              onClick={() => _onClick()}
+              onMouseDown={() => setInnerFocus(true)}
             >
               <span className="transform -translate-x-1">{child}</span>
             </button>

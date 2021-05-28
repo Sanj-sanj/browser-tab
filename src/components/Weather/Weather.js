@@ -11,7 +11,7 @@ const Weather = () => {
   });
 
   return (
-    <div className="border text-xs mt-3 rounded border-gray-900 bg-gray-700 p-3">
+    <div className="border text-xs mt-3 rounded-md border-gray-900 bg-gray-700 p-3">
       <div className="w-full flex justify-between font-medium  ">
         <span>Weather</span>
         <span>Location</span>

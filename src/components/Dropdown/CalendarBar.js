@@ -29,7 +29,7 @@ const CalendarBar = () => {
             </span>
           </header>
         </div>
-        <div className="border rounded p-1 border-gray-900  bg-gray-700">
+        <div className="border rounded-md p-1 border-gray-900  bg-gray-700">
           <CalendarComponent />
         </div>
       </section>
