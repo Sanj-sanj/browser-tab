@@ -1,5 +1,6 @@
 import useDate from "../../hooks/useDate";
-import CalendarComponent from "./CalendarComponent";
+import CalendarComponent from "../Calendar/CalendarComponent";
+import Weather from "../Weather/Weather";
 
 const days = [
   "Sunday",
@@ -18,18 +19,21 @@ const CalendarBar = () => {
   let year = today.getFullYear();
 
   return (
-    <div className="w-full max-w-xs flex flex-col px-4">
-      <div className="w-full mb-6">
-        <header className="flex flex-col px-3 w-full text-left ">
-          <span className="font-bold ">{day}</span>
-          <span className="text-2xl">
-            {date} {year}
-          </span>
-        </header>
-      </div>
-      <div className="border rounded p-1 border-gray-900 bg-gray-700">
-        <CalendarComponent />
-      </div>
+    <div className="relative w-full flex flex-col max-w-xs px-4">
+      <section className="flex flex-col items-end text-right">
+        <div className="w-full mb-6">
+          <header className="flex flex-col px-3 w-full text-left">
+            <span className="font-bold">{day}</span>
+            <span className="text-2xl">
+              {date} {year}
+            </span>
+          </header>
+        </div>
+        <div className="border rounded p-1 border-gray-900  bg-gray-700">
+          <CalendarComponent />
+        </div>
+      </section>
+      <Weather />
     </div>
   );
 };

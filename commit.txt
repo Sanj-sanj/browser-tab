@@ -1,7 +1,5 @@
-Nav > minor css changes involving positioning labels with transforms
-useMenu > added CalendarBar component, divided the container in half, stacks in responsive.
-/Dropdown >
-Button & Selection > minor css changes and increased delay on setTimeout.
-Dropdown > hard coded menu positioning, no more CeneteredAs..() Use Effect now has a listner on document listens to key arrowDown for selecting focus to dropdown menu.
-CalendarBar & calendarComponent, Bar is the container, component imports react-calendar and custom css along with heavily edited functionality mostly done, might need a few css adjustments.
-Notifications > coming soon.. 
+Added animation to dropdown, buttons inside Nav now listen onMouseDown and onKeyDown to clearAnUnfocus, this reappys the animation. Event listner added to exit out of menu with esc key. (only works if div is focused and not children). 
+Extended tailwind config to add custom inset and animation. useMenu's middle menu css adjusted.
+Added notificaton which is mostly decorational. adjustments to css involving CalendarComponent as well. 
+Weather component is implemented as a decorational placeholder so far. 
+Selections toggle state was false, flipped it to true and adjusted refrences to toggle accordingly, new state added to manage child elements focus without parent losing focus.

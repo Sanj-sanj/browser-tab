@@ -42,7 +42,8 @@ const CalendarComponent = () => {
               className={`flex justify-center items-center w-full focus:outline-none `}
             >
               <span
-                className={`flex justify-center items-center m-px rounded-full w-9 h-9
+                style={{ height: "2.1rem" }}
+                className={`flex justify-center items-center m-px rounded-full w-9
                     ${
                       date.getDay() === 0 || date.getDay() === 6
                         ? "text-gray-500"
@@ -55,7 +56,9 @@ const CalendarComponent = () => {
                       : "hover:bg-gray-600 active:bg-gray-900"
                   } `}
               >
-                {date.getDate()}
+                {`${
+                  date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+                }`}
               </span>
             </div>
           );

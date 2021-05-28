@@ -29,25 +29,13 @@ const Dropdown = ({ children, rects, caller }) => {
     };
   }, []);
 
-  // function getCenteredAsICanGet() {
-  //   let thisMenu;
-  //   caller === "right" ? (thisMenu = 192) : (thisMenu = -500);
-  //   let left = rects.left + thisMenu / 2;
-  //   left = left - rects.width / 2;
-  //   left = Math.max(rects.width, left);
-  //   return (left = Math.min(
-  //     left,
-  //     document.body.clientWidth - thisMenu - rects.width
-  //   ));
-  // }
   return createPortal(
     <>
       <div
-        className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50 max-w-max sm:max-w-full ${
-          caller === "right" ? "w-72" : "w-3/5 "
+        className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50 max-w-full animate-bounce-in ${
+          caller === "right" ? "w-72" : "w-4/5 sm:w-3/5 left-1/10 sm:left-1/5"
         }`}
         style={{
-          left: caller !== "right" ? "20%" : "",
           right: caller === "right" ? "1%" : "",
           top: rects.bottom + rects.bottom / 2,
           border: "1px solid #111827",

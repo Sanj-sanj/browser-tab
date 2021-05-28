@@ -14,17 +14,26 @@ const Nav = () => {
 
   useEffect(() => {
     const doc = document.body;
-    let listner = () => {
+    //the keydown will only exit dropdown as long as no menu items are in focus
+    let listner = (e) => {
+      if (e.key && e?.key !== "Escape") {
+        return;
+      }
       clearAndUnfocusMenu();
       return doc.removeEventListener("click", listner);
     };
     if (focused) {
       setTimeout(() => doc.addEventListener("click", listner), 500);
+      setTimeout(() => doc.addEventListener("keydown", listner), 500);
     }
     if (!focused) {
-      return doc.removeEventListener("click", listner);
+      doc.removeEventListener("click", listner);
+      return doc.removeEventListener("keydown", listner);
     }
-    return () => doc.removeEventListener("click", listner);
+    return (
+      () => doc.removeEventListener("click", listner),
+      doc.removeEventListener("keydown", listner)
+    );
   }, [focused]);
 
   function clearAndUnfocusMenu() {
@@ -74,6 +83,10 @@ const Nav = () => {
             makeMenu(e.currentTarget, "middle");
             setFocused("middle");
           }}
+          onMouseDown={() => {
+            clearAndUnfocusMenu();
+          }}
+          onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
         >
           <div className="w-32 z-40 flex justify-evenly items-center font-bold transform translate-y-0.5">
             <span>{useDate()}</span>
@@ -91,6 +104,9 @@ const Nav = () => {
             onFocus={(e) => {
               makeMenu(e.currentTarget, "right", state);
               setFocused("right");
+            }}
+            onMouseDown={() => {
+              clearAndUnfocusMenu();
             }}
             onClick={(e) => {
               e.stopPropagation();
