@@ -48,15 +48,13 @@ const Nav = () => {
         className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40  focus:outline-none text-white border-b-2 ${
           focused === "left" ? " border-yellow-300" : "border-transparent"
         }`}
-        onFocus={() => {
-          clearAndUnfocusMenu();
+        onFocus={() => setFocused("left")}
+        onClick={(e) => {
+          e.stopPropagation();
           setFocused("left");
         }}
-        onClick={() => {
-          clearAndUnfocusMenu();
-          setFocused("left");
-        }}
-        onBlur={clearAndUnfocusMenu}
+        onMouseDown={() => clearAndUnfocusMenu()}
+        onBlur={() => clearAndUnfocusMenu()}
       >
         <span className="transform translate-y-0.5">Activities</span>
       </button>
@@ -83,9 +81,7 @@ const Nav = () => {
             makeMenu(e.currentTarget, "middle");
             setFocused("middle");
           }}
-          onMouseDown={() => {
-            clearAndUnfocusMenu();
-          }}
+          onMouseDown={() => clearAndUnfocusMenu()}
           onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
         >
           <div className="w-32 z-40 flex justify-evenly items-center font-bold transform translate-y-0.5">
@@ -105,9 +101,7 @@ const Nav = () => {
               makeMenu(e.currentTarget, "right", state);
               setFocused("right");
             }}
-            onMouseDown={() => {
-              clearAndUnfocusMenu();
-            }}
+            onMouseDown={() => clearAndUnfocusMenu()}
             onClick={(e) => {
               e.stopPropagation();
               makeMenu(e.currentTarget, "right", state);

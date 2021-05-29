@@ -17,7 +17,7 @@ const ApplicationWindow = ({ file, name }) => {
   }, [toggle]);
 
   return createPortal(
-    <section className="absolute top-2 bg-gray-700 border border-gray-900 shadow-2xl z-40 rounded-t-md">
+    <section className="absolute top-7 left-1 bg-gray-700 border border-gray-900 shadow-2xl z-40 rounded-t-md">
       <nav className="relative w-full py-1 bg-gray-900 text-center text-sm font-bold text-white">
         {name}
         <button

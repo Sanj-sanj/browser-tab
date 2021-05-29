@@ -1,6 +1,13 @@
 import img from "url:../../images/dragisa-braunovic.jpg?as=webp"; //eslint-disable-line
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
-const Background = ({ brightness }) => {
+const Background = () => {
+  const {
+    state: { display },
+  } = useContext(UserContext);
+  let brightness = display;
+
   brightness = 10 - parseInt(brightness) + "0";
   return (
     <>
@@ -11,7 +18,7 @@ const Background = ({ brightness }) => {
         style={{ zIndex: "100" }}
       ></div>
       <img
-        className="absolute z-30 h-screen w-max rounded-md top-0 object-cover pointer-events-none"
+        className="absolute z-0 h-screen w-max rounded-md top-0 object-cover pointer-events-none"
         src={img}
         alt="background vista of some mountainside overlooking a town"
       />

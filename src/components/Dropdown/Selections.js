@@ -18,7 +18,7 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
   return (
     <div className="flex flex-col w-100 justify-between cursor-default">
       <button
-        className={`w-full relative px-7   py-1 flex items-center focus:outline-none active:bg-yellow-500 focus:bg-gray-700  
+        className={`w-full relative px-7 py-1 flex items-center focus:outline-none cursor-default active:bg-yellow-500 focus:bg-gray-700  
         ${!toggle ? "hover:bg-gray-700" : ""}
         ${!toggle ? "bg-transparent" : "bg-yellow-500 focus:bg-yellow-500"}`}
         onClick={() => setToggle(!toggle)}
@@ -64,7 +64,7 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
             }`}
           >
             <button
-              className={`w-full pl-14 py-1 text-left focus:outline-none bg-gray-900 focus:bg-gray-700 active:bg-yellow-500 hover:bg-gray-700 text-sm flex`}
+              className={`w-full pl-14 py-1 text-left cursor-default focus:outline-none bg-gray-900 focus:bg-gray-700 active:bg-yellow-500 hover:bg-gray-700 text-sm flex`}
               onClick={() => _onClick()}
               onMouseDown={() => setInnerFocus(true)}
             >
