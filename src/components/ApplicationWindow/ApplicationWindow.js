@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 
 const appRoot = document.getElementById("window");
-const ApplicationWindow = ({ file, name }) => {
+
+const ApplicationWindow = ({ file, name, dispatch, id }) => {
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
   if (!elRef.current) {
@@ -11,9 +12,16 @@ const ApplicationWindow = ({ file, name }) => {
   useEffect(() => {
     appRoot.appendChild(elRef.current);
     if (!toggle) {
+      dispatch({
+        type: "closeApp",
+        payload: {
+          id: id,
+        },
+      });
       appRoot.removeChild(elRef.current);
     }
-    return () => appRoot.removeChild(elRef.current);
+    return () =>
+      appRoot.children.length ? appRoot.removeChild(elRef.current) : null;
   }, [toggle]);
 
   return createPortal(

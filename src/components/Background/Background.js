@@ -3,10 +3,8 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 const Background = () => {
-  const {
-    state: { display },
-  } = useContext(UserContext);
-  let brightness = display;
+  const { state } = useContext(UserContext);
+  let brightness = state?.display ?? 10;
 
   brightness = 10 - parseInt(brightness) + "0";
   return (

@@ -5,16 +5,31 @@ module.exports = {
     extend: {
       animation: {
         "bounce-in": "bounce-in 500ms ",
+        "slide-in-left": "slide-in-left 150ms ease-out",
+        "slide-in-right": "slide-in-right 150ms ease-out",
       },
       keyframes: {
         "bounce-in": {
           "0%": { transform: "translateY(-10px)", opacity: "0" },
           "100%": { transform: "translateY(0px)", opacity: "1" },
         },
+        "slide-in-left": {
+          "0%": { transform: "translateX(-6rem)", opacity: "0" },
+          "100%": { transform: "translateX(0rem)", opacity: "1" },
+        },
+        "slide-in-right": {
+          "0%": { transform: "translateX(6rem)", opacity: "0" },
+          "100%": { transform: "translateX(0rem)", opacity: "1" },
+        },
       },
       inset: {
         "1/5": "20%",
         "1/10": "10%",
+      },
+      spacing: {
+        30: "7.5rem/*120px */",
+        82: "21rem/*336px */",
+        88: "22rem/*352px */",
       },
     },
   },

@@ -3,6 +3,7 @@ import { createContext } from "react";
 export const UserContext = createContext({
   user: "Guest",
   wifi: true,
+  activeView: true,
   volume: 50,
   display: 10,
   apps: [],
@@ -19,8 +20,21 @@ export const reducer = (state, action) => {
       return { ...state, volume: payload };
     case "updateDisplay":
       return { ...state, display: payload };
+    case "updateActiveView":
+      return { ...state, activeView: payload };
     case "openApp":
       return { ...state, apps: [...state.apps, payload] };
+    case "closeApp":
+      if (state.apps.some((app) => app.id == payload.id)) {
+        const newAppState = state.apps.map((app) => {
+          if (app.id === payload.id) {
+            app.active = false;
+          }
+          return app;
+        });
+        return { ...state, apps: newAppState };
+      }
+      return { ...state };
     default:
       break;
   }
