@@ -6,7 +6,9 @@ module.exports = {
       animation: {
         "bounce-in": "bounce-in 500ms ",
         "slide-in-left": "slide-in-left 150ms ease-out",
+        "slide-out-left": "slide-out-left 150ms ease-out",
         "slide-in-right": "slide-in-right 150ms ease-out",
+        "slide-out-right": "slide-out-right 150ms ease-out",
       },
       keyframes: {
         "bounce-in": {
@@ -17,9 +19,17 @@ module.exports = {
           "0%": { transform: "translateX(-6rem)", opacity: "0" },
           "100%": { transform: "translateX(0rem)", opacity: "1" },
         },
+        "slide-out-left": {
+          "0%": { transform: "translateX(0rem)", opacity: "1" },
+          "100%": { transform: "translateX(-6rem)", opacity: "0" },
+        },
         "slide-in-right": {
           "0%": { transform: "translateX(6rem)", opacity: "0" },
           "100%": { transform: "translateX(0rem)", opacity: "1" },
+        },
+        "slide-out-right": {
+          "0%": { transform: "translateX(0rem)", opacity: "1" },
+          "100%": { transform: "translateX(6rem)", opacity: "0" },
         },
       },
       inset: {

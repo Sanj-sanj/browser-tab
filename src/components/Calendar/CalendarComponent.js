@@ -42,22 +42,18 @@ const CalendarComponent = () => {
               className={`flex justify-center items-center w-full focus:outline-none `}
             >
               <span
-                className={`flex justify-center items-center m-px py-2.5 rounded-full w-9
-                    ${
-                      date.getDay() === 0 || date.getDay() === 6
-                        ? "text-gray-500"
-                        : "text-white"
-                    }
-                  ${
-                    date.getDate() === today.getDate() &&
-                    date.getMonth() === today.getMonth()
-                      ? "bg-yellow-500 hover:bg-yellow-400"
-                      : "hover:bg-gray-600 active:bg-gray-900"
-                  } `}
+                className={`flex justify-center items-center m-px py-2.5 rounded-full w-9 ${
+                  date.getDay() === 0 || date.getDay() === 6
+                    ? "text-gray-500"
+                    : "text-white"
+                } ${
+                  date.getDate() === today.getDate() &&
+                  date.getMonth() === today.getMonth()
+                    ? "bg-yellow-500 hover:bg-yellow-400"
+                    : "hover:bg-gray-600 active:bg-gray-900"
+                } `}
               >
-                {`${
-                  date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
-                }`}
+                {date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}
               </span>
             </div>
           );

@@ -3,10 +3,10 @@ import { UserContext } from "../../context/UserContext";
 
 import useTime from "../../hooks/useTime";
 import useDate from "../../hooks/useDate";
+import useMenu from "../../hooks/useMenu";
 import Volume from "../svg/Volume";
 import Wifi from "../svg/Wifi";
 import Battery from "../svg/Battery";
-import useMenu from "../../hooks/useMenu";
 
 const Nav = () => {
   const [menu, makeMenu] = useMenu(clearAndUnfocusMenu);
@@ -51,7 +51,7 @@ const Nav = () => {
             ? " border-yellow-300"
             : "border-transparent"
         }`}
-        onFocus={(e) =>
+        onFocus={() =>
           focused === "left"
             ? setFocused("left")
             : (clearAndUnfocusMenu(), setFocused("left"))
@@ -67,6 +67,7 @@ const Nav = () => {
             payload: !state.activeView,
           });
         }}
+        onBlur={() => (clearAndUnfocusMenu(), setFocused(false))}
       >
         <span className="transform translate-y-0.5">Activities</span>
       </button>
@@ -98,7 +99,7 @@ const Nav = () => {
           onMouseDown={() => clearAndUnfocusMenu()}
           onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
         >
-          <div className="w-30 -mx-1 z-40 flex justify-evenly items-center font-bold transform translate-y-0.5">
+          <div className="w-32   -mx-1 z-40 flex justify-evenly items-center font-bold transform translate-y-0.5">
             <span>{useDate()}</span>
             <span>{useTime()}</span>
           </div>

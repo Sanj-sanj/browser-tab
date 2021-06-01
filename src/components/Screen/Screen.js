@@ -1,50 +1,39 @@
-import { useContext } from "react";
+import { lazy, useContext, useEffect, useState, Suspense } from "react";
 import { UserContext } from "../../context/UserContext";
 
 import Background from "../Background/Background";
-import Icon from "./Icons/Icon";
-import CodeFile from "../svg/CodeFile";
-import ApplicationWindow from "../ApplicationWindow/ApplicationWindow";
-import { openJSRacer } from "../../js/dispatch";
-import Activities from "../Activities/Activities";
+// import Activities from "./Activities/Activities";
+const Activities = lazy(() => import("./Activities/Activities"));
+import Desktop from "./Desktop/Desktop";
 
-const Desktop = () => {
-  const { state, dispatch } = useContext(UserContext);
-  const openApp = (apps) => {
-    return apps.map(({ title, src, active, id }) =>
-      active ? (
-        <ApplicationWindow
-          key={id}
-          name={title}
-          file={src}
-          dispatch={dispatch}
-          id={id}
-        />
-      ) : null
-    );
-  };
+const Screen = () => {
+  const { state } = useContext(UserContext);
+  const { activeView } = state;
+  const [view, setView] = useState(null);
+
+  useEffect(() => {
+    let animationTimeout;
+    activeView
+      ? setTimeout(() => setView(<Desktop />), 100)
+      : (animationTimeout = setTimeout(
+          () =>
+            setView(
+              <Suspense fallback={<div></div>}>
+                <Activities state={state.activeView} />
+              </Suspense>
+            ),
+          0
+        ));
+    return () => clearTimeout(animationTimeout);
+  }, [activeView]);
 
   return (
     <>
       <div className="flex flex-col justify-center w-full h-screen relative">
         <Background />
-        {state?.activeView ? (
-          <>
-            <section className="z-10 h-full justify-items-center items-center grid grid-cols-10 gap-1 grid-rows-6">
-              <Icon
-                title="JS Racer"
-                Svg={CodeFile}
-                handleDoubleClick={() => openJSRacer(dispatch)}
-              />
-              <Icon title="lmoa" />
-            </section>
-            {state.apps?.length ? openApp(state.apps) : null}
-          </>
-        ) : (
-          <Activities />
-        )}
+        {view}
       </div>
     </>
   );
 };
-export default Desktop;
+export default Screen;

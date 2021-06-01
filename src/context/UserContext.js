@@ -7,6 +7,9 @@ export const UserContext = createContext({
   volume: 50,
   display: 10,
   apps: [],
+  background: {
+    name: "dragisa-braunovic",
+  },
 });
 
 export const reducer = (state, action) => {
