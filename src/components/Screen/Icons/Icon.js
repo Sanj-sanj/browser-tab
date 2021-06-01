@@ -11,7 +11,8 @@ const Icon = ({ title, Svg, handleDoubleClick }) => {
           : "border border-transparent bg-transparent "
       }`}
       onDoubleClick={handleDoubleClick}
-      onMouseDown={() => setToggle(!toggle)}
+      onKeyDown={(e) => (e.key === "Enter" ? handleDoubleClick() : null)}
+      onClick={() => (toggle ? setToggle(true) : setToggle(!toggle))}
       onBlur={() => setToggle(false)}
       onFocus={() => setToggle(true)}
     >

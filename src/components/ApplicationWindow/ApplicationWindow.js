@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 const appRoot = document.getElementById("window");
 
 const ApplicationWindow = ({ file, name, dispatch, id }) => {
+  //ID gets supplied on creation, use id to alter state.active by filtering.
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
   if (!elRef.current) {
@@ -25,7 +26,7 @@ const ApplicationWindow = ({ file, name, dispatch, id }) => {
   }, [toggle]);
 
   return createPortal(
-    <section className="absolute top-7 left-1 bg-gray-700 border border-gray-900 shadow-2xl z-40 rounded-t-md">
+    <section className="absolute top-7 left-1 bg-gray-700 border border-gray-900 shadow-2xl z-20 rounded-t-md">
       <nav className="relative w-full py-1 bg-gray-900 text-center text-sm font-bold text-white">
         {name}
         <button

@@ -3,7 +3,7 @@ import { useReducer, useContext } from "react";
 import { UserContext, reducer } from "./context/UserContext";
 
 import Nav from "./components/Nav/Nav";
-import Desktop from "./components/Desktop/Desktop";
+import Screen from "./components/Screen/Screen";
 
 const App = () => {
   const initial = useContext(UserContext);
@@ -17,7 +17,7 @@ const App = () => {
         <UserContext.Provider value={{ state, dispatch }}>
           {/* top status bar */}
           <Nav />
-          <Desktop />
+          <Screen />
         </UserContext.Provider>
       </div>
     </>

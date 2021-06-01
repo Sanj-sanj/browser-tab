@@ -1,4 +1,4 @@
-import Icon from "../Desktop/Icons/Icon";
+import Icon from "../Screen/Icons/Icon";
 import SearchBar from "../SearchBar/SearchBar";
 
 const Activities = () => {

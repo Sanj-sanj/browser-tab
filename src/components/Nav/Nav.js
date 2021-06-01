@@ -51,10 +51,14 @@ const Nav = () => {
             ? " border-yellow-300"
             : "border-transparent"
         }`}
-        onFocus={() => setFocused("left")}
+        onFocus={(e) =>
+          focused === "left"
+            ? setFocused("left")
+            : (clearAndUnfocusMenu(), setFocused("left"))
+        }
         onClick={(e) => {
           e.stopPropagation();
-          focused === "left"
+          focused === "left" && e.isTrusted
             ? (clearAndUnfocusMenu(), setFocused(false))
             : (clearAndUnfocusMenu(), setFocused("left"));
 
@@ -63,9 +67,6 @@ const Nav = () => {
             payload: !state.activeView,
           });
         }}
-        // onMouseEnter={clearAndUnfocusMenu}
-        // onMouseDown={() => clearAndUnfocusMenu()}
-        // onBl ur={() => clearAndUnfocusMenu()}
       >
         <span className="transform translate-y-0.5">Activities</span>
       </button>
