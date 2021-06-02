@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import Draggable from "react-draggable";
+import "./ApplicationWindow.modules.css";
 
 const appRoot = document.getElementById("window");
 
@@ -30,7 +31,7 @@ const ApplicationWindow = ({ file, name, dispatch, id }) => {
   return createPortal(
     <Draggable bounds={{ top: 0 }} cancel=".exit">
       <section
-        className="absolute top-7 left-0.5 bg-gray-700 border border-gray-900 shadow-2xl z-20 rounded-t-md"
+        className={`absolute top-7 left-0.5 bg-gray-700 border border-gray-900 shadow-2xl z-20 rounded-t-md `}
         role="presentation"
       >
         <nav className="relative w-full py-1 bg-gray-900 text-center text-sm font-bold text-white">
@@ -53,18 +54,16 @@ const ApplicationWindow = ({ file, name, dispatch, id }) => {
             </span>
           </button>
         </nav>
-        <div className="p-2">
-          <iframe
-            sandbox="allow-scripts"
-            src={file}
-            title={name}
-            width="644"
-            height="525"
-            onLoad={(e) => {
-              e.target.focus();
-            }}
-          ></iframe>{" "}
-        </div>
+        <iframe
+          sandbox="allow-scripts"
+          src={file}
+          title={name}
+          width="644"
+          height="525"
+          onLoad={(e) => {
+            e.target.focus();
+          }}
+        ></iframe>{" "}
       </section>
     </Draggable>,
     elRef.current

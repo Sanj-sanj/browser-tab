@@ -43,7 +43,7 @@ const Selections = ({ Component, label, state, _onClick, children }) => {
       </button>
       <div
         className={` border-b border-transparent border-t ease-in transition-all ${
-          !toggle ? "max-h-0 opacity-0 z-0" : "max-h-96"
+          !toggle ? "max-h-0 opacity-0 z-0 border-none" : "max-h-96"
         }
          `}
         onBlur={(e) => {

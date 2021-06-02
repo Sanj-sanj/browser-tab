@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import Button from "../Dropdown/Button";
 
 const ContextMenu = ({ position, close, position: { screenRects } }) => {
+  const closeMenu = (e) => (e.key === "Escape" ? close() : null);
+
   if (position.x + 192 >= screenRects.width) {
     position.x = position.x - 192;
   }
@@ -8,12 +11,20 @@ const ContextMenu = ({ position, close, position: { screenRects } }) => {
     position.y = position.y - 231;
   }
 
+  useEffect(() => {
+    const body = document.body;
+    body.addEventListener("keydown", closeMenu);
+    return () => {
+      body.removeEventListener("keydown", closeMenu);
+    };
+  });
+
   return (
     <div
       className="absolute w-48 py-1 rounded z-50 text-gray-100 bg-gray-800 border border-gray-700 "
       style={{ top: position.y - screenRects.y, left: position.x }}
       role="presentation"
-      onKeyDown={(e) => (e.key === "Escape" ? close() : null)}
+      onKeyDown={closeMenu}
     >
       <Button close={close}>New Folder</Button>
       <hr className="w-full border-gray-900" />
