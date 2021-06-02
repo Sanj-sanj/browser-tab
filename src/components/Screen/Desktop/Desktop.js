@@ -8,7 +8,6 @@ import { UserContext } from "../../../context/UserContext";
 
 const Desktop = () => {
   const { state, dispatch } = useContext(UserContext);
-
   const [menu, setMenu] = useState({ x: 0, y: 0 });
 
   const openApp = (apps) => {
@@ -28,11 +27,11 @@ const Desktop = () => {
   return (
     <>
       <section
-        className="z-10 h-full justify-items-center items-center grid grid-cols-10 gap-1 grid-rows-6"
+        className="z-10 h-full w-full flex flex-col items-end"
         onContextMenu={(e) => {
           e.preventDefault();
           const screenRects = document
-            .querySelector(".grid.grid-cols-10.gap-1.grid-rows-6")
+            .querySelector("section.z-10.h-full.w-full")
             .getBoundingClientRect();
           setMenu({ x: e.pageX, y: e.pageY, screenRects });
         }}
@@ -47,10 +46,12 @@ const Desktop = () => {
           Svg={CodeFile}
           handleDoubleClick={() => openJSRacer(dispatch)}
         />
-        <Icon title="lmoa" />
+        <Icon title="lmoa prcoessing file" />
       </section>
       {state.apps?.length ? openApp(state.apps) : null}
-      {menu.y ? <ContextMenu position={menu} /> : null}
+      {menu.y ? (
+        <ContextMenu position={menu} close={() => setMenu({ x: 0, y: 0 })} />
+      ) : null}
     </>
   );
 };

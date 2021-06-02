@@ -99,7 +99,7 @@ const Nav = () => {
           onMouseDown={() => clearAndUnfocusMenu()}
           onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
         >
-          <div className="w-32   -mx-1 z-40 flex justify-evenly items-center font-bold transform translate-y-0.5">
+          <div className="w-28 -mx-1 z-40 flex justify-evenly items-center font-bold transform translate-y-0.5">
             <span>{useDate()}</span>
             <span>{useTime()}</span>
           </div>

@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full h-screen overflow-hidden ">
+      <div className="flex flex-col w-full h-screen ">
         <UserContext.Provider value={{ state, dispatch }}>
           {/* top status bar */}
           <Nav />

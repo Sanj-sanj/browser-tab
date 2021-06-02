@@ -1,26 +1,29 @@
 import { useState } from "react";
 import Bell from "../../svg/Bell";
+import Draggable from "react-draggable";
 
 const Icon = ({ title, Svg, handleDoubleClick }) => {
   const [toggle, setToggle] = useState(false);
   return (
-    <button
-      className={`relative w-full h-full flex flex-col focus:outline-none justify-center items-center overflow-hidden cursor-default ${
-        toggle
-          ? "border border-blue-500 bg-blue-400"
-          : "border border-transparent bg-transparent "
-      }`}
-      onDoubleClick={handleDoubleClick}
-      onKeyDown={(e) => (e.key === "Enter" ? handleDoubleClick() : null)}
-      onClick={() => (toggle ? setToggle(true) : setToggle(!toggle))}
-      onBlur={() => setToggle(false)}
-      onFocus={() => setToggle(true)}
-    >
-      <span className="absolute text-white flex flex-col items-center px-1.5 top-0 min-h-full justify-evenly max-w-full">
-        {Svg ? <Svg /> : <Bell />}
+    <Draggable bounds="parent" grid={[112, 96]}>
+      <button
+        className={`w-28 h-24 p-1 flex flex-col focus:outline-none items-center  overflow-hidden cursor-default ${
+          toggle
+            ? "border border-blue-500 bg-blue-400"
+            : "border border-transparent bg-transparent "
+        }`}
+        onDoubleClick={handleDoubleClick}
+        // onTouchEnd={console.log} make a custom event, firsst tap record time stamp, setTimeout > 700ms, after timeout reset timestamp record, before timeout end, execute dblclick
+        onKeyDown={(e) => (e.key === "Enter" ? handleDoubleClick() : null)}
+        onClick={() => (toggle ? setToggle(true) : setToggle(!toggle))}
+        onBlur={() => setToggle(false)}
+        onFocus={() => setToggle(true)}
+      >
+        <span className="text-white">{Svg ? <Svg /> : <Bell />}</span>
         <span
-          className="relative overflow-hidden min-h-full"
-          title="THis is an app icon ,llo lda.."
+          className="flex overflow-hidden justify-center items-center w-full leading-5"
+          style={{ height: "inherit" }}
+          title={title}
         >
           <p
             className="text-white"
@@ -33,8 +36,8 @@ const Icon = ({ title, Svg, handleDoubleClick }) => {
             {title}
           </p>
         </span>
-      </span>
-    </button>
+      </button>
+    </Draggable>
   );
 };
 export default Icon;

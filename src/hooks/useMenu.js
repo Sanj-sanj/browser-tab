@@ -83,7 +83,9 @@ const useMenu = (clearAndUnfocusMenu) => {
             <span className="py-2 px-16 ">
               <hr className="w-full border-gray-900" />
             </span>
-            <Button Component={Setting} close={clearAndUnfocusMenu} />
+            <Button Component={Setting} close={clearAndUnfocusMenu}>
+              Settings
+            </Button>
             <Selections
               Component={Power}
               label="Power"
