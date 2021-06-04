@@ -1,20 +1,17 @@
 import Icon from "../Icons/Icon";
 import SearchBar from "../../SearchBar/SearchBar";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 
 const Activities = () => {
   const {
-    state: { activeView },
+    state: { activeView, apps },
   } = useContext(UserContext);
 
   // console.log(state, "ac");
   return (
     <div
       className="w-full h-full flex flex-col z-10"
-      onClickCapture={(e) => {
-        // console.log(e);
-      }}
       onContextMenu={(e) => e.preventDefault()}
     >
       <>
@@ -32,33 +29,22 @@ const Activities = () => {
       >
         {/* middle portion two columns absolutely pos, spaced apart */}
         <section
-          className={`flex flex-col justify-around items-center p-2 animate-slide-in-left border-l-0 border border-gray-500 rounded-r-xl rounded-br-xl w-1/6 lg:w-1/12 bg-gray-600 bg-opacity-60 ${
+          className={`flex flex-col justify-around items-center p-2 animate-slide-in-left border-l-0 border border-gray-500 rounded-r-xl rounded-br-xl w-auto bg-gray-600 bg-opacity-60 ${
             activeView ? "animate-slide-out-left" : ""
           }`}
         >
-          <span className="w-full h-20 max-h-20">
-            <Icon title="dog" />
-          </span>
-          <span className="w-full h-20 max-h-20">
-            <Icon title="dog" />
-          </span>
-          <span className="w-full h-20 max-h-20">
-            <Icon title="dog" />
-          </span>
-          <span className="w-full h-20 max-h-20">
-            <Icon title="dog" />
-          </span>
-          <span className="w-full h-20 max-h-20">
-            <Icon title="dog" />
-          </span>
+          <Icon title="dog" place="activities" />
+          <Icon title="dog" place="activities" />
+          <Icon title="dog" place="activities" />
+          <Icon title="dog" place="activities" />
+          <Icon title="dog" place="activities" />
         </section>
         <section
-          className={`flex flex-col justify-around items-center p-2 animate-slide-in-right border-r-0 border border-gray-500 rounded-l-xl rounded-bl-xl h-full w-1/6 lg:w-36 bg-gray-600 bg-opacity-60 ${
+          className={`flex flex-col justify-around items-center p-2 animate-slide-in-right border-r-0 border border-gray-500 rounded-l-xl rounded-bl-xl h-full w-36 bg-gray-600 bg-opacity-60 ${
             activeView ? "animate-slide-out-right" : ""
           }`}
         >
-          {" "}
-          [stuff]
+          {console.log(apps)}
         </section>
       </div>
     </div>

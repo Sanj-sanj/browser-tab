@@ -1,27 +1,32 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import img from "url:../../images/dragisa-braunovic.jpg?as=webp"; //eslint-disable-line
+// import img from "url:../../images/dragisa-braunovic.jpg?as=webp"; //eslint-disable-line
+// import axios from "axios";
 
-const backgrounds = [
-  {
-    name: "dragisa-braunovic",
-    src: "../../images/dragisa-braunovic.jpg",
-    alt: "Vista of a mountainside overlooking a small town enveloping a bay.",
-  },
-];
-
-const getBg = (state) => {
-  const toUse = backgrounds.filter((item) =>
-    item.name === state.background.name ? item : null
-  );
-  return toUse[0];
+const getImage = async (setImage, name) => {
+  fetch(`http://localhost:1234/background/${name}`)
+    .then((res) => res.blob())
+    .then((img) => {
+      console.log(img);
+      setImage(URL.createObjectURL(img));
+    });
+  // let img = await axios.get(`http://localhost:1234/background/${name}`);
+  // console.log(img.data.blob());
+  // setImage("data:image/png;charset=utf-8;base64," + img.data);
 };
 
 const Background = () => {
+  const [image, setImage] = useState(null);
+
   const { state } = useContext(UserContext);
+  const { background } = state;
   let brightness = state?.display ?? 10;
-  const currBG = getBg(state);
   brightness = 10 - parseInt(brightness) + "0";
+
+  useEffect(() => {
+    image === null ? getImage(setImage, background) : null;
+  }, [background]);
+
   return (
     <>
       <div
@@ -30,10 +35,11 @@ const Background = () => {
         } bg-opacity-${brightness === "100" ? "95" : brightness}`}
         style={{ zIndex: "100" }}
       ></div>
+      {/* {image} */}
       <img
         className="absolute z-0 h-screen w-max rounded-md top-0 object-cover pointer-events-none"
-        src={img}
-        alt={currBG.alt}
+        src={image}
+        alt={" montage of abstract, artistic honeycombs by Kate Hazen."}
       />
     </>
   );

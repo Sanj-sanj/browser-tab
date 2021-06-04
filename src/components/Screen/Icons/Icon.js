@@ -2,16 +2,19 @@ import { useState } from "react";
 import Bell from "../../svg/Bell";
 import Draggable from "react-draggable";
 
-const Icon = ({ title, Svg, handleDoubleClick }) => {
+const Icon = ({ title, Svg, handleDoubleClick, place }) => {
   const [toggle, setToggle] = useState(false);
   return (
     <Draggable bounds="parent" grid={[112, 96]}>
       <button
-        className={`w-28 h-24 p-1 flex flex-col focus:outline-none items-center  overflow-hidden cursor-default ${
-          toggle
-            ? "border border-blue-500 bg-blue-400"
-            : "border border-transparent bg-transparent "
-        }`}
+        className={` p-1 flex flex-col focus:outline-none items-center overflow-hidden cursor-default ${
+          place === "activities" ? "rounded w-20 h-20" : "w-28 h-24"
+        }
+         ${
+           toggle
+             ? "border border-blue-500 bg-blue-400"
+             : "border border-transparent bg-transparent "
+         }`}
         onDoubleClick={handleDoubleClick}
         // onTouchEnd={console.log} make a custom event, firsst tap record time stamp, setTimeout > 700ms, after timeout reset timestamp record, before timeout end, execute dblclick
         onKeyDown={(e) => (e.key === "Enter" ? handleDoubleClick() : null)}

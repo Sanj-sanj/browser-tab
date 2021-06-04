@@ -43,7 +43,7 @@ const Nav = () => {
   }
 
   return (
-    <div className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center">
+    <nav className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center">
       {/* Left menu */}
       <button
         className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40  focus:outline-none text-white border-b-2 ${
@@ -73,7 +73,7 @@ const Nav = () => {
       </button>
       {/* Left corner */}
       <div
-        className={`absolute z-0 h-4 w-4 ${
+        className={`absolute z-0 h-4 w-1.5 ${
           !state.activeView || focused === "left"
             ? " bg-yellow-300"
             : "bg-transparent"
@@ -136,14 +136,14 @@ const Nav = () => {
       </button>
       {/* Right corner */}
       <div
-        className={`absolute top-full right-0 z-0 h-4 w-4 transition duration-75 ease-linear 
+        className={`absolute top-full right-0 z-0 h-4 w-1.5 transition duration-75 ease-linear 
         ${focused === "right" ? "bg-yellow-300" : "bg-transparent"}
           `}
         style={{ top: "93%", borderTopRightRadius: "4px" }}
       />
       {/* dropdown menu */}
       {menu === null ? null : menu}
-    </div>
+    </nav>
   );
 };
 
