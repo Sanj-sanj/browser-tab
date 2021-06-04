@@ -23,6 +23,8 @@ export const reducer = (state, action) => {
       return { ...state, display: payload };
     case "updateActiveView":
       return { ...state, activeView: payload };
+    case "changeBackground":
+      return { ...state, background: payload };
     case "openApp":
       return { ...state, apps: [...state.apps, payload] };
     case "closeApp":

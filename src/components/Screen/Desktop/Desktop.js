@@ -19,6 +19,7 @@ const Desktop = () => {
           file={src}
           dispatch={dispatch}
           id={id}
+          state={state}
         />
       ) : null
     );
@@ -50,7 +51,11 @@ const Desktop = () => {
       </section>
       {state.apps?.length ? openApp(state.apps) : null}
       {menu.y ? (
-        <ContextMenu position={menu} close={() => setMenu({ x: 0, y: 0 })} />
+        <ContextMenu
+          position={menu}
+          close={() => setMenu({ x: 0, y: 0 })}
+          context={{ state, dispatch }}
+        />
       ) : null}
     </>
   );

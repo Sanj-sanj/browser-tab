@@ -9,4 +9,15 @@ const openJSRacer = (dispatch) =>
       id: uuid(),
     },
   });
-export { openJSRacer };
+
+const openSettings = (dispatch) =>
+  dispatch({
+    type: "openApp",
+    payload: {
+      title: "Settings",
+      src: null,
+      active: true,
+      id: uuid(),
+    },
+  });
+export { openJSRacer, openSettings };

@@ -1,14 +1,46 @@
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import Draggable from "react-draggable";
+import Button from "../Dropdown/Button";
 import "./ApplicationWindow.modules.css";
+/* eslint-disable */
+import Dragisa from "url:../../images/dragisa-sm.jpeg?as=webp";
+import Honeycomb from "url:../../images/Honeycomb-sm.jpeg?as=webp";
+import Mountain from "url:../../images/mountains-sm.jpeg?as=webp";
+import Robot from "url:../../images/robot-sm.jpeg?as=webp";
+/* eslint-enable */
 
 const appRoot = document.getElementById("window");
+const backgrounds = { Dragisa, Honeycomb, Mountain, Robot };
 
-const ApplicationWindow = ({ file, name, dispatch, id }) => {
+const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
   //ID gets supplied on creation, use id to alter state.active by filtering.
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
+  function createThumbails() {
+    const gallery = [];
+    for (const name in backgrounds) {
+      let thumbnail = (
+        <button
+          key={name}
+          onClick={() =>
+            dispatch({
+              type: "changeBackground",
+              payload: name,
+            })
+          }
+          className="w-auto"
+        >
+          <img
+            src={[backgrounds[name]]}
+            alt={`Thumbnail of the ${name} wallpaper`}
+          />
+        </button>
+      );
+      gallery.push(thumbnail);
+    }
+    return gallery;
+  }
 
   if (!elRef.current) {
     elRef.current = document.createElement("div");
@@ -54,16 +86,37 @@ const ApplicationWindow = ({ file, name, dispatch, id }) => {
             </span>
           </button>
         </nav>
-        <iframe
-          sandbox="allow-scripts"
-          src={file}
-          title={name}
-          width="644"
-          height="525"
-          onLoad={(e) => {
-            e.target.focus();
-          }}
-        ></iframe>{" "}
+        {name === "Javascript-Racer" ? (
+          <iframe
+            sandbox="allow-scripts"
+            src={file}
+            title={name}
+            width="644"
+            height="525"
+            onLoad={(e) => {
+              e.target.focus();
+            }}
+          />
+        ) : name === "Settings" ? (
+          <div className="flex w-full h-full">
+            <section className="w-82 h-auto bg-gray-800 border-r border-gray-900">
+              <Button> Other stuff</Button> <Button>Stuff</Button>
+            </section>
+            <section className="flex flex-col w-full h-full">
+              {" "}
+              {/* main view area */}
+              <div className="h-72 flex items-center justify-center">
+                <img
+                  src={backgrounds[state.background]}
+                  alt="thumbnail of current bg"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3 p-4 place-items-center bg-gray-800 max-h-80 overflow-y-scroll ">
+                {createThumbails()}
+              </div>
+            </section>
+          </div>
+        ) : null}
       </section>
     </Draggable>,
     elRef.current

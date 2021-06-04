@@ -1,4 +1,4 @@
-const Button = ({ Component, close, children }) => {
+const Button = ({ Component, close, children, _onClick }) => {
   return (
     <button
       className={`flex w-full justify-between cursor-default focus:outline-none ${
@@ -6,7 +6,10 @@ const Button = ({ Component, close, children }) => {
           ? "focus:bg-gray-700 hover:bg-gray-700 active:bg-yellow-500"
           : "focus:bg-blue-400 hover:bg-blue-400 active:bg-blue-400"
       }`}
-      onClick={close}
+      onClick={() => {
+        _onClick ? _onClick() : null;
+        close();
+      }}
     >
       {Component ? (
         <div className="w-full flex px-7 py-1 relative items-center">

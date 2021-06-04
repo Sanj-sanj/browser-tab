@@ -1,7 +1,13 @@
 import { useEffect } from "react";
 import Button from "../Dropdown/Button";
+import { openSettings } from "../../js/dispatch";
 
-const ContextMenu = ({ position, close, position: { screenRects } }) => {
+const ContextMenu = ({
+  position,
+  close,
+  context: { state, dispatch },
+  position: { screenRects },
+}) => {
   const closeMenu = (e) => (e.key === "Escape" ? close() : null);
 
   if (position.x + 192 >= screenRects.width) {
@@ -18,7 +24,6 @@ const ContextMenu = ({ position, close, position: { screenRects } }) => {
       body.removeEventListener("keydown", closeMenu);
     };
   });
-
   return (
     <div
       className="absolute w-48 py-1 rounded z-50 text-gray-100 bg-gray-800 border border-gray-700 "
@@ -35,10 +40,16 @@ const ContextMenu = ({ position, close, position: { screenRects } }) => {
       <Button close={close}>Show Desktop in Files</Button>
       <Button close={close}>Open in Terminal</Button>
       <hr className="w-full border-gray-900" />
-      <Button close={close}>Change Background...</Button>
+      <Button close={close} _onClick={() => openSettings(dispatch)}>
+        Change Background...
+      </Button>
       <hr className="w-full border-gray-900" />
-      <Button close={close}>Display Settings</Button>
-      <Button close={close}>Settings</Button>
+      <Button close={close} _onClick={() => openSettings(dispatch)}>
+        Display Settings
+      </Button>
+      <Button close={close} _onClick={() => openSettings(dispatch)}>
+        Settings
+      </Button>
     </div>
   );
 };

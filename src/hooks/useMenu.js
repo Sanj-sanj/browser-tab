@@ -15,6 +15,8 @@ import Power from "../components/svg/Power";
 import CalendarBar from "../components/Dropdown/CalendarBar";
 import Notifications from "../components/Dropdown/Notifications";
 
+import { openSettings } from "../js/dispatch";
+
 const useMenu = (clearAndUnfocusMenu) => {
   const [menu, setMenu] = useState(null);
   const { state, dispatch } = useContext(UserContext);
@@ -83,7 +85,11 @@ const useMenu = (clearAndUnfocusMenu) => {
             <span className="py-2 px-16 ">
               <hr className="w-full border-gray-900" />
             </span>
-            <Button Component={Setting} close={clearAndUnfocusMenu}>
+            <Button
+              Component={Setting}
+              close={clearAndUnfocusMenu}
+              _onClick={() => openSettings(dispatch)}
+            >
               Settings
             </Button>
             <Selections

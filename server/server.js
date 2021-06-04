@@ -22,14 +22,29 @@ app.listen(port, () => {
 });
 
 const bgs = [
-  { name: "Honeycomb", src: "/images/Honeycomb-Kate-Hazen.png" },
-  { name: "Dragisa", src: "/images/dragisa-braunovic.jpg" },
-  { name: "Robot", src: "/images/Robot-Kate-Hazen.png" },
-  { name: "Mountain", src: "/images/Mountains-Kate-Hazen.png" },
+  {
+    name: "Honeycomb",
+    src: "/images/Honeycomb-Kate-Hazen.png",
+    alt: "A fractal honeycomb background by Kate-Hazen of System76.",
+  },
+  {
+    name: "Dragisa",
+    src: "/images/dragisa-braunovic.jpg",
+    alt: "A vista overlooking a town by Dragisa Braunovic.",
+  },
+  {
+    name: "Robot",
+    src: "/images/Robot-Kate-Hazen.png",
+    alt: "A minimal Robot background by Kate-Hazen of System76.",
+  },
+  {
+    name: "Mountain",
+    src: "/images/Mountains-Kate-Hazen.png",
+    alt: "A cascading fractal background by Kate-Hazen of System76.",
+  },
 ];
 
 app.get("/background/:name?", cors(corsOptions), (req, res) => {
-  console.log(req.params);
   const { name } = req.params;
   if (name === "All") {
     const images = bgs.map((obj) => {
@@ -38,37 +53,15 @@ app.get("/background/:name?", cors(corsOptions), (req, res) => {
     console.log(images);
     return res.status(200).json(images);
   }
-
-  const which = bgs.find((obj) => obj.name === name);
-  const imageToUse = __dirname + which.src;
-
-  return res.sendFile(imageToUse);
+  const background = bgs.find((obj) => obj.name === name);
+  const imageToUse = __dirname + background.src;
+  res.sendFile(imageToUse);
+  console.log("sending background " + background.name);
 });
 
-// app.post("/backgrounds", cors(corsOptions), (req, res) => {
-//   console.log("POST");
-// app.use(express.static(__dirname, +"/images"));
-// const toSend = bgs.find((obj) => obj.name === req.body.name);
-// return res.sendFile(__dirname + toSend.src);
-// const imageToUse = __dirname + toSend.src;
-// const datatoUse = Buffer.from(imageToUse, "base64");
-// fs.readFile(imageToUse, (e) => console.log(e));
-
-// const reader = new FileReader();
-// reader.readAsDataURL(blob.default);
-// reader.readAsBinaryString()
-// const data = reader.result;
-// console.log(datatoUse);
-// return res
-//   .writeHead(200, {
-//     "Content-Type": "image/png",
-//     "Content-Length": datatoUse.length,
-//   })
-//   .end(datatoUse);
-
-// res.type("png").send(datatoUse);
-
-// return res.sendFile(imageToUse);
-
-// console.log("accessed by cors bri");
-// });
+app.get("/backgroundalts/:name?", cors(corsOptions), (req, res) => {
+  const { name } = req.params;
+  const which = bgs.find((obj) => obj.name === name);
+  res.status(200).json(which.alt);
+  console.log("sent background's alt");
+});

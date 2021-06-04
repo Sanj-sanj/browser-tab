@@ -1,30 +1,28 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-// import img from "url:../../images/dragisa-braunovic.jpg?as=webp"; //eslint-disable-line
-// import axios from "axios";
-
-const getImage = async (setImage, name) => {
-  fetch(`http://localhost:1234/background/${name}`)
-    .then((res) => res.blob())
-    .then((img) => {
-      console.log(img);
-      setImage(URL.createObjectURL(img));
-    });
-  // let img = await axios.get(`http://localhost:1234/background/${name}`);
-  // console.log(img.data.blob());
-  // setImage("data:image/png;charset=utf-8;base64," + img.data);
-};
 
 const Background = () => {
   const [image, setImage] = useState(null);
-
+  const [alt, setAlt] = useState(null);
   const { state } = useContext(UserContext);
   const { background } = state;
+
   let brightness = state?.display ?? 10;
   brightness = 10 - parseInt(brightness) + "0";
 
+  const getImage = async (name) => {
+    fetch(`http://localhost:1234/background/${name}`)
+      .then((res) => res.blob())
+      .then((img) => {
+        setImage(URL.createObjectURL(img));
+      });
+    fetch(`http://localhost:1234/backgroundalts/${name}`)
+      .then((res) => res.json())
+      .then((alt) => setAlt(alt));
+  };
+
   useEffect(() => {
-    image === null ? getImage(setImage, background) : null;
+    getImage(background);
   }, [background]);
 
   return (
@@ -39,7 +37,7 @@ const Background = () => {
       <img
         className="absolute z-0 h-screen w-max rounded-md top-0 object-cover pointer-events-none"
         src={image}
-        alt={" montage of abstract, artistic honeycombs by Kate Hazen."}
+        alt={alt}
       />
     </>
   );
