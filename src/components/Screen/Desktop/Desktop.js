@@ -1,6 +1,4 @@
-import { openJSRacer } from "../../../js/dispatch";
 import ApplicationWindow from "../../ApplicationWindow/ApplicationWindow";
-import CodeFile from "../../svg/CodeFile";
 import Icon from "../Icons/Icon";
 import ContextMenu from "../../ContextMenu/ContextMenu";
 import { useState, useContext } from "react";
@@ -9,6 +7,14 @@ import { UserContext } from "../../../context/UserContext";
 const Desktop = () => {
   const { state, dispatch } = useContext(UserContext);
   const [menu, setMenu] = useState({ x: 0, y: 0 });
+
+  const clearMenuAndMenuContext = () => {
+    setMenu({ x: 0, y: 0 });
+    dispatch({
+      type: "changeDesktopContext",
+      payload: { title: "", onClick: () => console.log("nothing here") },
+    });
+  };
 
   const openApp = (apps) => {
     return apps.map(({ title, src, active, id }) =>
@@ -37,23 +43,34 @@ const Desktop = () => {
           setMenu({ x: e.pageX, y: e.pageY, screenRects });
         }}
         role="presentation"
-        onClick={() => (menu.y ? setMenu({ x: 0, y: 0 }) : null)}
+        onClick={() => (menu.y ? clearMenuAndMenuContext() : null)}
         onKeyDownCapture={(e) =>
-          e.key === "Escape" ? setMenu({ x: 0, y: 0 }) : null
+          e.key === "Escape" ? clearMenuAndMenuContext() : null
         }
       >
-        <Icon
-          title="JS Racer"
-          Svg={CodeFile}
-          handleDoubleClick={() => openJSRacer(dispatch)}
-        />
-        <Icon title="lmoa prcoessing file" />
+        {state.dirs.desktop.map(
+          ({ title, Svg, handleDoubleClick, handleContextMenu }) => {
+            return (
+              <Icon
+                title={title}
+                key={title}
+                Svg={Svg}
+                handleDoubleClick={() => handleDoubleClick(dispatch)}
+                handleContextMenu={() =>
+                  handleContextMenu(dispatch, title, () =>
+                    handleDoubleClick(dispatch)
+                  )
+                }
+              />
+            );
+          }
+        )}
       </section>
       {state.apps?.length ? openApp(state.apps) : null}
       {menu.y ? (
         <ContextMenu
           position={menu}
-          close={() => setMenu({ x: 0, y: 0 })}
+          close={() => clearMenuAndMenuContext()}
           context={{ state, dispatch }}
         />
       ) : null}

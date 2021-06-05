@@ -1,4 +1,7 @@
 import { createContext } from "react";
+import CodeFile from "../components/svg/CodeFile";
+import Bell from "../components/svg/Bell";
+import { openJSRacer, desktopContext } from "../js/dispatch";
 
 export const UserContext = createContext({
   user: "Guest",
@@ -8,6 +11,17 @@ export const UserContext = createContext({
   display: 10,
   apps: [],
   background: "Mountain",
+  desktopContext: { title: "", onClick: () => {} },
+  dirs: {
+    desktop: [
+      {
+        title: "JS Racer",
+        Svg: CodeFile,
+        handleDoubleClick: openJSRacer,
+        handleContextMenu: desktopContext,
+      },
+    ],
+  },
 });
 
 export const reducer = (state, action) => {
@@ -25,6 +39,25 @@ export const reducer = (state, action) => {
       return { ...state, activeView: payload };
     case "changeBackground":
       return { ...state, background: payload };
+    case "changeDesktopContext":
+      return { ...state, desktopContext: payload };
+    case "mkdir":
+      // console.log(payload.handleContextMenu, "mkdir");
+      // return { ...state };
+      return {
+        ...state,
+        dirs: {
+          desktop: [
+            ...state.dirs.desktop,
+            {
+              title: payload.title,
+              Svg: Bell,
+              handleDoubleClick: () => console.log("dir made"),
+              handleContextMenu: desktopContext,
+            },
+          ],
+        },
+      };
     case "openApp":
       return { ...state, apps: [...state.apps, payload] };
     case "closeApp":

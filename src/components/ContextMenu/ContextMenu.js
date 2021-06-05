@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Button from "../Dropdown/Button";
-import { openSettings } from "../../js/dispatch";
+import { openSettings, openNewFolder } from "../../js/dispatch";
 
 const ContextMenu = ({
   position,
@@ -31,7 +31,16 @@ const ContextMenu = ({
       role="presentation"
       onKeyDown={closeMenu}
     >
-      <Button close={close}>New Folder</Button>
+      {/* {console.log(state.desktopContext)} */}
+      {state.desktopContext.title ? (
+        <Button close={close} _onClick={state.desktopContext.onClick}>
+          Open {state.desktopContext.title}{" "}
+        </Button>
+      ) : (
+        <Button close={close} _onClick={() => openNewFolder(dispatch)}>
+          New Folder
+        </Button>
+      )}
       <hr className="w-full border-gray-900" />
       <Button close={close}>Paste</Button>
       <hr className="w-full border-gray-900" />

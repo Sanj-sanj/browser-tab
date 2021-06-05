@@ -2,8 +2,9 @@ import { useState } from "react";
 import Bell from "../../svg/Bell";
 import Draggable from "react-draggable";
 
-const Icon = ({ title, Svg, handleDoubleClick, place }) => {
+const Icon = ({ title, Svg, handleDoubleClick, handleContextMenu, place }) => {
   const [toggle, setToggle] = useState(false);
+  // console.log(handleContextMenu);
   return (
     <Draggable bounds="parent" grid={[112, 96]}>
       <button
@@ -12,8 +13,8 @@ const Icon = ({ title, Svg, handleDoubleClick, place }) => {
         }
          ${
            toggle
-             ? "border border-blue-500 bg-blue-400"
-             : "border border-transparent bg-transparent "
+             ? "border border-blue-500 bg-blue-400 hover:bg-blue-400"
+             : "border border-transparent bg-transparent hover:bg-gray-500"
          }`}
         onDoubleClick={handleDoubleClick}
         // onTouchEnd={console.log} make a custom event, firsst tap record time stamp, setTimeout > 700ms, after timeout reset timestamp record, before timeout end, execute dblclick
@@ -21,6 +22,7 @@ const Icon = ({ title, Svg, handleDoubleClick, place }) => {
         onClick={() => (toggle ? setToggle(true) : setToggle(!toggle))}
         onBlur={() => setToggle(false)}
         onFocus={() => setToggle(true)}
+        onContextMenu={handleContextMenu}
       >
         <span className="text-white">{Svg ? <Svg /> : <Bell />}</span>
         <span

@@ -20,4 +20,32 @@ const openSettings = (dispatch) =>
       id: uuid(),
     },
   });
-export { openJSRacer, openSettings };
+const openNewFolder = (dispatch) =>
+  dispatch({
+    type: "openApp",
+    payload: {
+      title: "New Folder",
+      src: null,
+      active: true,
+      id: uuid(),
+    },
+  });
+const mkdir = (dispatch, title, handleContextMenu) => {
+  console.log(handleContextMenu);
+  dispatch({
+    type: "mkdir",
+    payload: {
+      title: { title },
+      handleContextMenu: handleContextMenu,
+    },
+  });
+};
+const desktopContext = (dispatch, value, onClick) => {
+  // console.log(dispatch, value, onClick);
+  dispatch({
+    type: "changeDesktopContext",
+    payload: { title: value, onClick: onClick },
+  });
+};
+
+export { openJSRacer, openSettings, openNewFolder, mkdir, desktopContext };

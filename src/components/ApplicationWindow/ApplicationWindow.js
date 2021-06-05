@@ -13,10 +13,18 @@ import Robot from "url:../../images/robot-sm.jpeg?as=webp";
 const appRoot = document.getElementById("window");
 const backgrounds = { Dragisa, Honeycomb, Mountain, Robot };
 
+const useValue = () => {
+  const [value, setValue] = useState("");
+  const onChange = (val) => setValue(val);
+  return [value, onChange];
+};
+
 const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
   //ID gets supplied on creation, use id to alter state.active by filtering.
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
+  const [value, onChange] = useValue();
+
   function createThumbails() {
     const gallery = [];
     for (const name in backgrounds) {
@@ -44,6 +52,8 @@ const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
 
   if (!elRef.current) {
     elRef.current = document.createElement("div");
+    elRef.current.className =
+      "w-full h-full absolute top-7 pb-16 flex justify-center items-center";
   }
   useEffect(() => {
     appRoot.appendChild(elRef.current);
@@ -61,12 +71,16 @@ const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
   }, [toggle]);
 
   return createPortal(
-    <Draggable bounds={{ top: 0 }} cancel=".exit">
+    <Draggable bounds={"parent"} cancel=".exit">
       <section
-        className={`absolute top-7 left-0.5 bg-gray-700 border border-gray-900 shadow-2xl z-20 rounded-t-md `}
+        className={`bg-gray-700 border border-gray-900 shadow-2xl z-20 rounded-t-md`}
         role="presentation"
       >
-        <nav className="relative w-full py-1 bg-gray-900 text-center text-sm font-bold text-white">
+        <nav
+          className={`relative w-full ${
+            name === "New Folder" ? "py-2.5" : "py-1"
+          } bg-gray-900 text-center text-sm font-bold text-white`}
+        >
           {name}
           <button
             className="exit group absolute right-0 focus:outline-none"
@@ -111,11 +125,56 @@ const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
                   alt="thumbnail of current bg"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3 p-4 place-items-center bg-gray-800 max-h-80 overflow-y-scroll ">
-                {createThumbails()}
+              <div className=" bg-gray-800 max-h-72 overflow-y-scroll ">
+                <div className="grid grid-cols-2 gap-3 p-4 place-items-center">
+                  {createThumbails()}
+                </div>
               </div>
             </section>
           </div>
+        ) : name === "New Folder" ? (
+          <>
+            <button
+              className={`absolute border border-gray-800 top-0.5 left-1 rounded py-1 px-3  ${
+                value
+                  ? "bg-gray-600 hover:bg-gray-700 text-white"
+                  : "bg-gray-700 text-gray-500"
+              } `}
+              onClick={() => {
+                dispatch({
+                  type: "mkdir",
+                  payload: {
+                    title: value,
+                    handleContextMenu: state.desktopContext.onClick,
+                  },
+                }),
+                  setToggle(false);
+              }}
+              disabled={value ? false : true}
+            >
+              Create
+            </button>
+            <div className="w-72 py-4 px-0.5 flex justify-center items-center bg-gray-800">
+              <input
+                className="w-full text-white px-2 rounded focus:outline-none bg-gray-700 border-2 border-transparent focus:border-yellow-500"
+                type="text"
+                //eslint-disable-next-line
+                onChange={(e) => onChange(e.target.value)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && e.target.value
+                    ? (dispatch({
+                        type: "mkdir",
+                        payload: {
+                          title: e.target.value,
+                          handleContextMenu: state.desktopContext.onClick,
+                        },
+                      }),
+                      setToggle(false))
+                    : null
+                }
+              />
+            </div>
+          </>
         ) : null}
       </section>
     </Draggable>,
