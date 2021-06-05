@@ -8,10 +8,23 @@ import Dragisa from "url:../../images/dragisa-sm.jpeg?as=webp";
 import Honeycomb from "url:../../images/Honeycomb-sm.jpeg?as=webp";
 import Mountain from "url:../../images/mountains-sm.jpeg?as=webp";
 import Robot from "url:../../images/robot-sm.jpeg?as=webp";
+import Sunset from "url:../../images/sunset-sm.jpeg?as=webp";
+import Minimal1 from "url:../../images/min1-sm.jpeg?as=webp";
+import Minimal2 from "url:../../images/min2-sm.jpeg?as=webp";
+import Sunrise from "url:../../images/sunrise-painting-sm.jpeg?as=webp";
 /* eslint-enable */
 
 const appRoot = document.getElementById("window");
-const backgrounds = { Dragisa, Honeycomb, Mountain, Robot };
+const backgrounds = {
+  Dragisa,
+  Honeycomb,
+  Mountain,
+  Robot,
+  Sunset,
+  Sunrise,
+  Minimal1,
+  Minimal2,
+};
 
 const useValue = () => {
   const [value, setValue] = useState("");
@@ -37,7 +50,7 @@ const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
               payload: name,
             })
           }
-          className="w-auto"
+          className="w-36"
         >
           <img
             src={[backgrounds[name]]}
@@ -112,6 +125,7 @@ const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
             }}
           />
         ) : name === "Settings" ? (
+          /*  ==------====------==  SETTINGS  ==------====------== */
           <div className="flex w-full h-full">
             <section className="w-82 h-auto bg-gray-800 border-r border-gray-900">
               <Button> Other stuff</Button> <Button>Stuff</Button>
@@ -123,10 +137,11 @@ const ApplicationWindow = ({ file, name, dispatch, id, state }) => {
                 <img
                   src={backgrounds[state.background]}
                   alt="thumbnail of current bg"
+                  className="w-52 sm:w-full sm:max-w-sm h-36 sm:h-56"
                 />
               </div>
               <div className=" bg-gray-800 max-h-72 overflow-y-scroll ">
-                <div className="grid grid-cols-2 gap-3 p-4 place-items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 p-4 place-items-center">
                   {createThumbails()}
                 </div>
               </div>
