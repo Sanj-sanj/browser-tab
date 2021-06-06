@@ -31,7 +31,7 @@ const Icon = ({ title, Svg, handleDoubleClick, handleContextMenu, place }) => {
           title={title}
         >
           <p
-            className="text-white"
+            className="text-white text-sm"
             style={{
               display: "-webkit-box",
               WebkitLineClamp: "2",

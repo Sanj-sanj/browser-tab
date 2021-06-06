@@ -1,41 +1,44 @@
 const full = (
   <svg
+    height="22"
+    id="svg6530"
+    version="1.1"
+    viewBox="0 0 22 22"
+    width="22"
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    fill="currentColor"
-    className="bi bi-battery-full"
-    viewBox="0 0 16 16"
   >
-    <path d="M2 6h10v4H2V6z" />
-    <path d="M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z" />
+    <g
+      id="layer1"
+      style={{ display: "inline" }}
+      transform="translate(-32.999983,-397.3639)"
+    >
+      <rect
+        height="22"
+        id="rect6746"
+        style={{
+          color: "#dddddd",
+          display: "inline",
+          overflow: "visible",
+          visibility: "visible",
+          fill: "none",
+          stroke: "none",
+          strokeWidth: "1",
+          marker: "none",
+        }}
+        transform="matrix(0,1,-1,0,0,0)"
+        width="22"
+        x="397.36389"
+        y="-54.999985"
+      />
+      <path
+        d="m 42,401.3639 0,1 -3,0 c 0,0 0,0.446 0,1 l 0,11 c 0,0.554 0.446,1 1,1 l 8,0 c 0.554,0 1,-0.446 1,-1 l 0,-11 c 0,-0.554 0,-1 0,-1 l -3,0 0,-1 z m 2,4 0,3 3,0 -3,5 0,-3 -3,0 z"
+        id="path6748"
+        style={{ fill: "currentColor", fillOpacity: "1", stroke: "none" }}
+      />
+    </g>
   </svg>
 );
-const half = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    fill="currentColor"
-    className="bi bi-battery-half"
-    viewBox="0 0 16 16"
-  >
-    <path d="M2 6h5v4H2V6z" />
-    <path d="M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h10zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z" />
-  </svg>
-);
-const low = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    fill="currentColor"
-    className="bi bi-battery"
-    viewBox="0 0 16 16"
-  >
-    <path d="M0 6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6zm2-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2zm14 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8z" />
-  </svg>
-);
+
 const Battery = () => {
   return full;
 };
