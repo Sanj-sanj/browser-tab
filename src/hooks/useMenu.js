@@ -15,16 +15,11 @@ import Power from "../components/svg/Power";
 import CalendarBar from "../components/Dropdown/CalendarBar";
 import Notifications from "../components/Dropdown/Notifications";
 
-import { openSettings } from "../js/dispatch";
+import { openSettings, toggleWifi } from "../js/dispatch";
 
 const useMenu = (clearAndUnfocusMenu) => {
   const [menu, setMenu] = useState(null);
   const { state, dispatch } = useContext(UserContext);
-
-  const wifiOnclick = () => {
-    dispatch({ type: "toggleWifi", payload: !state.wifi });
-    clearAndUnfocusMenu();
-  };
 
   function getRects(currentTarget) {
     return currentTarget.getBoundingClientRect();
@@ -71,7 +66,9 @@ const useMenu = (clearAndUnfocusMenu) => {
               Component={Wifi}
               label="Wifi"
               state={state.wifi}
-              _onClick={wifiOnclick}
+              _onClick={() => (
+                toggleWifi(dispatch, state.wifi), clearAndUnfocusMenu()
+              )}
             >
               {["Toggle Wifi", "Watfer", "pancakes"]}
             </Selections>

@@ -42,8 +42,6 @@ export const reducer = (state, action) => {
     case "changeDesktopContext":
       return { ...state, desktopContext: payload };
     case "mkdir":
-      // console.log(payload.handleContextMenu, "mkdir");
-      // return { ...state };
       return {
         ...state,
         dirs: {
@@ -52,7 +50,7 @@ export const reducer = (state, action) => {
             {
               title: payload.title,
               Svg: Bell,
-              handleDoubleClick: () => console.log("dir made"),
+              handleDoubleClick: payload.handleDoubleClick,
               handleContextMenu: desktopContext,
             },
           ],

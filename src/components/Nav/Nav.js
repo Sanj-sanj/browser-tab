@@ -24,17 +24,20 @@ const Nav = () => {
       return doc.removeEventListener("click", listner);
     };
     if (focused && focused !== "left") {
+      setTimeout(() => doc.addEventListener("contextmenu", listner), 500);
       setTimeout(() => doc.addEventListener("click", listner), 500);
       setTimeout(() => doc.addEventListener("keydown", listner), 500);
     }
     if (!focused) {
+      doc.removeEventListener("contextMenu", listner);
       doc.removeEventListener("click", listner);
       return doc.removeEventListener("keydown", listner);
     }
-    return (
-      () => doc.removeEventListener("click", listner),
-      doc.removeEventListener("keydown", listner)
-    );
+    return () => {
+      doc.removeEventListener("click", listner);
+      doc.removeEventListener("keydown", listner);
+      doc.removeEventListener("contextMenu", listner);
+    };
   }, [focused]);
 
   function clearAndUnfocusMenu() {

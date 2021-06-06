@@ -5,10 +5,14 @@ import { openSettings, openNewFolder } from "../../js/dispatch";
 const ContextMenu = ({
   position,
   close,
-  context: { state, dispatch },
+  context: {
+    state: { desktopContext },
+    dispatch,
+  },
   position: { screenRects },
 }) => {
-  const closeMenu = (e) => (e.key === "Escape" ? close() : null);
+  const closeMenu = (e) =>
+    e.key === "Escape" || e.type === "click" ? close() : null;
 
   if (position.x + 192 >= screenRects.width) {
     position.x = position.x - 192;
@@ -19,9 +23,13 @@ const ContextMenu = ({
 
   useEffect(() => {
     const body = document.body;
+    const nav = document.querySelector("nav.relative.w-full.h-7.max-h-7");
     body.addEventListener("keydown", closeMenu);
+    nav.addEventListener("click", closeMenu);
+
     return () => {
       body.removeEventListener("keydown", closeMenu);
+      nav.removeEventListener("click", closeMenu);
     };
   });
   return (
@@ -31,34 +39,46 @@ const ContextMenu = ({
       role="presentation"
       onKeyDown={closeMenu}
     >
-      {/* {console.log(state.desktopContext)} */}
-      {state.desktopContext.title ? (
-        <Button close={close} _onClick={state.desktopContext.onClick}>
-          Open {state.desktopContext.title}{" "}
-        </Button>
+      {/* The component 'Desktop's onContextMenu handler prevents default, maps icons with custom handelUseContext to save icon name and onDoubleClick to Context, context Menu watches this on render to complete application context.*/}
+      {desktopContext.title ? (
+        <>
+          <Button close={close} _onClick={desktopContext.onClick}>
+            Open {desktopContext.title}{" "}
+          </Button>
+          <Button close={close}>Cut</Button>
+          <Button close={close}>Copy</Button>
+          <Button close={close}>Rename...</Button>
+          <Button close={close}>Move to Trash</Button>
+          <hr className="w-full border-gray-900" />
+          <Button close={close}>Properties</Button>
+          <hr className="w-full border-gray-900" />
+          <Button close={close}>Show in Files</Button>
+        </>
       ) : (
-        <Button close={close} _onClick={() => openNewFolder(dispatch)}>
-          New Folder
-        </Button>
+        <>
+          <Button close={close} _onClick={() => openNewFolder(dispatch)}>
+            New Folder
+          </Button>
+          <hr className="w-full border-gray-900" />
+          <Button close={close}>Paste</Button>
+          <hr className="w-full border-gray-900" />
+          <Button close={close}>Select All</Button>
+          <hr className="w-full border-gray-900" />
+          <Button close={close}>Show Desktop in Files</Button>
+          <Button close={close}>Open in Terminal</Button>
+          <hr className="w-full border-gray-900" />
+          <Button close={close} _onClick={() => openSettings(dispatch)}>
+            Change Background...
+          </Button>
+          <hr className="w-full border-gray-900" />
+          <Button close={close} _onClick={() => openSettings(dispatch)}>
+            Display Settings
+          </Button>
+          <Button close={close} _onClick={() => openSettings(dispatch)}>
+            Settings
+          </Button>
+        </>
       )}
-      <hr className="w-full border-gray-900" />
-      <Button close={close}>Paste</Button>
-      <hr className="w-full border-gray-900" />
-      <Button close={close}>Select All</Button>
-      <hr className="w-full border-gray-900" />
-      <Button close={close}>Show Desktop in Files</Button>
-      <Button close={close}>Open in Terminal</Button>
-      <hr className="w-full border-gray-900" />
-      <Button close={close} _onClick={() => openSettings(dispatch)}>
-        Change Background...
-      </Button>
-      <hr className="w-full border-gray-900" />
-      <Button close={close} _onClick={() => openSettings(dispatch)}>
-        Display Settings
-      </Button>
-      <Button close={close} _onClick={() => openSettings(dispatch)}>
-        Settings
-      </Button>
     </div>
   );
 };

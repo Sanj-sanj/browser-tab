@@ -9,6 +9,8 @@ module.exports = {
         "slide-out-left": "slide-out-left 150ms ease-out",
         "slide-in-right": "slide-in-right 150ms ease-out",
         "slide-out-right": "slide-out-right 150ms ease-out",
+        "pop-out-inside": "pop-out-inside 200ms ease-out",
+        "pop-in-outside": "pop-in-outside 200ms ease-out",
       },
       keyframes: {
         "bounce-in": {
@@ -30,6 +32,14 @@ module.exports = {
         "slide-out-right": {
           "0%": { transform: "translateX(0rem)", opacity: "1" },
           "100%": { transform: "translateX(6rem)", opacity: "0" },
+        },
+        "pop-out-inside": {
+          "0%": { transform: "scale(0)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        "pop-in-outside": {
+          "0%": { transform: "scale(1)", opacity: "1" },
+          "100%": { transform: "scale(0)", opacity: "0" },
         },
       },
       inset: {

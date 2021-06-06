@@ -12,7 +12,7 @@ const Desktop = () => {
     setMenu({ x: 0, y: 0 });
     dispatch({
       type: "changeDesktopContext",
-      payload: { title: "", onClick: () => console.log("nothing here") },
+      payload: { title: "", onClick: () => {} },
     });
   };
 

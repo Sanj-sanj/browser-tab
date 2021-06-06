@@ -20,6 +20,7 @@ const openSettings = (dispatch) =>
       id: uuid(),
     },
   });
+
 const openNewFolder = (dispatch) =>
   dispatch({
     type: "openApp",
@@ -30,22 +31,32 @@ const openNewFolder = (dispatch) =>
       id: uuid(),
     },
   });
-const mkdir = (dispatch, title, handleContextMenu) => {
-  console.log(handleContextMenu);
+
+const toggleWifi = (dispatch, wifi) =>
+  dispatch({ type: "toggleWifi", payload: !wifi });
+
+const mkdir = (dispatch, title, handleDoubleClick) => {
   dispatch({
     type: "mkdir",
     payload: {
-      title: { title },
-      handleContextMenu: handleContextMenu,
+      title: title,
+      handleDoubleClick: handleDoubleClick,
     },
   });
 };
+
 const desktopContext = (dispatch, value, onClick) => {
-  // console.log(dispatch, value, onClick);
   dispatch({
     type: "changeDesktopContext",
     payload: { title: value, onClick: onClick },
   });
 };
 
-export { openJSRacer, openSettings, openNewFolder, mkdir, desktopContext };
+export {
+  openJSRacer,
+  openSettings,
+  openNewFolder,
+  toggleWifi,
+  mkdir,
+  desktopContext,
+};
