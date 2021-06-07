@@ -3,6 +3,7 @@ import Icon from "../Icons/Icon";
 import ContextMenu from "../../ContextMenu/ContextMenu";
 import { useState, useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
+import { clearDesktopContext } from "../../../js/dispatch";
 
 const Desktop = () => {
   const { state, dispatch } = useContext(UserContext);
@@ -10,10 +11,13 @@ const Desktop = () => {
 
   const clearMenuAndMenuContext = () => {
     setMenu({ x: 0, y: 0 });
-    dispatch({
-      type: "changeDesktopContext",
-      payload: { title: "", onClick: () => {} },
-    });
+    clearDesktopContext(dispatch);
+  };
+  const makeContextMenu = (e) => {
+    const screenRects = document
+      .querySelector("section.z-10.h-full.w-full")
+      .getBoundingClientRect();
+    setMenu({ x: e.pageX, y: e.pageY, screenRects });
   };
 
   const openApp = (apps) => {
@@ -37,10 +41,8 @@ const Desktop = () => {
         className="z-10 h-full w-full flex flex-col items-end"
         onContextMenu={(e) => {
           e.preventDefault();
-          const screenRects = document
-            .querySelector("section.z-10.h-full.w-full")
-            .getBoundingClientRect();
-          setMenu({ x: e.pageX, y: e.pageY, screenRects });
+          clearMenuAndMenuContext();
+          makeContextMenu(e);
         }}
         role="presentation"
         onClick={() => (menu.y ? clearMenuAndMenuContext() : null)}
@@ -61,6 +63,7 @@ const Desktop = () => {
                     handleDoubleClick(dispatch)
                   )
                 }
+                makeContextMenu={makeContextMenu}
               />
             );
           }

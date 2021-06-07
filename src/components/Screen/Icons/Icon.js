@@ -2,7 +2,14 @@ import { useState } from "react";
 import Bell from "../../svg/Bell";
 import Draggable from "react-draggable";
 
-const Icon = ({ title, Svg, handleDoubleClick, handleContextMenu, place }) => {
+const Icon = ({
+  title,
+  Svg,
+  handleDoubleClick,
+  handleContextMenu,
+  makeContextMenu,
+  place,
+}) => {
   const [toggle, setToggle] = useState(false);
   // console.log(handleContextMenu);
   return (
@@ -22,7 +29,12 @@ const Icon = ({ title, Svg, handleDoubleClick, handleContextMenu, place }) => {
         onClick={() => (toggle ? setToggle(true) : setToggle(!toggle))}
         onBlur={() => setToggle(false)}
         onFocus={() => setToggle(true)}
-        onContextMenu={handleContextMenu}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          makeContextMenu(e);
+          handleContextMenu();
+        }}
       >
         <span className="text-white">{Svg ? <Svg /> : <Bell />}</span>
         <span

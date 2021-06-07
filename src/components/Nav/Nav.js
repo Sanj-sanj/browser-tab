@@ -46,7 +46,10 @@ const Nav = () => {
   }
 
   return (
-    <nav className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center">
+    <nav
+      className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center"
+      onContextMenu={(e) => e.preventDefault()}
+    >
       {/* Left menu */}
       <button
         className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40  focus:outline-none text-white border-b-2 ${

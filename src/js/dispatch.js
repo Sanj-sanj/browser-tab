@@ -52,6 +52,12 @@ const desktopContext = (dispatch, value, onClick) => {
   });
 };
 
+const clearDesktopContext = (dispatch) =>
+  dispatch({
+    type: "changeDesktopContext",
+    payload: { title: "", onClick: () => {} },
+  });
+
 export {
   openJSRacer,
   openSettings,
@@ -59,4 +65,5 @@ export {
   toggleWifi,
   mkdir,
   desktopContext,
+  clearDesktopContext,
 };
