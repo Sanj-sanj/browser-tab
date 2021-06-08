@@ -11,6 +11,8 @@ module.exports = {
         "slide-out-right": "slide-out-right 150ms ease-out",
         "pop-out-inside": "pop-out-inside 200ms ease-out",
         "pop-in-outside": "pop-in-outside 200ms ease-out",
+        "fade-in": "fade-in 150ms ease-out",
+        "fade-out": "fade-out 150ms ease-out",
       },
       keyframes: {
         "bounce-in": {
@@ -34,12 +36,20 @@ module.exports = {
           "100%": { transform: "translateX(6rem)", opacity: "0" },
         },
         "pop-out-inside": {
-          "0%": { transform: "scale(0)", opacity: "0" },
+          "0%": { transform: "scale(0.75)", opacity: "0" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },
         "pop-in-outside": {
-          "0%": { transform: "scale(1)", opacity: "1" },
-          "100%": { transform: "scale(0)", opacity: "0" },
+          "0%": { transform: "scale(1)", opacity: "0" },
+          "100%": { transform: "scale(0.75)", opacity: "1" },
+        },
+        "fade-out": {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
       },
       inset: {

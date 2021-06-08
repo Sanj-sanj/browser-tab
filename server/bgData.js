@@ -1,13 +1,13 @@
 const bgData = [
   {
+    name: "Mountain",
+    src: "/images/Mountains-Kate-Hazen.png",
+    alt: "A cascading fractal background by Kate-Hazen of System76.",
+  },
+  {
     name: "Honeycomb",
     src: "/images/Honeycomb-Kate-Hazen.png",
     alt: "A fractal honeycomb background by Kate-Hazen of System76.",
-  },
-  {
-    name: "Dragisa",
-    src: "/images/dragisa-braunovic.jpg",
-    alt: "A vista overlooking a town by Dragisa Braunovic.",
   },
   {
     name: "Robot",
@@ -15,9 +15,9 @@ const bgData = [
     alt: "A minimal Robot background by Kate-Hazen of System76.",
   },
   {
-    name: "Mountain",
-    src: "/images/Mountains-Kate-Hazen.png",
-    alt: "A cascading fractal background by Kate-Hazen of System76.",
+    name: "Dragisa",
+    src: "/images/dragisa-braunovic.jpg",
+    alt: "A vista overlooking a town by Dragisa Braunovic.",
   },
   {
     name: "Sunset",

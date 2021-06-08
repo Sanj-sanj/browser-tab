@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { mkdir } from "../../js/dispatch";
 
 const NewFolderApp = ({ dispatch, setToggle }) => {
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    //autofocus on jsx doesnt work, perhaps component is made before injected into the dom via portal?
+    // this timeout is here as a workaround to this
+    const delayFocus = setTimeout(() => {
+      document.querySelector("input.newFolder").focus();
+    }, 100);
+    return () => clearTimeout(delayFocus);
+  }, [dispatch]);
 
   return (
     <>
@@ -22,9 +31,8 @@ const NewFolderApp = ({ dispatch, setToggle }) => {
       </button>
       <div className="w-72 py-4 px-0.5 flex justify-center items-center bg-gray-800">
         <input
-          className="w-full text-white px-2 rounded focus:outline-none bg-gray-700 border-2 border-transparent focus:border-yellow-500"
+          className="newFolder w-full text-white px-2 rounded focus:outline-none bg-gray-700 border-2 border-transparent focus:border-yellow-500"
           type="text"
-          //eslint-disable-next-line
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) =>
             e.key === "Enter" && e.target.value

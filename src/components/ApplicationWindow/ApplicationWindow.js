@@ -18,11 +18,12 @@ import Sunrise from "url:../../images/sunrise-painting-sm.jpeg?as=webp";
 /* eslint-enable */
 
 const appRoot = document.getElementById("window");
+//order effects order in client
 const backgrounds = {
-  Dragisa,
-  Honeycomb,
   Mountain,
+  Honeycomb,
   Robot,
+  Dragisa,
   Sunset,
   Sunrise,
   Minimal1,
@@ -46,10 +47,12 @@ const ApplicationWindow = ({
     elRef.current.className =
       "w-full h-full absolute top-7 pb-16 flex justify-center items-center";
   }
+
   useEffect(() => {
     appRoot.appendChild(elRef.current);
     let timeoutForCloseAnimation;
     if (!toggle) {
+      elRef.current.firstChild.style.transform += " scale(0.85)";
       timeoutForCloseAnimation = setTimeout(() => {
         dispatch({
           type: "closeApp",
@@ -58,7 +61,7 @@ const ApplicationWindow = ({
           },
         }),
           appRoot.removeChild(elRef.current);
-      }, 200);
+      }, 150);
     }
     return () => {
       // appRoot.children.length ? appRoot.removeChild(elRef.current) : null;
@@ -66,14 +69,16 @@ const ApplicationWindow = ({
     };
   }, [toggle]);
 
-  /* MAKE EACH 'NAME' A SEPEARATE COMPONENT */
-
   return createPortal(
-    <Draggable bounds={"parent"} cancel=".exit">
+    <Draggable
+      bounds={"parent"}
+      cancel=".exit"
+      defaultClassName={`${
+        toggle ? "animate-pop-out-inside " : "animate-fade-out"
+      }`}
+    >
       <section
-        className={`bg-gray-700 border border-gray-900 ${
-          toggle ? "animate-pop-out-inside" : "animate-pop-in-outside"
-        } shadow-2xl z-20 rounded-t-md`}
+        className={`bg-gray-700 border border-gray-900 shadow-2xl z-20 rounded-t-md`}
         role="presentation"
       >
         <NavAppWindow setToggle={setToggle} name={name} />
@@ -82,7 +87,6 @@ const ApplicationWindow = ({
         ) : name === "Settings" ? (
           <SettingsApp
             dispatch={dispatch}
-            toggle={toggle}
             backgrounds={backgrounds}
             background={backgrounds[background]}
           />
