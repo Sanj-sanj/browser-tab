@@ -33,6 +33,18 @@ const openSettings = (dispatch) =>
       id: uuid(),
     },
   });
+const openFiles = (dispatch, location) =>
+  dispatch({
+    type: "openApp",
+    payload: {
+      title: "Files",
+      type: "Files",
+      dir: location,
+      src: null,
+      active: true,
+      id: uuid(),
+    },
+  });
 
 const openNewFolder = (dispatch) =>
   dispatch({
@@ -77,6 +89,7 @@ export {
   openBrave,
   openSettings,
   openNewFolder,
+  openFiles,
   toggleWifi,
   mkdir,
   desktopContext,

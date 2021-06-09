@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Button from "../Dropdown/Button";
-import { openSettings, openNewFolder } from "../../js/dispatch";
+import { openSettings, openNewFolder, openFiles } from "../../js/dispatch";
 
 const ContextMenu = ({
   position,
@@ -43,7 +43,7 @@ const ContextMenu = ({
       {desktopContext.title ? (
         <>
           <Button close={close} _onClick={desktopContext.onClick}>
-            Open {desktopContext.title}{" "}
+            Open
           </Button>
           <Button close={close}>Cut</Button>
           <Button close={close}>Copy</Button>
@@ -64,7 +64,9 @@ const ContextMenu = ({
           <hr className="w-full border-gray-900" />
           <Button close={close}>Select All</Button>
           <hr className="w-full border-gray-900" />
-          <Button close={close}>Show Desktop in Files</Button>
+          <Button close={close} _onClick={() => openFiles(dispatch, "desktop")}>
+            Show Desktop in Files
+          </Button>
           <Button close={close}>Open in Terminal</Button>
           <hr className="w-full border-gray-900" />
           <Button close={close} _onClick={() => openSettings(dispatch)}>

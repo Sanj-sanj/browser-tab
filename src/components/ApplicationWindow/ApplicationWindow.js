@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import Draggable from "react-draggable";
 import SettingsApp from "./SettingsApp";
 import NewFolderApp from "./NewFolderApp";
+import FileSystemApp from "./FileSystemApp";
 import IframeApp from "./IframeApp";
 import NavAppWindow from "./NavAppWindow";
 import "./ApplicationWindow.modules.css";
@@ -36,12 +37,13 @@ const ApplicationWindow = ({
   type,
   dispatch,
   id,
-  state: { wifi, background },
+  state,
+  state: { wifi, background, apps },
 }) => {
   //ID gets supplied on creation, use id to alter state.active by filtering.
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
-  console.log(type);
+  console.log(src, name, type, dispatch, id, apps);
 
   if (!elRef.current) {
     elRef.current = document.createElement("div");
@@ -74,8 +76,9 @@ const ApplicationWindow = ({
       }`}
     >
       <section
-        className={`bg-gray-700 border border-gray-900 shadow-2xl z-20 rounded-t-md`}
+        className={`bg-gray-700 border w- border-gray-900 shadow-2xl z-20 rounded-t-md`}
         role="presentation"
+        onContextMenu={(e) => e.preventDefault()}
       >
         <NavAppWindow setToggle={setToggle} name={name} />
         {type === "iframe" ? (
@@ -88,6 +91,8 @@ const ApplicationWindow = ({
           />
         ) : type === "New Folder" ? (
           <NewFolderApp dispatch={dispatch} setToggle={setToggle} />
+        ) : type === "Files" ? (
+          <FileSystemApp dispatch={dispatch} id={id} state={state} />
         ) : null}
       </section>
     </Draggable>,

@@ -16,7 +16,7 @@ const Icon = ({
     <Draggable
       bounds="parent"
       grid={[112, 112]}
-      disabled={place === "activities" ? true : false}
+      disabled={place === "activities" || place === "files" ? true : false}
     >
       <button
         className={` p-1 flex flex-col focus:outline-none items-center overflow-hidden cursor-default ${
