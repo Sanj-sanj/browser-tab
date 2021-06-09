@@ -24,8 +24,8 @@ const Icon = ({
         }
          ${
            toggle
-             ? "border border-blue-500 bg-blue-400 hover:bg-blue-400"
-             : "border border-transparent bg-transparent hover:bg-gray-500"
+             ? "border border-blue-500 bg-blue-400 bg-opacity-60"
+             : "border border-transparent bg-transparent hover:bg-gray-500 hover:bg-opacity-60 bg-opacity-70"
          }`}
         onDoubleClick={handleDoubleClick}
         // onTouchEnd={console.log} make a custom event, firsst tap record time stamp, setTimeout > 700ms, after timeout reset timestamp record, before timeout end, execute dblclick

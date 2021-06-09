@@ -39,7 +39,7 @@ const Desktop = () => {
   return (
     <>
       <section
-        className="z-10 h-full w-full flex flex-col items-end"
+        className="z-10 h-full w-full flex flex-col items-end p-0.5"
         onContextMenu={(e) => {
           e.preventDefault();
           clearMenuAndMenuContext();

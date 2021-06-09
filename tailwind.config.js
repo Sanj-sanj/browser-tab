@@ -60,6 +60,10 @@ module.exports = {
         30: "7.5rem/*120px */",
         82: "21rem/*336px */",
         88: "22rem/*352px */",
+        176: "44rem/*704px */",
+      },
+      transitionProperty: {
+        "h-w": "height, width",
       },
     },
   },

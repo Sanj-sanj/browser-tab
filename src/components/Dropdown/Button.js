@@ -19,7 +19,13 @@ const Button = ({ Component, close, children, _onClick }) => {
           <span className="text-sm">{children}</span>
         </div>
       ) : (
-        <span className="p-1 pl-7 text-sm">{children}</span>
+        <span
+          className={`p-1 pl-7 text-sm ${
+            _onClick ? "text-white" : "text-gray-600"
+          }`}
+        >
+          {children}
+        </span>
       )}
     </button>
   );

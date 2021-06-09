@@ -1,7 +1,7 @@
-const NavAppWindow = ({ setToggle, name }) => {
+const NavAppWindow = ({ setToggle, name, toggleFullscreen }) => {
   return (
     <>
-      <nav className={`relative w-full  `}>
+      <nav className={`relative w-full`} onDoubleClick={toggleFullscreen}>
         <div
           className={`w-full flex flex-col bg-gray-900 text-center text-sm font-bold text-white ${
             name === "New Folder" ? "py-2.5" : "py-1"
