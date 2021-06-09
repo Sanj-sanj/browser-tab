@@ -13,7 +13,11 @@ const Icon = ({
   const [toggle, setToggle] = useState(false);
   // console.log(handleContextMenu);
   return (
-    <Draggable bounds="parent" grid={[112, 112]}>
+    <Draggable
+      bounds="parent"
+      grid={[112, 112]}
+      disabled={place === "activities" ? true : false}
+    >
       <button
         className={` p-1 flex flex-col focus:outline-none items-center overflow-hidden cursor-default ${
           place === "activities" ? "rounded w-20 h-20" : "w-28 h-28"
@@ -26,7 +30,13 @@ const Icon = ({
         onDoubleClick={handleDoubleClick}
         // onTouchEnd={console.log} make a custom event, firsst tap record time stamp, setTimeout > 700ms, after timeout reset timestamp record, before timeout end, execute dblclick
         onKeyDown={(e) => (e.key === "Enter" ? handleDoubleClick() : null)}
-        onClick={() => (toggle ? setToggle(true) : setToggle(!toggle))}
+        onClick={() =>
+          place === "activities"
+            ? handleDoubleClick()
+            : toggle
+            ? setToggle(true)
+            : setToggle(!toggle)
+        }
         onBlur={() => setToggle(false)}
         onFocus={() => setToggle(true)}
         onContextMenu={(e) => {
@@ -35,6 +45,7 @@ const Icon = ({
           makeContextMenu(e);
           handleContextMenu();
         }}
+        title={title}
       >
         <span className="text-white">
           {Icon ? <Icon /> : <img src={appIcon} alt="icon" />}
@@ -42,7 +53,6 @@ const Icon = ({
         <span
           className="flex overflow-hidden justify-center items-center w-full leading-5"
           style={{ height: "inherit" }}
-          title={title}
         >
           <p
             className="text-white text-sm leading-none"
@@ -52,7 +62,7 @@ const Icon = ({
               WebkitBoxOrient: "vertical",
             }}
           >
-            {title}
+            {place === "activities" ? null : title}
           </p>
         </span>
       </button>

@@ -5,12 +5,13 @@ import { UserContext } from "../../../context/UserContext";
 
 const Activities = () => {
   const {
-    state: { activeView, apps },
+    dispatch,
+    state: { activeView, apps, dirs },
   } = useContext(UserContext);
 
   return (
     <div
-      className="w-full h-full flex flex-col z-10"
+      className="w-full h-full flex flex-col z-10 bg-black bg-opacity-70"
       onContextMenu={(e) => e.preventDefault()}
     >
       {/* top panel */}
@@ -25,10 +26,21 @@ const Activities = () => {
             activeView ? "animate-slide-out-left" : ""
           }`}
         >
-          <Icon title="dog" place="activities" />
-          <Icon title="dog" place="activities" />
-          <Icon title="dog" place="activities" />
-          <Icon title="dog" place="activities" />
+          {dirs.favorites.map(({ title, icon, handleDoubleClick }) => (
+            <Icon
+              title={title}
+              key={title}
+              handleDoubleClick={() => {
+                dispatch({
+                  type: "updateActiveView",
+                  payload: true,
+                });
+                handleDoubleClick(dispatch);
+              }}
+              Icon={icon}
+              place="activities"
+            />
+          ))}
           <Icon title="dog" place="activities" />
         </section>
         {/* middle portion two columns absolutely pos, spaced apart */}

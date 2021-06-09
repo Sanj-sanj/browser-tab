@@ -28,6 +28,20 @@ export const UserContext = createContext({
         handleContextMenu: desktopContext,
       },
     ],
+    favorites: [
+      {
+        title: "JS Racer",
+        icon: null,
+        handleDoubleClick: openJSRacer,
+        handleContextMenu: desktopContext,
+      },
+      {
+        title: "Brave Web Browser",
+        icon: Browser,
+        handleDoubleClick: openBrave,
+        handleContextMenu: desktopContext,
+      },
+    ],
     trash: [],
     documents: [],
   },
