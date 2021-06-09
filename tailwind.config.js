@@ -11,8 +11,8 @@ module.exports = {
         "slide-out-right": "slide-out-right 150ms ease-out",
         "pop-out-inside": "pop-out-inside 200ms ease-out",
         "pop-in-outside": "pop-in-outside 200ms ease-out",
-        "fade-in": "fade-in 150ms ease-out",
-        "fade-out": "fade-out 150ms ease-out",
+        "fade-in": "fade-in 200ms ease-out",
+        "fade-out": "fade-out 200ms ease-out",
       },
       keyframes: {
         "bounce-in": {

@@ -6,8 +6,13 @@ const Background = ({ background }) => {
 
   const getImage = async (name) => {
     fetch(`http://localhost:1234/background/${name}`)
-      .then((res) => res.blob())
+      .then((res) => {
+        // return res.body ;
+        // console.log(res.body);
+        return res.blob();
+      })
       .then((img) => {
+        console.log(img);
         setImage(URL.createObjectURL(img));
       });
     fetch(`http://localhost:1234/backgroundalts/${name}`)

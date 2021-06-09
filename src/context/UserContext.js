@@ -1,7 +1,8 @@
 import { createContext } from "react";
 import CodeFile from "../components/svg/CodeFile";
+import Browser from "../components/svg/Browser";
 import Bell from "../components/svg/Bell";
-import { openJSRacer, desktopContext } from "../js/dispatch";
+import { openJSRacer, openBrave, desktopContext } from "../js/dispatch";
 
 export const UserContext = createContext({
   user: "Guest",
@@ -16,11 +17,19 @@ export const UserContext = createContext({
     desktop: [
       {
         title: "JS Racer",
-        Svg: CodeFile,
+        icon: null,
         handleDoubleClick: openJSRacer,
         handleContextMenu: desktopContext,
       },
+      {
+        title: "Brave Web Browser",
+        icon: Browser,
+        handleDoubleClick: openBrave,
+        handleContextMenu: desktopContext,
+      },
     ],
+    trash: [],
+    documents: [],
   },
 });
 

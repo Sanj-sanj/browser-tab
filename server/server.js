@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const bgData = require("./bgData");
+// const sharp = require("sharp");
 const app = express();
 const port = process.env.PORT || "1234";
 
@@ -23,15 +24,14 @@ app.listen(port, () => {
 
 app.get("/background/:name?", cors(corsOptions), (req, res) => {
   const { name } = req.params;
-  if (name === "All") {
-    const images = bgData.map((obj) => {
-      return { name: obj.name, src: __dirname + obj.src };
-    });
-    console.log(images);
-    return res.status(200).json(images);
-  }
+
   const background = bgData.find((obj) => obj.name === name);
   const imageToUse = __dirname + background.src;
+  console.log(imageToUse);
+  // const converted = sharp(imageToUse)
+  //   .webp({ quality: 75 })
+  //   .toFile(__dirname + background.src.split(".")[0] + "-converted.webp");
+  // console.log(converted);
   res.sendFile(imageToUse);
   console.log("sending background " + background.name);
 });

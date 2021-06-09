@@ -21,12 +21,13 @@ const Desktop = () => {
   };
 
   const openApp = (apps) => {
-    return apps.map(({ title, src, active, id }) =>
+    return apps.map(({ type, title, src, active, id }) =>
       active ? (
         <ApplicationWindow
           key={id}
           name={title}
-          file={src}
+          type={type}
+          src={src}
           dispatch={dispatch}
           id={id}
           state={state}
@@ -51,12 +52,12 @@ const Desktop = () => {
         }
       >
         {state.dirs.desktop.map(
-          ({ title, Svg, handleDoubleClick, handleContextMenu }) => {
+          ({ title, icon, handleDoubleClick, handleContextMenu }) => {
             return (
               <Icon
                 title={title}
                 key={title}
-                Svg={Svg}
+                Icon={icon}
                 handleDoubleClick={() => handleDoubleClick(dispatch)}
                 handleContextMenu={() =>
                   handleContextMenu(dispatch, title, () =>

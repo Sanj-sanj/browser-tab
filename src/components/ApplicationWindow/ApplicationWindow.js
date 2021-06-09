@@ -31,8 +31,9 @@ const backgrounds = {
 };
 
 const ApplicationWindow = ({
-  file,
+  src,
   name,
+  type,
   dispatch,
   id,
   state: { wifi, background },
@@ -40,7 +41,7 @@ const ApplicationWindow = ({
   //ID gets supplied on creation, use id to alter state.active by filtering.
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
-  console.log("app window update");
+  console.log(type);
 
   if (!elRef.current) {
     elRef.current = document.createElement("div");
@@ -50,23 +51,18 @@ const ApplicationWindow = ({
 
   useEffect(() => {
     appRoot.appendChild(elRef.current);
-    let timeoutForCloseAnimation;
     if (!toggle) {
-      elRef.current.firstChild.style.transform += " scale(0.85)";
-      timeoutForCloseAnimation = setTimeout(() => {
+      elRef.current.firstChild.style.transform += " scale(0.8)";
+      setTimeout(() => {
         dispatch({
           type: "closeApp",
           payload: {
             id: id,
           },
-        }),
-          appRoot.removeChild(elRef.current);
-      }, 150);
+        });
+        appRoot.removeChild(elRef.current);
+      }, 200);
     }
-    return () => {
-      // appRoot.children.length ? appRoot.removeChild(elRef.current) : null;
-      clearTimeout(timeoutForCloseAnimation);
-    };
   }, [toggle]);
 
   return createPortal(
@@ -82,15 +78,15 @@ const ApplicationWindow = ({
         role="presentation"
       >
         <NavAppWindow setToggle={setToggle} name={name} />
-        {name === "Javascript-Racer" ? (
-          <IframeApp name={name} file={file} wifi={wifi} />
-        ) : name === "Settings" ? (
+        {type === "iframe" ? (
+          <IframeApp name={name} src={src} wifi={wifi} />
+        ) : type === "Settings" ? (
           <SettingsApp
             dispatch={dispatch}
             backgrounds={backgrounds}
             background={backgrounds[background]}
           />
-        ) : name === "New Folder" ? (
+        ) : type === "New Folder" ? (
           <NewFolderApp dispatch={dispatch} setToggle={setToggle} />
         ) : null}
       </section>

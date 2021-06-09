@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Bell from "../../svg/Bell";
+import appIcon from "url:../../../images/application-x-executable.png";
 import Draggable from "react-draggable";
 
 const Icon = ({
   title,
-  Svg,
+  Icon,
   handleDoubleClick,
   handleContextMenu,
   makeContextMenu,
@@ -13,10 +13,10 @@ const Icon = ({
   const [toggle, setToggle] = useState(false);
   // console.log(handleContextMenu);
   return (
-    <Draggable bounds="parent" grid={[112, 96]}>
+    <Draggable bounds="parent" grid={[112, 112]}>
       <button
         className={` p-1 flex flex-col focus:outline-none items-center overflow-hidden cursor-default ${
-          place === "activities" ? "rounded w-20 h-20" : "w-28 h-24"
+          place === "activities" ? "rounded w-20 h-20" : "w-28 h-28"
         }
          ${
            toggle
@@ -36,14 +36,16 @@ const Icon = ({
           handleContextMenu();
         }}
       >
-        <span className="text-white">{Svg ? <Svg /> : <Bell />}</span>
+        <span className="text-white">
+          {Icon ? <Icon /> : <img src={appIcon} alt="icon" />}
+        </span>
         <span
           className="flex overflow-hidden justify-center items-center w-full leading-5"
           style={{ height: "inherit" }}
           title={title}
         >
           <p
-            className="text-white text-sm"
+            className="text-white text-sm leading-none"
             style={{
               display: "-webkit-box",
               WebkitLineClamp: "2",
