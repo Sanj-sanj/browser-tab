@@ -70,7 +70,12 @@ const mkdir = (dispatch, title, handleDoubleClick) => {
     },
   });
 };
-
+const cdOpenApp = (dispatch, id, dir) => {
+  dispatch({
+    type: "cdOpenApp",
+    payload: { id, dir },
+  });
+};
 const desktopContext = (dispatch, value, onClick) => {
   dispatch({
     type: "changeDesktopContext",
@@ -92,6 +97,7 @@ export {
   openFiles,
   toggleWifi,
   mkdir,
+  cdOpenApp,
   desktopContext,
   clearDesktopContext,
 };

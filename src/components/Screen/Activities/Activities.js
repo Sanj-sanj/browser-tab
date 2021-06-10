@@ -26,7 +26,7 @@ const Activities = () => {
             activeView ? "animate-slide-out-left" : ""
           }`}
         >
-          {dirs.favorites.map(({ title, icon, handleDoubleClick }) => (
+          {dirs.starred.map(({ title, icon, handleDoubleClick }) => (
             <Icon
               title={title}
               key={title}
@@ -41,7 +41,6 @@ const Activities = () => {
               place="activities"
             />
           ))}
-          <Icon title="dog" place="activities" />
         </section>
         {/* middle portion two columns absolutely pos, spaced apart */}
         <section

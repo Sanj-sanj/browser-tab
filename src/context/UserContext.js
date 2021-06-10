@@ -13,6 +13,21 @@ export const UserContext = createContext({
   background: "Mountain",
   desktopContext: { title: "", onClick: () => {} },
   dirs: {
+    recent: [],
+    starred: [
+      {
+        title: "JS Racer",
+        icon: null,
+        handleDoubleClick: openJSRacer,
+        handleContextMenu: desktopContext,
+      },
+      {
+        title: "Brave Web Browser",
+        icon: Browser,
+        handleDoubleClick: openBrave,
+        handleContextMenu: desktopContext,
+      },
+    ],
     desktop: [
       {
         title: "JS Racer",
@@ -27,13 +42,7 @@ export const UserContext = createContext({
         handleContextMenu: desktopContext,
       },
     ],
-    favorites: [
-      {
-        title: "JS Racer",
-        icon: null,
-        handleDoubleClick: openJSRacer,
-        handleContextMenu: desktopContext,
-      },
+    documents: [
       {
         title: "Brave Web Browser",
         icon: Browser,
@@ -41,8 +50,11 @@ export const UserContext = createContext({
         handleContextMenu: desktopContext,
       },
     ],
+    downloads: [],
+    music: [],
+    pictures: [],
+    videos: [],
     trash: [],
-    documents: [],
   },
 });
 
@@ -78,6 +90,15 @@ export const reducer = (state, action) => {
           ],
         },
       };
+    case "cdOpenApp":
+      if (state.apps.some((app) => app.id === payload.id)) {
+        const newAppState = state.apps.map((app) => {
+          if (app.id === payload.id) app.dir = payload.dir;
+          return app;
+        });
+        return { ...state, apps: newAppState };
+      }
+      return { ...state };
     case "openApp":
       return { ...state, apps: [...state.apps, payload] };
     case "closeApp":
