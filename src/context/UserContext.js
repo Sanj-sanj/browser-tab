@@ -1,5 +1,4 @@
 import { createContext } from "react";
-import CodeFile from "../components/svg/CodeFile";
 import Browser from "../components/svg/Browser";
 import Bell from "../components/svg/Bell";
 import { openJSRacer, openBrave, desktopContext } from "../js/dispatch";

@@ -1,11 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import Draggable from "react-draggable";
 import SettingsApp from "./SettingsApp";
 import NewFolderApp from "./NewFolderApp";
 import FileSystemApp from "./FileSystemApp";
 import IframeApp from "./IframeApp";
-import NavAppWindow from "./NavAppWindow";
 import "./ApplicationWindow.modules.css";
 /* eslint-disable */
 import Dragisa from "url:../../images/dragisa-sm.jpeg?as=webp";
@@ -43,7 +41,6 @@ const ApplicationWindow = ({
   //ID gets supplied on creation, use id to alter state.active by filtering.
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
-  const [fullscreen, setFullscreen] = useState(false);
 
   if (!elRef.current) {
     elRef.current = document.createElement("div");
@@ -67,51 +64,43 @@ const ApplicationWindow = ({
     }
   }, [toggle]);
 
-  //put the nav into each individual component as sub component, right now readability is fucked
-
   return createPortal(
-    <Draggable
-      bounds={"parent"}
-      cancel=".exit"
-      defaultClassName={`${
-        toggle ? "animate-pop-out-inside " : "animate-fade-out"
-      }`}
-      position={fullscreen ? { x: 0, y: 0 } : null}
-    >
-      <section
-        className={`bg-gray-700 border ${
-          name === "New Folder" ? "" : "w-80 sm:w-176"
-        }  border-gray-900 shadow-2xl transition-h-w z-20 rounded-t-md `}
-        style={{
-          width: `${fullscreen ? "100%" : ""}`,
-          height: `${fullscreen ? "100%" : ""}`,
-        }}
-        role="presentation"
-        onContextMenu={(e) => e.preventDefault()}
-      >
-        <NavAppWindow
+    <>
+      {type === "iframe" ? (
+        <IframeApp
+          name={name}
+          src={src}
+          wifi={wifi}
+          toggle={toggle}
           setToggle={setToggle}
-          toggleFullscreen={
-            name === "New Folder" ? null : () => setFullscreen(!fullscreen)
-          }
+        />
+      ) : type === "Settings" ? (
+        <SettingsApp
+          dispatch={dispatch}
+          name={name}
+          backgrounds={backgrounds}
+          background={backgrounds[background]}
+          toggle={toggle}
+          setToggle={setToggle}
+        />
+      ) : type === "Files" ? (
+        <FileSystemApp
+          dispatch={dispatch}
+          id={id}
+          state={state}
+          toggle={toggle}
+          setToggle={setToggle}
           name={name}
         />
-        {type === "iframe" ? (
-          <IframeApp name={name} src={src} wifi={wifi} />
-        ) : type === "Settings" ? (
-          <SettingsApp
-            dispatch={dispatch}
-            backgrounds={backgrounds}
-            background={backgrounds[background]}
-            fullscreen={fullscreen}
-          />
-        ) : type === "New Folder" ? (
-          <NewFolderApp dispatch={dispatch} setToggle={setToggle} />
-        ) : type === "Files" ? (
-          <FileSystemApp dispatch={dispatch} id={id} state={state} />
-        ) : null}
-      </section>
-    </Draggable>,
+      ) : type === "New Folder" ? (
+        <NewFolderApp
+          dispatch={dispatch}
+          name={name}
+          setToggle={setToggle}
+          toggle={toggle}
+        />
+      ) : null}
+    </>,
     elRef.current
   );
 };
