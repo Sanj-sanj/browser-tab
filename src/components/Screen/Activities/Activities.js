@@ -11,7 +11,7 @@ const Activities = () => {
 
   return (
     <div
-      className="w-full h-full flex flex-col z-10 bg-black bg-opacity-70"
+      className="w-full h-full flex flex-col z-10 bg-black bg-opacity-70 animate-fade-in"
       onContextMenu={(e) => e.preventDefault()}
     >
       {/* top panel */}

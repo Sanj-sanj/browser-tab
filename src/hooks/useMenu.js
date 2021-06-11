@@ -30,11 +30,11 @@ const useMenu = (clearAndUnfocusMenu) => {
       case "middle":
         setMenu(
           <Dropdown rects={getRects(currentTarget)} caller={caller}>
-            <div className="flex flex-col p-2 lg:flex-row items-center">
-              <section className="flex-1">
+            <div className="flex flex-col w-full p-2 lg:flex-row items-center">
+              <section className="flex-1 w-1/2">
                 <Notifications />
               </section>
-              <section className="flex justify-center flex-1 w-full border-l border-transparent lg:border-gray-900 lg:max-w-max">
+              <section className="flex justify-center flex-1 w-1/2 border-l border-transparent lg:border-gray-900 lg:max-w-max">
                 <CalendarBar />
               </section>
             </div>

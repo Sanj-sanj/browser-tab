@@ -13,9 +13,8 @@ const App = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full h-screen ">
+      <div className="flex flex-col w-full h-screen select-none">
         <UserContext.Provider value={{ state, dispatch }}>
-          {/* top status bar */}
           <Nav />
           <Screen />
         </UserContext.Provider>

@@ -33,7 +33,7 @@ const Screen = () => {
   return (
     <>
       <div
-        className={`absolute bottom-0 w-screen h-screen pointer-events-none ${
+        className={`absolute top-0 w-screen h-screen pointer-events-none ${
           parseInt(brightness) <= 0 ? "bg-transparent" : "bg-black"
         } bg-opacity-${brightness === "100" ? "95" : brightness}`}
         style={{ zIndex: "100" }}

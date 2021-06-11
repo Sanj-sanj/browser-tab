@@ -21,7 +21,7 @@ const CalendarBar = () => {
   return (
     <div className="relative w-full flex flex-col max-w-xs px-4">
       <section className="flex flex-col items-end text-right">
-        <div className="w-full mb-6">
+        <div className="w-full mb-2 sm:mb-6">
           <header className="flex flex-col px-3 w-full text-left">
             <span className="font-bold">{day}</span>
             <span className="text-2xl">
