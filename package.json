@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "parcel src/index.html --port 5983",
-    "build": "parcel build src/index.html --dist-dir 'dist' --no-scope-hoist",
+    "build": "PARCEL_WORKERS=0 parcel build src/index.html --dist-dir 'dist'",
     "serve": "parcel serve src/index.html",
     "run": "parcel serve dist/index.626964b1.js",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
