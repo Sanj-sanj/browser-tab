@@ -46,12 +46,13 @@ const openFiles = (dispatch, location) =>
     },
   });
 
-const openNewFolder = (dispatch) =>
+const openNewFolderApp = (dispatch, newDir) =>
   dispatch({
     type: "openApp",
     payload: {
       title: "New Folder",
       type: "New Folder",
+      dir: newDir,
       src: null,
       active: true,
       id: uuid(),
@@ -61,12 +62,13 @@ const openNewFolder = (dispatch) =>
 const toggleWifi = (dispatch, wifi) =>
   dispatch({ type: "toggleWifi", payload: !wifi });
 
-const mkdir = (dispatch, title, handleDoubleClick) => {
+const mkdir = (dispatch, title, whichDir, handleDoubleClick) => {
   dispatch({
     type: "mkdir",
     payload: {
       title: title,
       handleDoubleClick: handleDoubleClick,
+      whichDir: whichDir,
     },
   });
 };
@@ -93,7 +95,7 @@ export {
   openJSRacer,
   openBrave,
   openSettings,
-  openNewFolder,
+  openNewFolderApp,
   openFiles,
   toggleWifi,
   mkdir,

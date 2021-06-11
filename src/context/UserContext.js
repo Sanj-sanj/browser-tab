@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import Browser from "../components/svg/Browser";
-import Bell from "../components/svg/Bell";
+/* eslint-disable-next-line */
+import folder from "url:../images/folders/folder.png";
 import { openJSRacer, openBrave, desktopContext } from "../js/dispatch";
 
 export const UserContext = createContext({
@@ -76,20 +77,28 @@ export const reducer = (state, action) => {
     case "changeDesktopContext":
       return { ...state, desktopContext: payload };
     case "mkdir":
-      return {
-        ...state,
-        dirs: {
-          desktop: [
-            ...state.dirs.desktop,
-            {
-              title: payload.title,
-              Svg: Bell,
-              handleDoubleClick: payload.handleDoubleClick,
-              handleContextMenu: desktopContext,
-            },
-          ],
-        },
-      };
+      if (payload.whichDir) {
+        const destination = payload.whichDir;
+        return {
+          ...state,
+          dirs: {
+            ...state.dirs,
+            [destination]: [
+              ...state.dirs[destination],
+              {
+                title: payload.title,
+                /*eslint-disable-next-line*/
+                icon: () => (
+                  <img className="w-16" src={folder} alt="icon of a folder" />
+                ),
+                handleDoubleClick: payload.handleDoubleClick,
+                handleContextMenu: desktopContext,
+              },
+            ],
+          },
+        };
+      }
+      return { ...state };
     case "cdOpenApp":
       if (state.apps.some((app) => app.id === payload.id)) {
         const newAppState = state.apps.map((app) => {

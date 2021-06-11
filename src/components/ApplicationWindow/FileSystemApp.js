@@ -3,7 +3,25 @@ import Draggable from "react-draggable";
 import Icon from "../Screen/Icons/Icon";
 import NavAppWindow from "./NavAppWindow";
 import AppButton from "./WindowComponents/AppButton";
-import { cdOpenApp } from "../../js/dispatch";
+import { cdOpenApp, openNewFolderApp } from "../../js/dispatch";
+/* eslint-disable */
+import documentsFolder from "url:../../images/folders/folder-documents.png";
+import desktopFolder from "url:../../images/folders/folder-desktop.png";
+import downloadsFolder from "url:../../images/folders/folder-downloads.png";
+import musicFolder from "url:../../images/folders/folder-music.png";
+import picturesFolder from "url:../../images/folders/folder-pictures.png";
+import videosFolder from "url:../../images/folders/folder-videos.png";
+import recentFolder from "url:../../images/folders/folder-recent.png";
+/* eslint-enable */
+const folders = {
+  documentsFolder,
+  desktopFolder,
+  downloadsFolder,
+  musicFolder,
+  picturesFolder,
+  videosFolder,
+  recentFolder,
+};
 
 const FileSystemApp = ({ dispatch, state, id, toggle, setToggle, name }) => {
   const [fullscreen, setFullscreen] = useState(false);
@@ -48,13 +66,23 @@ const FileSystemApp = ({ dispatch, state, id, toggle, setToggle, name }) => {
   const createDirsInHomeFolder = () => {
     const dirsInHome = [];
     for (const dir in state.dirs) {
-      dirsInHome.push(
-        <Icon
-          key={dir}
-          title={dir.slice(0, 1).toUpperCase() + dir.slice(1)}
-          handleDoubleClick={() => cdOpenApp(dispatch, id, dir)}
-        />
-      );
+      const formattedDir = dir.slice(0, 1).toUpperCase() + dir.slice(1);
+      dir === "starred" || dir === "trash"
+        ? null
+        : dirsInHome.push(
+            <Icon
+              key={dir}
+              title={formattedDir}
+              handleDoubleClick={() => cdOpenApp(dispatch, id, dir)}
+              Icon={() => (
+                <img
+                  className="w-16"
+                  src={folders[`${dir}Folder`]}
+                  alt={`Icon for the ${formattedDir} folder`}
+                />
+              )}
+            />
+          );
     }
     return dirsInHome;
   };
@@ -83,6 +111,24 @@ const FileSystemApp = ({ dispatch, state, id, toggle, setToggle, name }) => {
           thickBar={true}
           name={name}
         />
+        <span className="absolute text-white text-sm top-1 left-1 w-48 flex justify-between items-center">
+          <span className="flex w-full">
+            <button className="bg-gray-800 py-1.5 px-2 border border-black">{`[<]`}</button>
+            <button className="bg-gray-800 py-1.5 px-2 border border-black">{`[>]`}</button>
+          </span>
+          <button
+            className="py-1.5 w-64 relative bg-gray-800 border border-black"
+            onClick={() => openNewFolderApp(dispatch, currentDir)}
+          >
+            {currentDir.slice(0, 1).toUpperCase() + currentDir.slice(1)}
+            <span
+              className="absolute right-2.5 transform rotate-45 -translate-y-0.5"
+              style={{ fontSize: "9px" }}
+            >
+              ◢
+            </span>
+          </button>
+        </span>
         <div className="content flex flex-col sm:flex-row w-full h-full">
           {/* Left Panel */}
           <section className="h-auto py-1 bg-gray-800 border-r border-gray-900 flex flex-row overflow-x-scroll sm:overflow-x-hidden sm:flex-col sm:w-60  ">

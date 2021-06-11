@@ -11,7 +11,7 @@ const Icon = ({
   place,
 }) => {
   const [toggle, setToggle] = useState(false);
-  // console.log(handleContextMenu);
+
   return (
     <Draggable
       bounds="parent"
