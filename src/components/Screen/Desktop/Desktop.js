@@ -52,11 +52,11 @@ const Desktop = () => {
         }
       >
         {state.dirs.desktop.map(
-          ({ title, icon, handleDoubleClick, handleContextMenu }) => {
+          ({ title, id, icon, handleDoubleClick, handleContextMenu }) => {
             return (
               <Icon
                 title={title}
-                key={title}
+                key={id}
                 Icon={icon}
                 handleDoubleClick={() => handleDoubleClick(dispatch)}
                 handleContextMenu={() =>

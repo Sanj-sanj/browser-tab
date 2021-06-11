@@ -21,12 +21,14 @@ export const UserContext = createContext({
         icon: null,
         handleDoubleClick: openJSRacer,
         handleContextMenu: desktopContext,
+        id: "001",
       },
       {
         title: "Brave Web Browser",
         icon: Browser,
         handleDoubleClick: openBrave,
         handleContextMenu: desktopContext,
+        id: "002",
       },
     ],
     desktop: [
@@ -35,12 +37,14 @@ export const UserContext = createContext({
         icon: null,
         handleDoubleClick: openJSRacer,
         handleContextMenu: desktopContext,
+        id: "001",
       },
       {
         title: "Brave Web Browser",
         icon: Browser,
         handleDoubleClick: openBrave,
         handleContextMenu: desktopContext,
+        id: "002",
       },
     ],
     documents: [
@@ -49,6 +53,7 @@ export const UserContext = createContext({
         icon: Browser,
         handleDoubleClick: openBrave,
         handleContextMenu: desktopContext,
+        id: "001",
       },
     ],
     downloads: [],
@@ -91,6 +96,7 @@ export const reducer = (state, action) => {
                 icon: () => (
                   <img className="w-16" src={folder} alt="icon of a folder" />
                 ),
+                id: payload.id,
                 handleDoubleClick: payload.handleDoubleClick,
                 handleContextMenu: desktopContext,
               },

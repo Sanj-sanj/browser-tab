@@ -69,6 +69,7 @@ const mkdir = (dispatch, title, whichDir, handleDoubleClick) => {
       title: title,
       handleDoubleClick: handleDoubleClick,
       whichDir: whichDir,
+      id: uuid(),
     },
   });
 };
