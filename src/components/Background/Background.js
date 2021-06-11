@@ -1,27 +1,33 @@
 import { useEffect, useState } from "react";
+import bgData from "./bgData";
+/* eslint-disable */
+import Dragisa from "url:./images/dragisa-braunovic-converted.webp";
+import Honeycomb from "url:./images/Honeycomb-Kate-Hazen-converted.webp";
+import Mountain from "url:./images/Mountains-Kate-Hazen-converted.webp";
+import Robot from "url:./images/Robot-Kate-Hazen-converted.webp";
+import Sunset from "url:./images/Sunset-Sides-Imagery-converted.webp";
+import Minimal1 from "url:./images/min1-converted.webp";
+import Minimal2 from "url:./images/min2-converted.webp";
+import Sunrise from "url:./images/sunrise-painting-converted.webp";
+/* eslint-enable */
+const backgrounds = {
+  Mountain,
+  Honeycomb,
+  Robot,
+  Dragisa,
+  Sunset,
+  Sunrise,
+  Minimal1,
+  Minimal2,
+};
 
 const Background = ({ background }) => {
   const [image, setImage] = useState(null);
   const [alt, setAlt] = useState(null);
 
-  const getImage = async (name) => {
-    fetch(`http://localhost:1234/background/${name}`)
-      .then((res) => {
-        // return res.body ;
-        // console.log(res.body);
-        return res.blob();
-      })
-      .then((img) => {
-        console.log(img);
-        setImage(URL.createObjectURL(img));
-      });
-    fetch(`http://localhost:1234/backgroundalts/${name}`)
-      .then((res) => res.json())
-      .then((alt) => setAlt(alt));
-  };
-
   useEffect(() => {
-    getImage(background);
+    setImage(backgrounds[background]);
+    setAlt(bgData.find((bg) => bg.name === background).alt);
   }, [background]);
 
   return (
