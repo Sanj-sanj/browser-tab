@@ -22,6 +22,7 @@ export const UserContext = createContext({
         handleDoubleClick: openJSRacer,
         handleContextMenu: desktopContext,
         id: "001",
+        type: "app",
       },
       {
         title: "Brave Web Browser",
@@ -29,6 +30,7 @@ export const UserContext = createContext({
         handleDoubleClick: openBrave,
         handleContextMenu: desktopContext,
         id: "002",
+        type: "app",
       },
     ],
     desktop: [
@@ -38,6 +40,7 @@ export const UserContext = createContext({
         handleDoubleClick: openJSRacer,
         handleContextMenu: desktopContext,
         id: "001",
+        type: "app",
       },
       {
         title: "Brave Web Browser",
@@ -45,6 +48,7 @@ export const UserContext = createContext({
         handleDoubleClick: openBrave,
         handleContextMenu: desktopContext,
         id: "002",
+        type: "app",
       },
     ],
     documents: [
@@ -54,6 +58,7 @@ export const UserContext = createContext({
         handleDoubleClick: openBrave,
         handleContextMenu: desktopContext,
         id: "001",
+        type: "app",
       },
     ],
     downloads: [],
@@ -99,6 +104,10 @@ export const reducer = (state, action) => {
                 id: payload.id,
                 handleDoubleClick: payload.handleDoubleClick,
                 handleContextMenu: desktopContext,
+                type: "folder",
+              },
+              {
+                [destination]: [],
               },
             ],
           },

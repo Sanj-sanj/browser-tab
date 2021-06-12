@@ -14,6 +14,7 @@ const ApplicationWindow = ({
   type,
   dispatch,
   id,
+  clearDesktopContext,
   state,
   state: { wifi, background, apps },
 }) => {
@@ -25,6 +26,7 @@ const ApplicationWindow = ({
     elRef.current = document.createElement("div");
     elRef.current.className =
       "w-full h-full absolute top-7 flex justify-center items-center";
+    elRef.current.onclick = clearDesktopContext;
   }
 
   useEffect(() => {
@@ -52,6 +54,7 @@ const ApplicationWindow = ({
           wifi={wifi}
           toggle={toggle}
           setToggle={setToggle}
+          clearDesktopContext={clearDesktopContext}
         />
       ) : type === "Settings" ? (
         <SettingsApp

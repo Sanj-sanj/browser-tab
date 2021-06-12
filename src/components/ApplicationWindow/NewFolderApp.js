@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Draggable from "react-draggable";
-import { mkdir } from "../../js/dispatch";
+import { mkdir, openFiles } from "../../js/dispatch";
 import NavAppWindow from "./NavAppWindow";
 
 const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
@@ -36,7 +36,9 @@ const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
               : "bg-gray-700 text-gray-500"
           } `}
           onClick={() => {
-            mkdir(dispatch, value, whichDir, () => console.log("customaswell")),
+            mkdir(dispatch, value, whichDir, () => {
+              openFiles(dispatch, `${whichDir}.${value}`);
+            }),
               setToggle(false);
           }}
           disabled={value ? false : true}
@@ -50,9 +52,9 @@ const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={(e) =>
               e.key === "Enter" && e.target.value
-                ? (mkdir(dispatch, value, whichDir, () =>
-                    console.log("custom")
-                  ),
+                ? (mkdir(dispatch, value, whichDir, () => {
+                    openFiles(dispatch, `${whichDir}.${value}`);
+                  }),
                   setToggle(false))
                 : null
             }

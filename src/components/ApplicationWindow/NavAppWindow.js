@@ -8,11 +8,11 @@ const NavAppWindow = ({
     <>
       <nav className={`relative w-full`} onDoubleClick={toggleFullscreen}>
         {thickBar ? (
-          <span className="w-full h-1.5 flex border-t border-gray-800 rounded-t-2xl bg-gray-900" />
+          <span className="absolute w-full h-1.5 flex border-t border-gray-800 rounded-t-2xl bg-gray-900" />
         ) : null}
         <div
           className={`w-full flex flex-col bg-gray-900 text-center text-sm font-bold text-white ${
-            thickBar ? "py-2" : "py-1"
+            thickBar ? "py-3" : "py-1"
           }`}
         >
           {name}
@@ -22,7 +22,7 @@ const NavAppWindow = ({
             onClick={() => setToggle(false)}
           >
             <span className="absolute right-3 w-3 h-3 transform translate-y-1 bg-white rounded-2xl "></span>
-            <span className="absolute right-2 text-yellow-600 fill-current hover:text-gray-600 active:text-gray-700">
+            <span className="absolute right-2 transition-colors duration-300 text-yellow-600 fill-current hover:text-gray-600 active:text-gray-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

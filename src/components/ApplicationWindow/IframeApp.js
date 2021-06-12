@@ -2,7 +2,14 @@ import { useState } from "react";
 import Draggable from "react-draggable";
 import NavAppWindow from "./NavAppWindow";
 
-const IframeApp = ({ name, src, wifi, toggle, setToggle }) => {
+const IframeApp = ({
+  name,
+  src,
+  wifi,
+  toggle,
+  clearDesktopContext,
+  setToggle,
+}) => {
   const [value, setValue] = useState(src);
   const [fullscreen, setFullscreen] = useState(false);
 
@@ -74,7 +81,6 @@ const IframeApp = ({ name, src, wifi, toggle, setToggle }) => {
             />
           </div>
         ) : null}
-        {console.log(name)}
         {wifi ? (
           <iframe
             src={value ? value : src}
@@ -82,6 +88,7 @@ const IframeApp = ({ name, src, wifi, toggle, setToggle }) => {
             width={name === "Javascript-Racer" ? "645px" : "100%"}
             height={name === "Javascript-Racer" ? "525px" : "100%"}
             onLoad={(e) => {
+              clearDesktopContext();
               e.target.focus();
             }}
           />

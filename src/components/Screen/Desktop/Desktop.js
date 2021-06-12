@@ -31,6 +31,7 @@ const Desktop = () => {
           dispatch={dispatch}
           id={id}
           state={state}
+          clearDesktopContext={clearMenuAndMenuContext}
         />
       ) : null
     );
@@ -39,7 +40,7 @@ const Desktop = () => {
   return (
     <>
       <section
-        className="z-10 h-full w-full flex flex-col items-end p-0.5"
+        className="z-10 h-full w-full grid grid-flow-col grid-cols-3 grid-rows-6 sm:grid-cols-6 lg:grid-cols-10 gap-0 items-end p-0.5"
         onContextMenu={(e) => {
           e.preventDefault();
           clearMenuAndMenuContext();
@@ -53,20 +54,21 @@ const Desktop = () => {
       >
         {state.dirs.desktop.map(
           ({ title, id, icon, handleDoubleClick, handleContextMenu }) => {
-            return (
-              <Icon
-                title={title}
-                key={id}
-                Icon={icon}
-                handleDoubleClick={() => handleDoubleClick(dispatch)}
-                handleContextMenu={() =>
-                  handleContextMenu(dispatch, title, () =>
-                    handleDoubleClick(dispatch)
-                  )
-                }
-                makeContextMenu={makeContextMenu}
-              />
-            );
+            if (title)
+              return (
+                <Icon
+                  title={title}
+                  key={id}
+                  Icon={icon}
+                  handleDoubleClick={() => handleDoubleClick(dispatch)}
+                  handleContextMenu={() =>
+                    handleContextMenu(dispatch, title, () =>
+                      handleDoubleClick(dispatch)
+                    )
+                  }
+                  makeContextMenu={makeContextMenu}
+                />
+              );
           }
         )}
       </section>

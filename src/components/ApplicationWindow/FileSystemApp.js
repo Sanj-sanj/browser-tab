@@ -3,22 +3,48 @@ import Draggable from "react-draggable";
 import Icon from "../Screen/Icons/Icon";
 import NavAppWindow from "./NavAppWindow";
 import AppButton from "./WindowComponents/AppButton";
-import { openNewFolderApp } from "../../js/dispatch";
+import { cdOpenApp, openNewFolderApp } from "../../js/dispatch";
 import createFoldersInHomeFolder from "../../js/createFoldersInHomeFolder";
 import makeFileSystemNavButtons from "../../js/makeFileSystemNavButtons";
 
-const FileSystemApp = ({ dispatch, state, id, toggle, setToggle, name }) => {
+const FileSystemApp = ({
+  dispatch,
+  state,
+  id: fsId,
+  toggle,
+  setToggle,
+  name,
+}) => {
   const foldersRef = useRef(
-    createFoldersInHomeFolder(dispatch, id, state.dirs)
+    createFoldersInHomeFolder(dispatch, fsId, state.dirs)
   );
   const [fullscreen, setFullscreen] = useState(false);
   const [currentDir, setCurrentDir] = useState(
-    state.apps.find((app) => app.id === id).dir
+    state.apps.find((app) => app.id === fsId).dir
   );
+  const [start, [dirsArray]] = getNestedDirs();
+
+  function getNestedDirs() {
+    if (currentDir.includes(".")) {
+      const dirsArray = currentDir.split(".");
+      const howDeep = dirsArray.length;
+      let start = state.dirs[dirsArray[0]];
+      for (let i = 1; i < howDeep; i++) {
+        start = start.filter((item) => item[dirsArray[i]]);
+        //second loop is looking for [foldername : []], what is there is [3: foldername:[]]
+      }
+      return [start, [dirsArray]];
+    }
+    return [state.dirs[currentDir], [currentDir]];
+  }
 
   useEffect(() => {
-    setCurrentDir(state.apps.find((app) => app.id === id).dir);
+    setCurrentDir(state.apps.find((app) => app.id === fsId).dir);
   });
+
+  const formatDirName = (name) => {
+    return name.slice(0, 1).toUpperCase() + name.slice(1);
+  };
 
   const checkDir = (string) =>
     string.toLowerCase() === currentDir ? true : false;
@@ -53,25 +79,48 @@ const FileSystemApp = ({ dispatch, state, id, toggle, setToggle, name }) => {
             <button className="border-l border-black py-1.5 px-2 ">{`[>]`}</button>
           </span>
           <span className="bg-gray-800 rounded border border-black">
-            <button className="py-1.5 w-28 relative " onClick={() => null}>
+            <button
+              className="py-1.5 w-24 relative "
+              onClick={() => cdOpenApp(dispatch, fsId, "home")}
+            >
               Home
             </button>
+            {!Array.isArray(dirsArray)
+              ? null
+              : dirsArray.map((dir, i) => {
+                  if (i === dirsArray.length - 1) return;
+                  return (
+                    <button
+                      key={dir}
+                      className={`py-1.5 px-4 relative border-l border-gray-900`}
+                      onClick={() => cdOpenApp(dispatch, fsId, dir)}
+                    >
+                      {formatDirName(dir)}
+                    </button>
+                  );
+                })}
             {currentDir !== "home" ? (
               <button
-                className="py-1.5 w-28 relative border-l border-black"
+                className="py-1.5 px-4 relative border-l border-black"
                 onClick={() =>
-                  currentDir === "home"
+                  currentDir === "home" ||
+                  (Array.isArray(dirsArray) &&
+                    currentDir === dirsArray.join("."))
                     ? null
                     : openNewFolderApp(dispatch, currentDir)
                 }
               >
-                <span
-                  className="absolute right-2.5 transform rotate-45 -translate-y-0.5"
-                  style={{ fontSize: "9px" }}
-                >
-                  ◢
+                {Array.isArray(dirsArray)
+                  ? formatDirName(dirsArray[dirsArray.length - 1])
+                  : formatDirName(currentDir)}
+                <span className="pl-4">
+                  <span
+                    className="absolute right-2.5 transform rotate-45 -translate-y-0.5"
+                    style={{ fontSize: "9px" }}
+                  >
+                    ◢
+                  </span>
                 </span>
-                {currentDir.slice(0, 1).toUpperCase() + currentDir.slice(1)}
               </button>
             ) : null}
           </span>
@@ -79,37 +128,52 @@ const FileSystemApp = ({ dispatch, state, id, toggle, setToggle, name }) => {
         <div className="content flex flex-col sm:flex-row w-full h-full">
           {/* Left Panel */}
           <section className="h-auto py-1 bg-gray-800 border-r border-gray-900 flex flex-row overflow-x-scroll sm:overflow-x-hidden sm:flex-col sm:w-60  ">
-            {makeFileSystemNavButtons(dispatch, id, state.dirs, checkDir)}
+            {makeFileSystemNavButtons(dispatch, fsId, state.dirs, checkDir)}
             <hr className="w-full border-gray-900" />
             <AppButton active={checkDir}>Other Locations</AppButton>
           </section>
           <section className="grid grid-cols-2 sm:grid-cols-4 place-content-start gap-0 w-full h-full">
             {/* main view area */}
             <>
+              {/* {console.log(state.dirs[currentDir])} */}
               {currentDir === "home"
                 ? foldersRef.current
-                : state.dirs[currentDir].map(
+                : start.map(
                     ({
                       title,
+                      type,
                       id,
                       icon,
                       handleDoubleClick,
                       handleContextMenu,
-                    }) => (
-                      <Icon
-                        title={title}
-                        key={id}
-                        Icon={icon}
-                        handleDoubleClick={() => handleDoubleClick(dispatch)}
-                        handleContextMenu={() =>
-                          handleContextMenu(dispatch, title, () =>
-                            handleDoubleClick(dispatch)
-                          )
-                        }
-                        place="files"
-                        // makeContextMenu={makeContextMenu}
-                      />
-                    )
+                    }) => {
+                      if (title)
+                        return (
+                          <Icon
+                            title={title}
+                            key={id}
+                            Icon={icon}
+                            handleDoubleClick={() => {
+                              type === "folder"
+                                ? cdOpenApp(
+                                    dispatch,
+                                    fsId,
+                                    Array.isArray(dirsArray)
+                                      ? dirsArray
+                                      : `${currentDir}.${title}`
+                                  )
+                                : handleDoubleClick(dispatch);
+                            }}
+                            handleContextMenu={() =>
+                              handleContextMenu(dispatch, title, () =>
+                                handleDoubleClick(dispatch)
+                              )
+                            }
+                            place="files"
+                            // makeContextMenu={makeContextMenu}
+                          />
+                        );
+                    }
                   )}
             </>
           </section>
