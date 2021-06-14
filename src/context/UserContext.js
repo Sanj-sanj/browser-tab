@@ -12,7 +12,7 @@ export const UserContext = createContext({
   display: 10,
   apps: [],
   background: "Mountain",
-  desktopContext: { title: "", onClick: () => {} },
+  desktopContext: { title: "", id: "", dir: "", e: "", onClick: () => {} },
   dirs: {
     recent: [],
     starred: [
@@ -87,6 +87,34 @@ export const reducer = (state, action) => {
     case "changeDesktopContext":
       return { ...state, desktopContext: payload };
     case "mkdir":
+      // if (payload.whichDir.includes("/")) {
+      //   const path = payload.whichDir.split("/");
+      //   let startDir = path.shift();
+      //   let destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
+      //   console.log(destination, path);
+      //   for (let i = 0; i < path.length; i++) {
+      //     const oneDirDeeper = destination.find((obj) => obj[path[i]]);
+      //     if (!path[i + 1] && !oneDirDeeper[path[i]].length) {
+      //       oneDirDeeper[path[i]].push(
+      //         {
+      //           title: payload.title,
+      //           /* eslint-disable-next-line*/
+      //           icon: () => (
+      //             <img className="w-16" src={folder} alt="icon of a folder" />
+      //           ),
+      //           id: payload.id,
+      //           handleDoubleClick: payload.handleDoubleClick,
+      //           handleContextMenu: desktopContext,
+      //           type: "folder",
+      //         },
+      //         { [payload.title]: [] }
+      //       );
+      //     }
+      //     destination = destination[path[i]];
+      //   }
+      //   return { ...state };
+      //   console.log(destination);
+      // }
       if (payload.whichDir) {
         const destination = payload.whichDir;
         return {
@@ -107,9 +135,33 @@ export const reducer = (state, action) => {
                 type: "folder",
               },
               {
-                [destination]: [],
+                [payload.title]: [],
               },
             ],
+          },
+        };
+      }
+      return { ...state };
+    case "renameItem":
+      // if(payload.dir.includes('/')) {
+      //   const path =payload.dir.split('/')
+      //   const destination = state.dirs[path[0]]
+      //   const folder = state.dirs[[path[0]]][path[1]]
+      //   folder.find(obj => )
+      // }
+      if (payload.dir) {
+        const destination = payload.dir;
+        const toModify = state.dirs[destination].find(
+          (obj) => obj.id === payload.id
+        );
+        toModify.title = payload.newTitle;
+        const returnVal = [...state.dirs[destination]];
+        console.log(returnVal);
+        return {
+          ...state,
+          dirs: {
+            ...state.dirs,
+            [destination]: [...returnVal],
           },
         };
       }

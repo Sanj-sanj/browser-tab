@@ -25,7 +25,8 @@ const ApplicationWindow = ({
   if (!elRef.current) {
     elRef.current = document.createElement("div");
     elRef.current.className =
-      "w-full h-full absolute top-7 flex justify-center items-center";
+      "w-full h-full absolute flex justify-center items-center";
+    elRef.current.style.top = "1.7rem";
     elRef.current.onclick = clearDesktopContext;
   }
 
@@ -40,9 +41,11 @@ const ApplicationWindow = ({
             id: id,
           },
         });
-        appRoot.removeChild(elRef.current);
       }, 200);
     }
+    return () => {
+      appRoot.removeChild(elRef.current);
+    };
   }, [toggle]);
 
   return createPortal(

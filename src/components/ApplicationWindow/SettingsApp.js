@@ -66,15 +66,6 @@ const SettingsApp = ({
             } sm:flex-col h-auto py-1 bg-gray-800 border-r border-gray-900`}
             style={{ minHeight: "4em" }}
           >
-            <AppButton onClick={() => console.log("wip")}>Recent</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Starred</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Home</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Desktop</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Documents</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Downloads</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Music</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Pictures</AppButton>
-            <AppButton onClick={() => console.log("wip")}>Videos</AppButton>
             <AppButton onClick={() => console.log("wip")}>Trash</AppButton>
             <hr className="w-full border-gray-900" />
 

@@ -33,11 +33,17 @@ const Dropdown = ({ children, rects, caller }) => {
     <>
       <div
         className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50 max-w-full animate-bounce-in ${
-          caller === "right" ? "w-72" : "w-4/5 sm:w-3/5 left-1/10 sm:left-1/5"
+          caller === "right"
+            ? "w-72"
+            : caller === "middle"
+            ? "w-4/5 sm:w-3/5 left-1/10 sm:left-1/5"
+            : ""
         }`}
         style={{
           right: caller === "right" ? "1%" : "",
-          top: rects.bottom + rects.bottom / 2,
+          left: caller === "rename" ? rects.left : "",
+          top:
+            caller === "rename" ? rects.top : rects.bottom + rects.bottom / 2,
           border: "1px solid #111827",
         }}
         role="presentation"
@@ -50,8 +56,14 @@ const Dropdown = ({ children, rects, caller }) => {
         <span
           className="absolute bg-gray-800 w-4 h-4 transform rotate-45 "
           style={{
-            top: (rects.bottom / 3) * -1,
-            right: caller === "right" ? rects.width / 2 : "49%",
+            top: caller === "rename" ? "-11%" : (rects.bottom / 3) * -1,
+            right:
+              caller === "right"
+                ? rects.width / 2
+                : caller === "middle"
+                ? "49%"
+                : "",
+            left: caller === "rename" ? "9%" : "",
             borderLeft: "1px solid #111827",
             borderTop: "1px solid #111827",
           }}

@@ -40,7 +40,7 @@ const Desktop = () => {
   return (
     <>
       <section
-        className="z-10 h-full w-full grid grid-flow-col grid-cols-3 grid-rows-6 sm:grid-cols-6 lg:grid-cols-10 gap-0 items-end p-0.5"
+        className="z-10 h-full w-full grid grid-flow-col grid-cols-3 grid-rows-5 sm:grid-cols-6 lg:grid-cols-10 gap-0 place-items-start p-0.5"
         onContextMenu={(e) => {
           e.preventDefault();
           clearMenuAndMenuContext();
@@ -61,8 +61,8 @@ const Desktop = () => {
                   key={id}
                   Icon={icon}
                   handleDoubleClick={() => handleDoubleClick(dispatch)}
-                  handleContextMenu={() =>
-                    handleContextMenu(dispatch, title, () =>
+                  handleContextMenu={(e) =>
+                    handleContextMenu(dispatch, title, id, "desktop", e, () =>
                       handleDoubleClick(dispatch)
                     )
                   }

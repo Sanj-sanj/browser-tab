@@ -43,7 +43,8 @@ const Icon = ({
           e.preventDefault();
           e.stopPropagation();
           makeContextMenu(e);
-          handleContextMenu();
+          handleContextMenu(e);
+          //e is passed for context menu to get rects of icon for modals inside of contextMenu
         }}
         title={title}
       >

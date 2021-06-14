@@ -16,6 +16,7 @@ import CalendarBar from "../components/Dropdown/CalendarBar";
 import Notifications from "../components/Dropdown/Notifications";
 
 import { openSettings, toggleWifi } from "../js/dispatch";
+import Rename from "../components/Dropdown/Rename";
 
 const useMenu = (clearAndUnfocusMenu) => {
   const [menu, setMenu] = useState(null);
@@ -24,8 +25,8 @@ const useMenu = (clearAndUnfocusMenu) => {
   function getRects(currentTarget) {
     return currentTarget.getBoundingClientRect();
   }
-
-  function makeMenu(currentTarget, caller) {
+  function makeMenu(currentTarget, caller, clickHandler) {
+    console.log(currentTarget, caller, clickHandler);
     switch (caller) {
       case "middle":
         setMenu(
@@ -34,7 +35,7 @@ const useMenu = (clearAndUnfocusMenu) => {
               <section className="flex-1 w-1/2">
                 <Notifications />
               </section>
-              <section className="flex justify-center flex-1 w-1/2 border-l border-transparent lg:border-gray-900 lg:max-w-max">
+              <section className="flex justify-center flex-1 w-full md:w-1/2 border-l border-transparent lg:border-gray-900 lg:max-w-max">
                 <CalendarBar />
               </section>
             </div>
@@ -70,7 +71,7 @@ const useMenu = (clearAndUnfocusMenu) => {
                 toggleWifi(dispatch, state.wifi), clearAndUnfocusMenu()
               )}
             >
-              {["Toggle Wifi", "Watfer", "pancakes"]}
+              {[`Turn Wifi ${state.wifi ? "Off" : "On"}`]}
             </Selections>
             <Selections
               Component={Battery}
@@ -94,12 +95,18 @@ const useMenu = (clearAndUnfocusMenu) => {
               label="Power"
               _onClick={clearAndUnfocusMenu}
             >
-              {["Poweroff?"]}
+              {["Logout", "Poweroff?"]}
             </Selections>
           </Dropdown>
         );
         break;
-
+      case "rename":
+        setMenu(
+          <Dropdown rects={currentTarget} caller={caller}>
+            <Rename clickHandler={clickHandler} close={clearAndUnfocusMenu} />
+          </Dropdown>
+        );
+        break;
       default:
         setMenu(null);
         break;

@@ -15,6 +15,13 @@ const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
     return () => clearTimeout(delayFocus);
   }, [dispatch]);
 
+  const handleMakeDir = () => {
+    const onDoubleClick = () =>
+      openFiles(dispatch, `${whichDir}/${value.replace(/\//g, "_")}`);
+    mkdir(dispatch, value.replace(/\//g, "_"), whichDir, onDoubleClick),
+      setToggle(false);
+  };
+
   return (
     <Draggable
       bounds={"parent"}
@@ -36,10 +43,7 @@ const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
               : "bg-gray-700 text-gray-500"
           } `}
           onClick={() => {
-            mkdir(dispatch, value, whichDir, () => {
-              openFiles(dispatch, `${whichDir}.${value}`);
-            }),
-              setToggle(false);
+            handleMakeDir();
           }}
           disabled={value ? false : true}
         >
@@ -51,12 +55,7 @@ const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
             type="text"
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={(e) =>
-              e.key === "Enter" && e.target.value
-                ? (mkdir(dispatch, value, whichDir, () => {
-                    openFiles(dispatch, `${whichDir}.${value}`);
-                  }),
-                  setToggle(false))
-                : null
+              e.key === "Enter" && e.target.value ? handleMakeDir() : null
             }
           />
         </div>

@@ -23,16 +23,23 @@ const FileSystemApp = ({
     state.apps.find((app) => app.id === fsId).dir
   );
   const [start, [dirsArray]] = getNestedDirs();
-
+  // console.log("what", start);
   function getNestedDirs() {
-    if (currentDir.includes(".")) {
-      const dirsArray = currentDir.split(".");
+    if (currentDir.includes("/")) {
+      const dirsArray = currentDir.split("/");
       const howDeep = dirsArray.length;
       let start = state.dirs[dirsArray[0]];
+      // let thisDir;
       for (let i = 1; i < howDeep; i++) {
+        // thisDir = dirsArray[i];
+        // console.log(howDeep);
+        // console.log(dirsArray);
         start = start.filter((item) => item[dirsArray[i]]);
+        // console.log("loops", start[0][dirsArray[i]]);
+        // console.log(thisDir);
         //second loop is looking for [foldername : []], what is there is [3: foldername:[]]
       }
+      // return [start[0][thisDir], [dirsArray]];
       return [start, [dirsArray]];
     }
     return [state.dirs[currentDir], [currentDir]];
@@ -105,7 +112,7 @@ const FileSystemApp = ({
                 onClick={() =>
                   currentDir === "home" ||
                   (Array.isArray(dirsArray) &&
-                    currentDir === dirsArray.join("."))
+                    currentDir === dirsArray.join("/"))
                     ? null
                     : openNewFolderApp(dispatch, currentDir)
                 }
@@ -127,6 +134,7 @@ const FileSystemApp = ({
         </div>
         <div className="content flex flex-col sm:flex-row w-full h-full">
           {/* Left Panel */}
+
           <section className="h-auto py-1 bg-gray-800 border-r border-gray-900 flex flex-row overflow-x-scroll sm:overflow-x-hidden sm:flex-col sm:w-60  ">
             {makeFileSystemNavButtons(dispatch, fsId, state.dirs, checkDir)}
             <hr className="w-full border-gray-900" />
@@ -160,7 +168,7 @@ const FileSystemApp = ({
                                     fsId,
                                     Array.isArray(dirsArray)
                                       ? dirsArray
-                                      : `${currentDir}.${title}`
+                                      : `${currentDir}/${title}`
                                   )
                                 : handleDoubleClick(dispatch);
                             }}
