@@ -13,7 +13,7 @@ const NavAppWindow = ({
         <div
           className={`w-full flex flex-col bg-gray-900 text-center text-sm font-bold text-white ${
             thickBar ? "py-3" : "py-1"
-          }`}
+          } ${!name ? "h-11" : ""}`}
         >
           {name}
 

@@ -74,7 +74,6 @@ const ApplicationWindow = ({
           state={state}
           toggle={toggle}
           setToggle={setToggle}
-          name={name}
         />
       ) : type === "New Folder" ? (
         <NewFolderApp

@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
+import goNext from "url:../../images/folders/go-next.png"; //eslint-disable-line
+import goPrev from "url:../../images/folders/go-previous.png"; //eslint-disable-line
+import Other from "../svg/fileSystem/Other";
 import Icon from "../Screen/Icons/Icon";
 import NavAppWindow from "./NavAppWindow";
 import AppButton from "./WindowComponents/AppButton";
@@ -7,14 +10,7 @@ import { cdOpenApp, openNewFolderApp } from "../../js/dispatch";
 import createFoldersInHomeFolder from "../../js/createFoldersInHomeFolder";
 import makeFileSystemNavButtons from "../../js/makeFileSystemNavButtons";
 
-const FileSystemApp = ({
-  dispatch,
-  state,
-  id: fsId,
-  toggle,
-  setToggle,
-  name,
-}) => {
+const FileSystemApp = ({ dispatch, state, id: fsId, toggle, setToggle }) => {
   const foldersRef = useRef(
     createFoldersInHomeFolder(dispatch, fsId, state.dirs)
   );
@@ -78,12 +74,16 @@ const FileSystemApp = ({
           setToggle={setToggle}
           toggleFullscreen={() => setFullscreen(!fullscreen)}
           thickBar={true}
-          name={name}
+          name={""}
         />
         <div className="absolute text-white text-sm top-1 left-1 flex justify-between items-center">
           <span className="flex border bg-gray-800 border-black rounded mr-1">
-            <button className="border-r border-black py-1.5 px-2 ">{`[<]`}</button>
-            <button className="border-l border-black py-1.5 px-2 ">{`[>]`}</button>
+            <button className="border-r border-black pr-1 pl-2 py-1.5">
+              <img className="w-5" src={goPrev} alt="button" />
+            </button>
+            <button className="border-l border-black pl-1 pr-2 py-1.5">
+              <img className="w-5" src={goNext} alt="button" />
+            </button>
           </span>
           <span className="bg-gray-800 rounded border border-black">
             <button
@@ -138,12 +138,13 @@ const FileSystemApp = ({
           <section className="h-auto py-1 bg-gray-800 border-r border-gray-900 flex flex-row overflow-x-scroll sm:overflow-x-hidden sm:flex-col sm:w-60  ">
             {makeFileSystemNavButtons(dispatch, fsId, state.dirs, checkDir)}
             <hr className="w-full border-gray-900" />
-            <AppButton active={checkDir}>Other Locations</AppButton>
+            <AppButton isActive={checkDir} Icon={Other}>
+              Other Locations
+            </AppButton>
           </section>
           <section className="grid grid-cols-2 sm:grid-cols-4 place-content-start gap-0 w-full h-full">
             {/* main view area */}
             <>
-              {/* {console.log(state.dirs[currentDir])} */}
               {currentDir === "home"
                 ? foldersRef.current
                 : start.map(
