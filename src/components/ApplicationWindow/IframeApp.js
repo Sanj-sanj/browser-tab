@@ -9,6 +9,9 @@ const IframeApp = ({
   toggle,
   clearDesktopContext,
   setToggle,
+  setFocus,
+  id,
+  state,
 }) => {
   const [value, setValue] = useState(src);
   const [fullscreen, setFullscreen] = useState(false);
@@ -23,7 +26,11 @@ const IframeApp = ({
       position={fullscreen ? { x: 0, y: 0 } : null}
     >
       <section
-        className={`bg-gray-700 border flex flex-col min-w-min border-gray-900 shadow-2xl transition-h-w z-20 rounded-t-md `}
+        className={`bg-gray-700 flex flex-col min-w-min shadow-2xl transition-h-w z-20 rounded-t-md ${
+          state.isFocused === id
+            ? "border-2 border-yellow-300"
+            : "border border-gray-900"
+        }`}
         style={{
           width: fullscreen
             ? "100%"
@@ -35,9 +42,11 @@ const IframeApp = ({
             : name === "Javascript-Racer"
             ? "545px"
             : "60%",
+          zIndex: state.isFocused === id ? "30" : "20",
         }}
         role="presentation"
         onContextMenu={(e) => e.preventDefault()}
+        onClick={() => setFocus()}
       >
         <NavAppWindow
           setToggle={setToggle}

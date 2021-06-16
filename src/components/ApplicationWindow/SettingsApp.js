@@ -32,10 +32,12 @@ const SettingsApp = ({
   currentBackground,
   setToggle,
   toggle,
+  id,
+  setFocus,
+  state,
 }) => {
   const bgsRef = useRef(createThumbnails(dispatch, backgrounds));
   const [fullscreen, setFullscreen] = useState(false);
-
   return (
     <Draggable
       bounds={"parent"}
@@ -46,13 +48,21 @@ const SettingsApp = ({
       position={fullscreen ? { x: 0, y: 0 } : null}
     >
       <section
-        className={`bg-gray-700 border flex flex-col w-72 sm:w-176 border-gray-900 shadow-2xl transition-h-w z-20 rounded-t-md `}
+        className={`bg-gray-700 flex flex-col w-72 sm:w-176 shadow-2xl transition-h-w z-20 rounded-t-md ${
+          !toggle ? "opacity-100" : ""
+        } ${
+          state.isFocused === id
+            ? "border-2 border-yellow-300"
+            : "border border-gray-900"
+        }`}
         style={{
           width: fullscreen ? "100%" : "  ",
           height: fullscreen ? "100%" : "37rem",
+          zIndex: state.isFocused === id ? "30" : "20",
         }}
         role="presentation"
         onContextMenu={(e) => e.preventDefault()}
+        onClick={() => setFocus(id)}
       >
         <NavAppWindow
           setToggle={setToggle}

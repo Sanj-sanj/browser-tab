@@ -21,7 +21,6 @@ const ApplicationWindow = ({
   //ID gets supplied on creation, use id to alter state.active by filtering.
   const elRef = useRef(null);
   const [toggle, setToggle] = useState(true);
-
   if (!elRef.current) {
     elRef.current = document.createElement("div");
     elRef.current.className =
@@ -29,11 +28,17 @@ const ApplicationWindow = ({
     elRef.current.style.top = "1.7rem";
     elRef.current.onclick = clearDesktopContext;
   }
-
+  const setFocus = (fsID) => {
+    dispatch({
+      type: "isFocused",
+      payload: { id: state.apps.find((obj) => obj.id === fsID).id },
+    });
+  };
   useEffect(() => {
     appRoot.appendChild(elRef.current);
     if (!toggle) {
-      elRef.current.firstChild.style.transform += " scale(0.8)";
+      // elRef.current.firstChild.style.transform += " scale(0.8)";
+      // elRef.current.firstChild.classList.add("animate-pop-in-outside");
       setTimeout(() => {
         dispatch({
           type: "closeApp",
@@ -41,7 +46,7 @@ const ApplicationWindow = ({
             id: id,
           },
         });
-      }, 200);
+      }, 100);
     }
     return () => {
       appRoot.removeChild(elRef.current);
@@ -52,36 +57,46 @@ const ApplicationWindow = ({
     <>
       {type === "iframe" ? (
         <IframeApp
+          state={state}
+          id={id}
           name={name}
           src={src}
           wifi={wifi}
           toggle={toggle}
           setToggle={setToggle}
           clearDesktopContext={clearDesktopContext}
+          setFocus={() => setFocus(id)}
         />
       ) : type === "Settings" ? (
         <SettingsApp
           dispatch={dispatch}
+          state={state}
+          id={id}
           name={name}
           currentBackground={background}
           toggle={toggle}
           setToggle={setToggle}
+          setFocus={() => setFocus(id)}
         />
       ) : type === "Files" ? (
         <FileSystemApp
           dispatch={dispatch}
-          id={id}
           state={state}
+          id={id}
           toggle={toggle}
           setToggle={setToggle}
+          setFocus={() => setFocus(id)}
         />
       ) : type === "New Folder" ? (
         <NewFolderApp
           dispatch={dispatch}
+          state={state}
+          id={id}
           name={name}
           setToggle={setToggle}
           toggle={toggle}
           whichDir={apps.find((app) => app.id === id)?.dir}
+          setFocus={() => setFocus(id)}
         />
       ) : null}
     </>,

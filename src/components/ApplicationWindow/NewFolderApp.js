@@ -3,7 +3,16 @@ import Draggable from "react-draggable";
 import { mkdir, openFiles } from "../../js/dispatch";
 import NavAppWindow from "./NavAppWindow";
 
-const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
+const NewFolderApp = ({
+  dispatch,
+  toggle,
+  setToggle,
+  name,
+  whichDir,
+  id,
+  setFocus,
+  state,
+}) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -31,9 +40,14 @@ const NewFolderApp = ({ dispatch, toggle, setToggle, name, whichDir }) => {
       }`}
     >
       <section
-        className={`bg-gray-700 border flex flex-col  border-gray-900 shadow-2xl transition-h-w z-20 rounded-t-md `}
+        className={`newFolder bg-gray-700 flex flex-col shadow-2xl transition-h-w z-30 rounded-t-md ${
+          state.isFocused === id
+            ? "border-2 border-yellow-300"
+            : "border border-gray-900"
+        }`}
         role="presentation"
         onContextMenu={(e) => e.preventDefault()}
+        onClick={() => setFocus(id)}
       >
         <NavAppWindow setToggle={setToggle} name={name} thickBar={true} />
         <button

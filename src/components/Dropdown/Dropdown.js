@@ -31,19 +31,27 @@ const Dropdown = ({ children, rects, caller }) => {
 
   return createPortal(
     <>
+      {/* {console.log(rects)} */}
       <div
         className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50 max-w-full animate-bounce-in ${
           caller === "right"
             ? "w-72"
             : caller === "middle"
             ? "w-4/5 sm:w-3/5 left-1/10 sm:left-1/5"
+            : caller === "file system"
+            ? "w-40"
             : ""
         }`}
         style={{
           right: caller === "right" ? "1%" : "",
-          left: caller === "rename" ? rects.left : "",
+          left:
+            caller === "rename" || caller === "file system" ? rects.left : "",
           top:
-            caller === "rename" ? rects.top : rects.bottom + rects.bottom / 2,
+            caller === "rename"
+              ? rects.top
+              : caller === "file system"
+              ? rects.bottom + 16
+              : rects.bottom + rects.bottom / 2,
           border: "1px solid #111827",
         }}
         role="presentation"
@@ -56,14 +64,19 @@ const Dropdown = ({ children, rects, caller }) => {
         <span
           className="absolute bg-gray-800 w-4 h-4 transform rotate-45 "
           style={{
-            top: caller === "rename" ? "-11%" : (rects.bottom / 3) * -1,
+            top:
+              caller === "rename"
+                ? "-10%"
+                : caller === "file system"
+                ? "-13%"
+                : (rects.bottom / 3) * -1,
             right:
               caller === "right"
                 ? rects.width / 2
                 : caller === "middle"
                 ? "49%"
                 : "",
-            left: caller === "rename" ? "9%" : "",
+            left: caller === "rename" || caller === "file system" ? "9%" : "",
             borderLeft: "1px solid #111827",
             borderTop: "1px solid #111827",
           }}

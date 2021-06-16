@@ -65,6 +65,12 @@ module.exports = {
       transitionProperty: {
         "h-w": "height, width",
       },
+      backgroundColor: {
+        "pop-900": "#252220",
+        "pop-800": "#3f3b39",
+        "pop-700": "#4c4845",
+        // 'pop-600': '#4c4845',
+      },
     },
   },
   variants: {

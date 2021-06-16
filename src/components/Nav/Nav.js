@@ -47,7 +47,7 @@ const Nav = () => {
 
   return (
     <nav
-      className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-gray-900 text-gray-300 text-center"
+      className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-pop-900 text-gray-300 text-center"
       onContextMenu={(e) => e.preventDefault()}
     >
       {/* Left menu */}
@@ -113,7 +113,7 @@ const Nav = () => {
       </div>
       {/* Right Menu */}
       <button
-        className={`pr-3 ml-3 mr-1 w-32  flex items-center z-40 focus:outline-none last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
+        className={`pr-3 ml-3 mr-1 flex items-center z-40 focus:outline-none last:items-stretch hover:text-white border-b-2 transition duration-75 ease-in ${
           focused === "right" ? "border-yellow-300" : "border-transparent"
         }  focus:text-white`}
         onFocus={(e) => {
@@ -128,7 +128,7 @@ const Nav = () => {
         }}
         onKeyDown={(e) => (e.key === "Tab" ? clearAndUnfocusMenu() : null)}
       >
-        <span className="flex w-full justify-evenly">
+        <span className="flex w-24 pl-1.5 justify-evenly">
           <Wifi state={state?.wifi} />
           <Volume value={state?.volume} />
           <Battery />

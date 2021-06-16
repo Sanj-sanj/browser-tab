@@ -11,7 +11,7 @@ const NavAppWindow = ({
           <span className="absolute w-full h-1.5 flex border-t border-gray-800 rounded-t-2xl bg-gray-900" />
         ) : null}
         <div
-          className={`w-full flex flex-col bg-gray-900 text-center text-sm font-bold text-white ${
+          className={`w-full flex flex-col rounded-t bg-gray-900 text-center text-sm font-bold text-white ${
             thickBar ? "py-3" : "py-1"
           } ${!name ? "h-11" : ""}`}
         >

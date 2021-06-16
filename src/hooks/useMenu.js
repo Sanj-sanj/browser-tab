@@ -26,7 +26,7 @@ const useMenu = (clearAndUnfocusMenu) => {
     return currentTarget.getBoundingClientRect();
   }
   function makeMenu(currentTarget, caller, clickHandler) {
-    console.log(currentTarget, caller, clickHandler);
+    // console.log(currentTarget, caller, clickHandler);
     switch (caller) {
       case "middle":
         setMenu(
@@ -35,7 +35,7 @@ const useMenu = (clearAndUnfocusMenu) => {
               <section className="flex-1 w-1/2">
                 <Notifications />
               </section>
-              <section className="flex justify-center flex-1 w-full md:w-1/2 border-l border-transparent lg:border-gray-900 lg:max-w-max">
+              <section className="flex justify-center flex-1 w-full md:w-4/5 border-l border-transparent lg:border-gray-900 lg:max-w-max">
                 <CalendarBar />
               </section>
             </div>
@@ -104,6 +104,17 @@ const useMenu = (clearAndUnfocusMenu) => {
         setMenu(
           <Dropdown rects={currentTarget} caller={caller}>
             <Rename clickHandler={clickHandler} close={clearAndUnfocusMenu} />
+          </Dropdown>
+        );
+        break;
+      case "file system":
+        setMenu(
+          <Dropdown rects={getRects(currentTarget)} caller={caller}>
+            <div className="px-3">
+              <Button close={clearAndUnfocusMenu} _onClick={clickHandler}>
+                New Folder
+              </Button>
+            </div>
           </Dropdown>
         );
         break;

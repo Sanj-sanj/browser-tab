@@ -63,7 +63,6 @@ const toggleWifi = (dispatch, wifi) =>
   dispatch({ type: "toggleWifi", payload: !wifi });
 
 const mkdir = (dispatch, title, whichDir, handleDoubleClick) => {
-  console.log(dispatch, title, whichDir, handleDoubleClick);
   dispatch({
     type: "mkdir",
     payload: {
@@ -83,7 +82,13 @@ const cdOpenApp = (dispatch, id, dir) => {
 const renameItem = (dispatch, newTitle, id, dir) => {
   dispatch({
     type: "renameItem",
-    payload: { id, newTitle, dir },
+    payload: { id, newTitle, dir, dispatch },
+  });
+};
+const moveItem = (dispatch, id, dir, newDir) => {
+  dispatch({
+    type: "moveItem",
+    payload: { id, newDir, dir },
   });
 };
 
@@ -110,6 +115,7 @@ export {
   mkdir,
   cdOpenApp,
   renameItem,
+  moveItem,
   desktopContext,
   clearDesktopContext,
 };

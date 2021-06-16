@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 const Rename = ({ clickHandler, close }) => {
   const [value, setValue] = useState("");
-
-  const onClick = () => (value ? (clickHandler(value), close()) : null);
+  const onClick = () =>
+    value ? (clickHandler(value.replace(/\//g, "_")), close()) : null;
 
   useEffect(() => {
     let focusTimeout = setTimeout(() => {

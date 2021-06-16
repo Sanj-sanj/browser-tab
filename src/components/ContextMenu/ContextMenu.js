@@ -5,6 +5,7 @@ import {
   openNewFolderApp,
   openFiles,
   renameItem,
+  moveItem,
 } from "../../js/dispatch";
 import useMenu from "../../hooks/useMenu";
 
@@ -69,7 +70,6 @@ const ContextMenu = ({
           role="presentation"
           onKeyDown={closeMenu}
         >
-          {console.log(desktopContext)}
           {/* The component 'Desktop's onContextMenu handler prevents default, maps icons with custom handelUseContext to save icon name and onDoubleClick to Context, context Menu watches this on render to complete application context.*/}
           {desktopContext.title ? (
             <>
@@ -96,11 +96,28 @@ const ContextMenu = ({
                 >
                   Rename...
                 </Button>
-                <Button close={close}>Move to Trash</Button>
+                <Button
+                  close={close}
+                  _onClick={() => {
+                    moveItem(
+                      dispatch,
+                      desktopContext.id,
+                      desktopContext.dir,
+                      "trash"
+                    );
+                  }}
+                >
+                  Move to Trash
+                </Button>
                 <hr className="w-full border-gray-900" />
                 <Button close={close}>Properties</Button>
                 <hr className="w-full border-gray-900" />
-                <Button close={close}>Show in Files</Button>
+                <Button
+                  close={close}
+                  _onClick={() => openFiles(dispatch, desktopContext.dir)}
+                >
+                  Show in Files
+                </Button>
               </>
             </>
           ) : (

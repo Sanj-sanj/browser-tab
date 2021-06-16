@@ -12,6 +12,7 @@ export const UserContext = createContext({
   display: 10,
   apps: [],
   background: "Mountain",
+  isFocused: "", //app.id
   desktopContext: { title: "", id: "", dir: "", e: "", onClick: () => {} },
   dirs: {
     recent: [],
@@ -74,6 +75,8 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "updateUser":
       return { ...state, user: payload };
+    case "isFocused":
+      return { ...state, isFocused: payload.id };
     case "toggleWifi":
       return { ...state, wifi: payload };
     case "updateVolume":
@@ -87,34 +90,48 @@ export const reducer = (state, action) => {
     case "changeDesktopContext":
       return { ...state, desktopContext: payload };
     case "mkdir":
-      // if (payload.whichDir.includes("/")) {
-      //   const path = payload.whichDir.split("/");
-      //   let startDir = path.shift();
-      //   let destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
-      //   console.log(destination, path);
-      //   for (let i = 0; i < path.length; i++) {
-      //     const oneDirDeeper = destination.find((obj) => obj[path[i]]);
-      //     if (!path[i + 1] && !oneDirDeeper[path[i]].length) {
-      //       oneDirDeeper[path[i]].push(
-      //         {
-      //           title: payload.title,
-      //           /* eslint-disable-next-line*/
-      //           icon: () => (
-      //             <img className="w-16" src={folder} alt="icon of a folder" />
-      //           ),
-      //           id: payload.id,
-      //           handleDoubleClick: payload.handleDoubleClick,
-      //           handleContextMenu: desktopContext,
-      //           type: "folder",
-      //         },
-      //         { [payload.title]: [] }
-      //       );
-      //     }
-      //     destination = destination[path[i]];
-      //   }
-      //   return { ...state };
-      //   console.log(destination);
-      // }
+      if (payload.whichDir.includes("/")) {
+        const path = payload.whichDir.split("/");
+        const startDir = path.shift();
+        const copyPath = [...path];
+        const copyPath2 = [...path];
+        let destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
+        let item;
+        while (path.length) {
+          const currDir = path.shift();
+          item = !item
+            ? destination.find((obj) => obj[currDir])[currDir]
+            : item.find((obj) => obj[currDir])[currDir];
+        }
+        if (!path.length) {
+          item = [
+            ...item,
+            {
+              title: payload.title,
+              /*eslint-disable-next-line*/
+              icon: () => (
+                <img className="w-16" src={folder} alt="icon of a folder" />
+              ),
+              id: payload.id,
+              handleDoubleClick: payload.handleDoubleClick,
+              handleContextMenu: desktopContext,
+              type: "folder",
+              dir: payload.whichDir,
+            },
+            {
+              [payload.title]: [],
+            },
+          ];
+        }
+        while (copyPath2.length) {
+          const currDir = copyPath2.shift();
+          const index = destination.indexOf(
+            destination.find((obj) => obj[currDir])
+          );
+          destination[index][currDir] = item;
+        }
+        return { ...state };
+      }
       if (payload.whichDir) {
         const destination = payload.whichDir;
         return {
@@ -133,6 +150,7 @@ export const reducer = (state, action) => {
                 handleDoubleClick: payload.handleDoubleClick,
                 handleContextMenu: desktopContext,
                 type: "folder",
+                dir: payload.whichDir,
               },
               {
                 [payload.title]: [],
@@ -154,14 +172,63 @@ export const reducer = (state, action) => {
         const toModify = state.dirs[destination].find(
           (obj) => obj.id === payload.id
         );
+
+        //update the onclick handler otherwise it points to oldlocation due to closure
+        //rename once, file opens fine, rename twice doesnt work unless you open somethign different
+        console.log(toModify, destination);
+        toModify.handleDoubleClick = () =>
+          payload.dispatch({
+            type: "openApp",
+            payload: {
+              title: "Files",
+              type: "Files",
+              dir: `${payload.dir}/${payload.newTitle}`,
+              src: null,
+              active: true,
+              id: payload.id,
+            },
+          });
+
+        // const modApp = state.apps.find(obj => obj.id === payload.id)
+
+        const renameObj = state.dirs[destination].find(
+          (obj) => obj[toModify.title]
+        );
+        const oldKey = Object.keys(renameObj);
+        Object.assign(renameObj, { [payload.newTitle]: renameObj[oldKey] })[
+          oldKey
+        ];
+        delete renameObj[oldKey];
+
         toModify.title = payload.newTitle;
         const returnVal = [...state.dirs[destination]];
-        console.log(returnVal);
+        return {
+          ...state,
+          apps: [...state.apps],
+          dirs: {
+            ...state.dirs,
+            [destination]: [...returnVal],
+          },
+        };
+      }
+      return { ...state };
+    case "moveItem":
+      if (payload.dir) {
+        const newDestination = payload.newDir;
+        const destination = payload.dir;
+        const itemToMove = state.dirs[destination].find(
+          (obj) => obj.id === payload.id
+        );
+        const modifiedDirReturnValue = state.dirs[destination].filter((obj) =>
+          obj === itemToMove ? false : obj
+        );
+        const newDirReturnValue = [...state.dirs[newDestination], itemToMove];
         return {
           ...state,
           dirs: {
             ...state.dirs,
-            [destination]: [...returnVal],
+            [destination]: [...modifiedDirReturnValue],
+            [newDestination]: [...newDirReturnValue],
           },
         };
       }
