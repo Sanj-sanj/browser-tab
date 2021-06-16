@@ -36,12 +36,14 @@ const makeFileSystemNavButtons = (dispatch, id, dirs, checkDir) => {
         </AppButton>
       );
     }
+    console.log(dir.slice(0, 1).toUpperCase() + dir.slice(1));
+    console.log(iconsArr);
     buttons.push(
       <AppButton
         key={dir}
         isActive={checkDir}
         onClick={(v) => cdOpenApp(dispatch, id, v)}
-        Icon={iconsArr.find((func) => func.name.toLowerCase() === dir)}
+        Icon={iconsArr.filter((func) => func.name.toLowerCase() === dir)[0]}
       >
         {dir.slice(0, 1).toUpperCase() + dir.slice(1)}
       </AppButton>
