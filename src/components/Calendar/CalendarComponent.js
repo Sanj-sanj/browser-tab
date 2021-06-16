@@ -50,7 +50,7 @@ const CalendarComponent = () => {
                   date.getDate() === today.getDate() &&
                   date.getMonth() === today.getMonth()
                     ? "bg-yellow-500 hover:bg-yellow-400"
-                    : "hover:bg-gray-600 active:bg-gray-900"
+                    : "hover:bg-pop-800 active:bg-pop-900"
                 } `}
               >
                 {date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}
@@ -62,7 +62,7 @@ const CalendarComponent = () => {
       onClickDay={(v, e) => {
         e;
         //these classes need to be added by js, they dont work when supplied directly to the span as tailwind focus: state
-        const cList = ["hover:bg-gray-900", "bg-gray-900"];
+        const cList = ["hover:bg-pop-900", "bg-pop-900"];
         if (lastActiveDay !== e.target) {
           lastActiveDay //if there is a e.target saved in state, remove > apply cList to new state : apply cList to target
             ? (lastActiveDay.classList.remove(...cList),

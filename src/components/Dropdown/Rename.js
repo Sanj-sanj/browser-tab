@@ -17,12 +17,12 @@ const Rename = ({ clickHandler, close }) => {
       <span>Rename this</span>
       <span className="flex justify-between mt-1">
         <input
-          className="renameInput text-sm py-1 px-2 w-8/12 focus:outline-none border border-transparent focus:border-yellow-300 bg-gray-900"
+          className="renameInput text-sm py-1 px-2 w-8/12 focus:outline-none border border-transparent focus:border-yellow-300 bg-pop-900"
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => (e.key === "Enter" ? onClick() : null)}
         />
         <button
-          className="border py-1 px-2 text-sm bg-gray-800 border-gray-900"
+          className="border py-1 px-2 text-sm bg-pop-800 border-pop-900"
           onClick={onClick}
         >
           Rename

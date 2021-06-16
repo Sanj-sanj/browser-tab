@@ -65,7 +65,7 @@ const ContextMenu = ({
     <>
       {!menu ? (
         <div
-          className="absolute w-48 py-1 rounded z-50 text-gray-100 bg-gray-800 border border-gray-700 "
+          className="absolute w-48 py-1 rounded z-50 text-gray-100 bg-pop-900 border border-pop-700 "
           style={{ top: position.y - screenRects.y, left: position.x }}
           role="presentation"
           onKeyDown={closeMenu}
@@ -109,9 +109,9 @@ const ContextMenu = ({
                 >
                   Move to Trash
                 </Button>
-                <hr className="w-full border-gray-900" />
+                <hr className="w-full border-pop-900" />
                 <Button close={close}>Properties</Button>
-                <hr className="w-full border-gray-900" />
+                <hr className="w-full border-pop-900" />
                 <Button
                   close={close}
                   _onClick={() => openFiles(dispatch, desktopContext.dir)}
@@ -128,11 +128,11 @@ const ContextMenu = ({
               >
                 New Folder
               </Button>
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
               <Button close={close}>Paste</Button>
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
               <Button close={close}>Select All</Button>
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
               <Button
                 close={close}
                 _onClick={() => openFiles(dispatch, "desktop")}
@@ -140,11 +140,11 @@ const ContextMenu = ({
                 Show Desktop in Files
               </Button>
               <Button close={close}>Open in Terminal</Button>
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
               <Button close={close} _onClick={() => openSettings(dispatch)}>
                 Change Background...
               </Button>
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
               <Button close={close} _onClick={() => openSettings(dispatch)}>
                 Display Settings
               </Button>

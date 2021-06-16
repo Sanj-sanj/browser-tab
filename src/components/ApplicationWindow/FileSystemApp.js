@@ -78,7 +78,7 @@ const FileSystemApp = ({
         position={fullscreen ? { x: 0, y: 0 } : null}
       >
         <section
-          className={`bg-gray-700 flex flex-col w-3/4 sm:w-176 shadow-2xl overflow-hidden transition-h-w z-20 rounded-t-md ${
+          className={`bg-pop-900 flex flex-col w-3/4 sm:w-176 shadow-2xl overflow-hidden transition-h-w z-20 rounded-t-md ${
             state.isFocused === fsId
               ? "border-2 border-yellow-300"
               : "border border-gray-900"
@@ -103,21 +103,21 @@ const FileSystemApp = ({
             name={""}
           />
           <div className="absolute text-white text-sm top-1 left-1 flex justify-between items-center">
-            <span className="flex border bg-gray-800 border-black rounded mr-1">
+            <span className="flex border bg-pop-800 border-pop-900 rounded mr-1">
               <button
-                className="border-r border-black pr-1 pl-2 py-1.5"
+                className="border-r bg-pop-850 border-pop-900 pr-1 pl-2 py-1.5"
                 // onClick={() => goPrevDir()}
               >
                 <img className="w-5" src={goPrev} alt="button" />
               </button>
               <button
-                className="border-l border-black pl-1 pr-2 py-1.5"
+                className="border-l bg-pop-850 border-pop-900 pl-1 pr-2 py-1.5"
                 onClick={() => console.log(dirHistory)}
               >
                 <img className="w-5" src={goNext} alt="button" />
               </button>
             </span>
-            <span className="bg-gray-800 rounded border border-black">
+            <span className="bg-pop-800 rounded border border-pop-900">
               <button
                 className="py-1.5 w-24 relative "
                 onClick={() => cdOpenApp(dispatch, fsId, "home")}
@@ -131,7 +131,7 @@ const FileSystemApp = ({
                     return (
                       <button
                         key={dir}
-                        className={`py-1.5 px-4 relative border-l border-gray-900`}
+                        className={`py-1.5 px-4 relative border-l border-pop-900`}
                         onClick={() => {
                           const ind = dirsArray.indexOf(dir);
                           cdOpenApp(
@@ -147,7 +147,7 @@ const FileSystemApp = ({
                   })}
               {currentDir !== "home" ? (
                 <button
-                  className="py-1.5 px-4 relative border-l border-black"
+                  className="py-1.5 px-4 relative border-l border-pop-900"
                   onClick={(e) => {
                     !Array.isArray(dirsArray) ||
                     (Array.isArray(dirsArray) && dirsArray.length < 3)
@@ -176,11 +176,11 @@ const FileSystemApp = ({
             {/* Left Panel */}
 
             <section
-              className="h-auto py-1 bg-gray-800 border-r border-gray-900 flex flex-row overflow-x-scroll sm:overflow-x-hidden sm:flex-col sm:w-60"
+              className="h-auto py-1 bg-pop-850 border-r border-pop-900 flex flex-row overflow-x-scroll sm:overflow-x-hidden sm:flex-col sm:w-60"
               style={{ minHeight: "4.5rem" }}
             >
               {makeFileSystemNavButtons(dispatch, fsId, state.dirs, checkDir)}
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
               <AppButton isActive={checkDir} Icon={Other}>
                 Other Locations
               </AppButton>

@@ -40,10 +40,10 @@ const NewFolderApp = ({
       }`}
     >
       <section
-        className={`newFolder bg-gray-700 flex flex-col shadow-2xl transition-h-w z-30 rounded-t-md ${
+        className={`newFolder bg-pop-700 flex flex-col shadow-2xl transition-h-w z-30 rounded-t-md ${
           state.isFocused === id
             ? "border-2 border-yellow-300"
-            : "border border-gray-900"
+            : "border border-pop-900"
         }`}
         role="presentation"
         onContextMenu={(e) => e.preventDefault()}
@@ -51,10 +51,10 @@ const NewFolderApp = ({
       >
         <NavAppWindow setToggle={setToggle} name={name} thickBar={true} />
         <button
-          className={`absolute border border-gray-800 top-1 left-1 rounded py-1 px-3  ${
+          className={`absolute border border-pop-800 top-1 left-1 rounded py-1 px-3  ${
             value
-              ? "bg-gray-600 hover:bg-gray-700 text-white"
-              : "bg-gray-700 text-gray-500"
+              ? "bg-pop-700 hover:bg-pop-850 text-white"
+              : "bg-pop-700 text-gray-500"
           } `}
           onClick={() => {
             handleMakeDir();
@@ -63,9 +63,9 @@ const NewFolderApp = ({
         >
           Create
         </button>
-        <div className="w-72 py-4 px-0.5 flex justify-center items-center bg-gray-800">
+        <div className="w-72 py-4 px-0.5 flex justify-center items-center bg-pop-850">
           <input
-            className="newFolder w-full text-white px-2 rounded focus:outline-none bg-gray-700 border-2 border-transparent focus:border-yellow-500"
+            className="newFolder w-full text-white px-2 rounded focus:outline-none bg-pop-900 border-2 border-transparent focus:border-yellow-500"
             type="text"
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={(e) =>

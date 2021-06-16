@@ -5,7 +5,7 @@ const AppButton = ({ Icon, onClick, isActive, children }) => {
         typeof isActive === "function" && isActive(children)
           ? "bg-blue-400"
           : ""
-      } focus:outline-none focus:bg-blue-400 hover:bg-gray-600 active:bg-blue-400`}
+      } focus:outline-none focus:bg-blue-400 hover:bg-pop-700 active:bg-blue-400`}
       onClick={() => onClick(children.toLowerCase())}
     >
       <div className="w-full flex pl-4 py-1 relative items-center">

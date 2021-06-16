@@ -33,7 +33,7 @@ const Dropdown = ({ children, rects, caller }) => {
     <>
       {/* {console.log(rects)} */}
       <div
-        className={`menuThing mt-1 absolute rounded-lg bg-gray-800 text-white z-50 max-w-full animate-bounce-in ${
+        className={`menuThing mt-1 absolute rounded-lg bg-pop-800 text-white z-50 max-w-full animate-bounce-in ${
           caller === "right"
             ? "w-72"
             : caller === "middle"
@@ -52,7 +52,7 @@ const Dropdown = ({ children, rects, caller }) => {
               : caller === "file system"
               ? rects.bottom + 16
               : rects.bottom + rects.bottom / 2,
-          border: "1px solid #111827",
+          border: "1px solid #252220",
         }}
         role="presentation"
         //stopProp to prevent closing nav on click
@@ -62,7 +62,7 @@ const Dropdown = ({ children, rects, caller }) => {
         }}
       >
         <span
-          className="absolute bg-gray-800 w-4 h-4 transform rotate-45 "
+          className="absolute bg-pop-800 w-4 h-4 transform rotate-45 "
           style={{
             top:
               caller === "rename"
@@ -77,8 +77,8 @@ const Dropdown = ({ children, rects, caller }) => {
                 ? "49%"
                 : "",
             left: caller === "rename" || caller === "file system" ? "9%" : "",
-            borderLeft: "1px solid #111827",
-            borderTop: "1px solid #111827",
+            borderLeft: "1px solid #252220",
+            borderTop: "1px solid #252220",
           }}
         ></span>
         <div className="overflow-hidden flex flex-col py-4">{children}</div>{" "}

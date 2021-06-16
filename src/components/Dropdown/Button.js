@@ -3,7 +3,7 @@ const Button = ({ Component, close, children, _onClick }) => {
     <button
       className={`flex w-full justify-between cursor-default focus:outline-none ${
         Component
-          ? "focus:bg-gray-700 hover:bg-gray-700 active:bg-yellow-500"
+          ? "focus:bg-pop-700 hover:bg-pop-700 active:bg-yellow-500"
           : "focus:bg-blue-400 hover:bg-blue-400 active:bg-blue-400"
       }`}
       onClick={() => {

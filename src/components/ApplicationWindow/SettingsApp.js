@@ -48,12 +48,12 @@ const SettingsApp = ({
       position={fullscreen ? { x: 0, y: 0 } : null}
     >
       <section
-        className={`bg-gray-700 flex flex-col w-72 sm:w-176 shadow-2xl transition-h-w z-20 rounded-t-md ${
+        className={`bg-pop-700 flex flex-col w-72 sm:w-176 shadow-2xl transition-h-w z-20 rounded-t-md ${
           !toggle ? "opacity-100" : ""
         } ${
           state.isFocused === id
             ? "border-2 border-yellow-300"
-            : "border border-gray-900"
+            : "border border-pop-900"
         }`}
         style={{
           width: fullscreen ? "100%" : "  ",
@@ -73,11 +73,11 @@ const SettingsApp = ({
           <section
             className={`flex flex-row overflow-y-hidden overflow-x-scroll sm:overflow-x-hidden ${
               fullscreen ? "w-auto sm:w-60" : "w-auto sm:w-60"
-            } sm:flex-col h-auto py-1 bg-gray-800 border-r border-gray-900`}
+            } sm:flex-col h-auto py-1 bg-pop-800 border-r border-pop-900`}
             style={{ minHeight: "4em" }}
           >
             <AppButton onClick={() => console.log("wip")}>Trash</AppButton>
-            <hr className="w-full border-gray-900" />
+            <hr className="w-full border-pop-900" />
 
             <AppButton>Other Locations</AppButton>
           </section>
@@ -87,7 +87,7 @@ const SettingsApp = ({
             <>
               <div className="h-auto p-4   sm:h-72 flex flex-col items-center justify-center">
                 <div className="w-52 sm:w-full sm:max-w-sm">
-                  <span className="w-auto block bg-gray-900 h-2 text-xs"></span>
+                  <span className="w-auto block bg-pop-900 h-2 text-xs"></span>
                   <img
                     src={backgrounds[currentBackground]}
                     alt="thumbnail of current bg"
@@ -95,7 +95,7 @@ const SettingsApp = ({
                   />
                 </div>
               </div>
-              <div className=" bg-gray-800 h-72 max-h-full overflow-y-scroll ">
+              <div className=" bg-pop-900 h-72 max-h-full overflow-y-scroll ">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 p-4 place-items-center">
                   {bgsRef.current}
                 </div>

@@ -172,33 +172,32 @@ export const reducer = (state, action) => {
         const toModify = state.dirs[destination].find(
           (obj) => obj.id === payload.id
         );
-
-        //update the onclick handler otherwise it points to oldlocation due to closure
-        //rename once, file opens fine, rename twice doesnt work unless you open somethign different
-        console.log(toModify, destination);
-        toModify.handleDoubleClick = () =>
-          payload.dispatch({
-            type: "openApp",
-            payload: {
-              title: "Files",
-              type: "Files",
-              dir: `${payload.dir}/${payload.newTitle}`,
-              src: null,
-              active: true,
-              id: payload.id,
-            },
-          });
-
-        // const modApp = state.apps.find(obj => obj.id === payload.id)
-
         const renameObj = state.dirs[destination].find(
           (obj) => obj[toModify.title]
         );
-        const oldKey = Object.keys(renameObj);
-        Object.assign(renameObj, { [payload.newTitle]: renameObj[oldKey] })[
-          oldKey
-        ];
-        delete renameObj[oldKey];
+        if (renameObj) {
+          //if True file is a folder, need to rename the directory.
+          //update the onclick handler otherwise it points to oldlocation due to closure
+          //rename once, file opens fine, rename twice doesnt work unless you open somethign different
+          console.log(toModify, destination);
+          toModify.handleDoubleClick = () =>
+            payload.dispatch({
+              type: "openApp",
+              payload: {
+                title: "Files",
+                type: "Files",
+                dir: `${payload.dir}/${payload.newTitle}`,
+                src: null,
+                active: true,
+                id: payload.id,
+              },
+            });
+          const oldKey = Object.keys(renameObj);
+          Object.assign(renameObj, { [payload.newTitle]: renameObj[oldKey] })[
+            oldKey
+          ];
+          delete renameObj[oldKey];
+        }
 
         toModify.title = payload.newTitle;
         const returnVal = [...state.dirs[destination]];

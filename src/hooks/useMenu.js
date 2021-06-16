@@ -35,7 +35,7 @@ const useMenu = (clearAndUnfocusMenu) => {
               <section className="flex-1 w-1/2">
                 <Notifications />
               </section>
-              <section className="flex justify-center flex-1 w-full md:w-4/5 border-l border-transparent lg:border-gray-900 lg:max-w-max">
+              <section className="flex justify-center flex-1 w-full md:w-4/5 border-l border-transparent lg:border-pop-900 lg:max-w-max">
                 <CalendarBar />
               </section>
             </div>
@@ -61,7 +61,7 @@ const useMenu = (clearAndUnfocusMenu) => {
               max={"10"}
             />
             <div className="py-3 px-16 ">
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
             </div>
             <Selections
               Component={Wifi}
@@ -81,7 +81,7 @@ const useMenu = (clearAndUnfocusMenu) => {
               {["Something battery."]}
             </Selections>
             <span className="py-2 px-16 ">
-              <hr className="w-full border-gray-900" />
+              <hr className="w-full border-pop-900" />
             </span>
             <Button
               Component={Setting}

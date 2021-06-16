@@ -26,10 +26,10 @@ const IframeApp = ({
       position={fullscreen ? { x: 0, y: 0 } : null}
     >
       <section
-        className={`bg-gray-700 flex flex-col min-w-min shadow-2xl transition-h-w z-20 rounded-t-md ${
+        className={`bg-pop-700 flex flex-col min-w-min shadow-2xl transition-h-w z-20 rounded-t-md ${
           state.isFocused === id
             ? "border-2 border-yellow-300"
-            : "border border-gray-900"
+            : "border border-pop-900"
         }`}
         style={{
           width: fullscreen
@@ -54,7 +54,7 @@ const IframeApp = ({
           name={name}
         />
         {name.includes("Browser") ? (
-          <div className="searchBar pt-1 pb-1.5 relative w-full bg-gray-700 flex justify-center items-center">
+          <div className="searchBar pt-1 pb-1.5 relative w-full bg-pop-700 flex justify-center items-center">
             <div className="absolute flex left-0 pl-2">
               <button onClick={() => setValue(value)}>
                 <svg
@@ -75,7 +75,7 @@ const IframeApp = ({
             </div>
             <input
               type="text"
-              className="w-3/5 pl-4 py-1 text-white text-sm bg-gray-800 rounded"
+              className="w-3/5 pl-4 py-1 text-white text-sm bg-pop-800 rounded"
               defaultValue={"https://www.google.ca"}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
