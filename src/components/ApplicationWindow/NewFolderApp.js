@@ -40,11 +40,7 @@ const NewFolderApp = ({
       }`}
     >
       <section
-        className={`newFolder bg-pop-700 flex flex-col shadow-2xl transition-h-w z-30 rounded-t-md ${
-          state.isFocused === id
-            ? "border-2 border-yellow-300"
-            : "border border-pop-900"
-        }`}
+        className={`newFolder bg-pop-700 border border-pop-900 flex flex-col shadow-2xl transition-h-w z-30 rounded-t-md`}
         role="presentation"
         onContextMenu={(e) => e.preventDefault()}
         onClick={() => setFocus(id)}

@@ -78,11 +78,7 @@ const FileSystemApp = ({
         position={fullscreen ? { x: 0, y: 0 } : null}
       >
         <section
-          className={`bg-pop-900 flex flex-col w-3/4 sm:w-176 shadow-2xl overflow-hidden transition-h-w z-20 rounded-t-md ${
-            state.isFocused === fsId
-              ? "border-2 border-yellow-300"
-              : "border border-gray-900"
-          }`}
+          className={`bg-pop-900 border border-pop-900 flex flex-col w-3/4 sm:w-176 shadow-2xl overflow-hidden transition-h-w z-20 rounded-t-md`}
           style={{
             width: fullscreen ? "100%" : "  ",
             height: fullscreen ? "100%" : "73%",

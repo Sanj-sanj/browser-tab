@@ -23,7 +23,7 @@ const Activities = () => {
       >
         <section
           className={`flex flex-col justify-around items-center p-2 animate-slide-in-left border-l-0 border border-gray-500 rounded-r-xl rounded-br-xl w-auto bg-gray-600 bg-opacity-60 ${
-            activeView ? "animate-slide-out-left" : ""
+            activeView === "Desktop" ? "animate-slide-out-left" : ""
           }`}
         >
           {dirs.starred.map(({ title, icon, handleDoubleClick }) => (
@@ -33,7 +33,7 @@ const Activities = () => {
               handleDoubleClick={() => {
                 dispatch({
                   type: "updateActiveView",
-                  payload: true,
+                  payload: "Desktop",
                 });
                 handleDoubleClick(dispatch);
               }}
@@ -45,7 +45,7 @@ const Activities = () => {
         {/* middle portion two columns absolutely pos, spaced apart */}
         <section
           className={`flex flex-col justify-around items-center p-2 animate-slide-in-right border-r-0 border border-gray-500 rounded-l-xl rounded-bl-xl h-full w-36 bg-gray-600 bg-opacity-60 ${
-            activeView ? "animate-slide-out-right" : ""
+            activeView === "Desktop" ? "animate-slide-out-right" : ""
           }`}
         >
           {console.log(apps)}

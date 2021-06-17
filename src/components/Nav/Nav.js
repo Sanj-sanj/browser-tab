@@ -53,7 +53,7 @@ const Nav = () => {
       {/* Left menu */}
       <button
         className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40  focus:outline-none text-white border-b-2 ${
-          !state.activeView || focused === "left"
+          state.activeView === "Activities" || focused === "left"
             ? " border-yellow-300"
             : "border-transparent"
         }`}
@@ -70,7 +70,7 @@ const Nav = () => {
 
           dispatch({
             type: "updateActiveView",
-            payload: !state.activeView,
+            payload: state.activeView === "Desktop" ? "Activities" : "Desktop",
           });
         }}
         onBlur={() => (clearAndUnfocusMenu(), setFocused(false))}
@@ -80,7 +80,7 @@ const Nav = () => {
       {/* Left corner */}
       <div
         className={`absolute z-0 h-4 w-1.5 ${
-          !state.activeView || focused === "left"
+          state.activeView === "Activities" || focused === "left"
             ? " bg-yellow-300"
             : "bg-transparent"
         }`}

@@ -1,8 +1,8 @@
-import { lazy, useContext, useEffect, useState, Suspense } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 
 import Background from "../Background/Background";
-const Activities = lazy(() => import("./Activities/Activities"));
+import Activities from "./Activities/Activities";
 import Desktop from "./Desktop/Desktop";
 
 const Screen = () => {
@@ -16,17 +16,27 @@ const Screen = () => {
 
   useEffect(() => {
     let animationTimeout;
-    activeView
-      ? setTimeout(() => setView(<Desktop />), 100)
-      : (animationTimeout = setTimeout(
-          () =>
-            setView(
-              <Suspense fallback={<div></div>}>
-                <Activities state={activeView} />
-              </Suspense>
-            ),
-          0
-        ));
+
+    activeView === "Desktop"
+      ? setTimeout(() => setView(<Desktop />), 150)
+      : activeView === "Activities"
+      ? (animationTimeout = setTimeout(
+          () => setView(<Activities state={activeView} />),
+          150
+        ))
+      : null;
+
+    // activeView
+    //   ? setTimeout(() => setView(<Desktop />), 100)
+    //   : (animationTimeout = setTimeout(
+    //       () =>
+    //         setView(
+    //           // <Suspense fallback={<div></div>}>
+    //           <Activities state={activeView} />
+    //           // </Suspense>
+    //         ),
+    //       0
+    //     ));
     return () => clearTimeout(animationTimeout);
   }, [activeView]);
 

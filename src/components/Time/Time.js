@@ -1,19 +1,16 @@
 import useTime from "../../hooks/useTime";
 import greeting from "../../js/greeting";
-import { UserContext } from "../../context/UserContext";
+import useDate from "../../hooks/useDate";
 
 const Time = () => {
   const time = useTime();
+  const date = useDate(true);
   return (
-    <UserContext.Consumer>
-      {({ state }) => (
-        <div className="w-full text-center ">
-          <h1 className="text-9xl font-extrabold text-gray-300">{time}</h1>
-          <p>{state.user}</p>
-          <h2 className="text-6xl text-gray-200">{greeting(time)}</h2>
-        </div>
-      )}
-    </UserContext.Consumer>
+    <div className="w-full text-center ">
+      <h1 className="text-8xl font-light text-gray-300">{time}</h1>
+      <h2 className="text-2xl text-gray-200">{date}</h2>
+      {/* <h2 className="text-4xl text-gray-200">{greeting(time)}</h2> */}
+    </div>
   );
 };
 export default Time;

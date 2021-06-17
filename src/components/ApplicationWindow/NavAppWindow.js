@@ -8,7 +8,7 @@ const NavAppWindow = ({
     <>
       <nav className={`relative w-full`} onDoubleClick={toggleFullscreen}>
         {thickBar ? (
-          <span className="absolute w-full h-1.5 flex border-t border-gray-600 rounded-t-2xl bg-pop-800" />
+          <span className="absolute w-full h-1.5 flex border-t border-pop-700 rounded-t-2xl bg-pop-800" />
         ) : null}
         <div
           className={`w-full flex flex-col rounded-t bg-pop-800 text-center text-sm font-bold text-white ${

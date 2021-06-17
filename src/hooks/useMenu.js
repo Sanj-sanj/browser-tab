@@ -90,10 +90,23 @@ const useMenu = (clearAndUnfocusMenu) => {
             >
               Settings
             </Button>
+            <Button
+              Component={Setting}
+              close={clearAndUnfocusMenu}
+              _onClick={() => {
+                dispatch({
+                  type: "updateActiveView",
+                  payload: "Lock",
+                });
+              }}
+            >
+              Lock
+            </Button>
             <Selections
               Component={Power}
               label="Power"
               _onClick={clearAndUnfocusMenu}
+              close={clearAndUnfocusMenu}
             >
               {["Logout", "Poweroff?"]}
             </Selections>

@@ -65,7 +65,7 @@ const ContextMenu = ({
     <>
       {!menu ? (
         <div
-          className="absolute w-48 py-1 rounded z-50 text-gray-100 bg-pop-900 border border-pop-700 "
+          className="absolute w-48 py-1 rounded z-50 text-gray-100 bg-pop-900 border border-pop-800 "
           style={{ top: position.y - screenRects.y, left: position.x }}
           role="presentation"
           onKeyDown={closeMenu}

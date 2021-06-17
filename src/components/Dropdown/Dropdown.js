@@ -33,7 +33,7 @@ const Dropdown = ({ children, rects, caller }) => {
     <>
       {/* {console.log(rects)} */}
       <div
-        className={`menuThing mt-1 absolute rounded-lg bg-pop-800 text-white z-50 max-w-full animate-bounce-in ${
+        className={`menuThing mt-1 absolute rounded-lg bg-pop-850 text-white z-50 max-w-full animate-bounce-in ${
           caller === "right"
             ? "w-72"
             : caller === "middle"
@@ -62,7 +62,7 @@ const Dropdown = ({ children, rects, caller }) => {
         }}
       >
         <span
-          className="absolute bg-pop-800 w-4 h-4 transform rotate-45 "
+          className="absolute bg-pop-850 w-4 h-4 transform rotate-45 "
           style={{
             top:
               caller === "rename"

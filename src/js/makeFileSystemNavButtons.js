@@ -10,17 +10,7 @@ import Recent from "../components/svg/fileSystem/Recent";
 import Starred from "../components/svg/fileSystem/Starred";
 import Trash from "../components/svg/fileSystem/Trash";
 import Videos from "../components/svg/fileSystem/Videos";
-// const iconsArr = [
-//   Desktop,
-//   Documents,
-//   Downloads,
-//   Music,
-//   Pictures,
-//   Recent,
-//   Starred,
-//   Trash,
-//   Videos,
-// ];
+
 const iconsObj = {
   Desktop,
   Documents,
@@ -34,6 +24,7 @@ const iconsObj = {
 };
 const makeFileSystemNavButtons = (dispatch, id, dirs, checkDir) => {
   const buttons = [];
+  const formatName = (dir) => dir.slice(0, 1).toUpperCase() + dir.slice(1);
   for (const dir in dirs) {
     if (dir === "starred") {
       buttons.push(
@@ -47,17 +38,14 @@ const makeFileSystemNavButtons = (dispatch, id, dirs, checkDir) => {
         </AppButton>
       );
     }
-    // console.log(dir.slice(0, 1).toUpperCase() + dir.slice(1));
-    // console.log(iconsObj);
     buttons.push(
       <AppButton
         key={dir}
         isActive={checkDir}
         onClick={(v) => cdOpenApp(dispatch, id, v)}
-        // Icon={iconsArr.find((func) => func.name.toLowerCase() === dir)}
-        Icon={iconsObj[dir.slice(0, 1).toUpperCase() + dir.slice(1)]}
+        Icon={iconsObj[formatName(dir)]}
       >
-        {dir.slice(0, 1).toUpperCase() + dir.slice(1)}
+        {formatName(dir)}
       </AppButton>
     );
   }

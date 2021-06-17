@@ -2,12 +2,20 @@ import { createContext } from "react";
 import Browser from "../components/svg/Browser";
 /* eslint-disable-next-line */
 import folder from "url:../images/folders/folder.png";
-import { openJSRacer, openBrave, desktopContext } from "../js/dispatch";
+import {
+  openJSRacer,
+  openBrave,
+  openFiles,
+  desktopContext,
+} from "../js/dispatch";
+const folderIcon = () => (
+  <img className="w-16" src={folder} alt="icon of a folder" />
+);
 
 export const UserContext = createContext({
   user: "Guest",
   wifi: true,
-  activeView: true,
+  activeView: "Lock",
   volume: 50,
   display: 10,
   apps: [],
@@ -18,11 +26,19 @@ export const UserContext = createContext({
     recent: [],
     starred: [
       {
+        title: "Files",
+        icon: folderIcon,
+        handleDoubleClick: (d) => openFiles(d, "desktop"),
+        handleContextMenu: desktopContext,
+        id: "001",
+        type: "app",
+      },
+      {
         title: "JS Racer",
         icon: null,
         handleDoubleClick: openJSRacer,
         handleContextMenu: desktopContext,
-        id: "001",
+        id: "002",
         type: "app",
       },
       {
@@ -30,7 +46,7 @@ export const UserContext = createContext({
         icon: Browser,
         handleDoubleClick: openBrave,
         handleContextMenu: desktopContext,
-        id: "002",
+        id: "003",
         type: "app",
       },
     ],
@@ -108,10 +124,7 @@ export const reducer = (state, action) => {
             ...item,
             {
               title: payload.title,
-              /*eslint-disable-next-line*/
-              icon: () => (
-                <img className="w-16" src={folder} alt="icon of a folder" />
-              ),
+              icon: folderIcon,
               id: payload.id,
               handleDoubleClick: payload.handleDoubleClick,
               handleContextMenu: desktopContext,
@@ -142,10 +155,7 @@ export const reducer = (state, action) => {
               ...state.dirs[destination],
               {
                 title: payload.title,
-                /*eslint-disable-next-line*/
-                icon: () => (
-                  <img className="w-16" src={folder} alt="icon of a folder" />
-                ),
+                icon: folderIcon,
                 id: payload.id,
                 handleDoubleClick: payload.handleDoubleClick,
                 handleContextMenu: desktopContext,

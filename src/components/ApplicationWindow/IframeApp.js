@@ -26,11 +26,7 @@ const IframeApp = ({
       position={fullscreen ? { x: 0, y: 0 } : null}
     >
       <section
-        className={`bg-pop-700 flex flex-col min-w-min shadow-2xl transition-h-w z-20 rounded-t-md ${
-          state.isFocused === id
-            ? "border-2 border-yellow-300"
-            : "border border-pop-900"
-        }`}
+        className={`bg-pop-700 border border-pop-900 flex flex-col min-w-min shadow-2xl transition-h-w z-20 rounded-t-md`}
         style={{
           width: fullscreen
             ? "100%"

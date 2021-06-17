@@ -48,12 +48,8 @@ const SettingsApp = ({
       position={fullscreen ? { x: 0, y: 0 } : null}
     >
       <section
-        className={`bg-pop-700 flex flex-col w-72 sm:w-176 shadow-2xl transition-h-w z-20 rounded-t-md ${
+        className={`bg-pop-700 flex flex-col border border-pop-900 w-72 sm:w-176 shadow-2xl transition-h-w z-20 rounded-t-md ${
           !toggle ? "opacity-100" : ""
-        } ${
-          state.isFocused === id
-            ? "border-2 border-yellow-300"
-            : "border border-pop-900"
         }`}
         style={{
           width: fullscreen ? "100%" : "  ",
@@ -68,12 +64,13 @@ const SettingsApp = ({
           setToggle={setToggle}
           toggleFullscreen={() => setFullscreen(!fullscreen)}
           name={name}
+          thickBar={true}
         />
         <div className="flex flex-col sm:flex-row sm:overflow-auto w-full h-full">
           <section
             className={`flex flex-row overflow-y-hidden overflow-x-scroll sm:overflow-x-hidden ${
               fullscreen ? "w-auto sm:w-60" : "w-auto sm:w-60"
-            } sm:flex-col h-auto py-1 bg-pop-800 border-r border-pop-900`}
+            } sm:flex-col h-auto py-1 bg-pop-850 border-r border-pop-900`}
             style={{ minHeight: "4em" }}
           >
             <AppButton onClick={() => console.log("wip")}>Trash</AppButton>
