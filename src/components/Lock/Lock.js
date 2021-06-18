@@ -49,10 +49,10 @@ const Lock = ({ user, unlock }) => {
         <div className="w-28 h-28 bg-red-400 rounded-full flex justify-center items-center text-gray-50 text-5xl mb-3">
           {user.slice(0, 1)}
         </div>
-        <h2 className="text-2xl mb-6 text-gray-50 "> {user}</h2>
+        <h2 className="text-2xl mb-6 text-gray-50 ">{user}</h2>
         <input
           className="px-3 py-1 focus:outline-none bg-pop-900 rounded border-2 border-pop-800 focus:border-yellow-100 text-gray-50"
-          placeholder="password"
+          placeholder="Password"
           type="password"
           onClick={(e) => {
             e.preventDefault();

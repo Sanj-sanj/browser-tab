@@ -14,7 +14,7 @@ const Icon = ({
 
   return (
     <Draggable
-      bounds="parent"
+      bounds=".desktopScreen"
       grid={[112, 112]}
       disabled={place === "activities" || place === "files" ? true : false}
     >

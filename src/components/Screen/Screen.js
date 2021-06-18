@@ -25,18 +25,6 @@ const Screen = () => {
           150
         ))
       : null;
-
-    // activeView
-    //   ? setTimeout(() => setView(<Desktop />), 100)
-    //   : (animationTimeout = setTimeout(
-    //       () =>
-    //         setView(
-    //           // <Suspense fallback={<div></div>}>
-    //           <Activities state={activeView} />
-    //           // </Suspense>
-    //         ),
-    //       0
-    //     ));
     return () => clearTimeout(animationTimeout);
   }, [activeView]);
 
@@ -45,7 +33,9 @@ const Screen = () => {
       <div
         className={`absolute top-0 w-screen h-screen pointer-events-none ${
           parseInt(brightness) <= 0 ? "bg-transparent" : "bg-black"
-        } bg-opacity-${brightness === "100" ? "95" : brightness}`}
+        } ${
+          brightness === "100" ? "bg-opacity-95" : "bg-opacity-" + brightness
+        }`}
         style={{ zIndex: "100" }}
       />
       <div className="flex flex-col justify-center w-full h-screen relative rounded-t-lg overflow-hidden">

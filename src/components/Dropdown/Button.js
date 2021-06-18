@@ -7,8 +7,7 @@ const Button = ({ Component, close, children, _onClick }) => {
           : "focus:bg-blue-400 hover:bg-blue-400 active:bg-blue-400"
       }`}
       onClick={() => {
-        _onClick ? _onClick() : null;
-        close();
+        _onClick ? (_onClick(), close()) : close();
       }}
     >
       {Component ? (

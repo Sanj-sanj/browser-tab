@@ -15,7 +15,7 @@ const Desktop = () => {
   };
   const makeContextMenu = (e) => {
     const screenRects = document
-      .querySelector("section.z-10.h-full.w-full")
+      .querySelector("section.desktopScreen")
       .getBoundingClientRect();
     setMenu({ x: e.pageX, y: e.pageY, screenRects });
   };
@@ -38,19 +38,22 @@ const Desktop = () => {
   };
 
   return (
-    <>
-      <section
-        className="z-10 h-full w-full grid grid-flow-col grid-cols-3 grid-rows-5 sm:grid-cols-6 lg:grid-cols-10 gap-0 place-items-start p-0.5"
-        onContextMenu={(e) => {
-          e.preventDefault();
-          clearMenuAndMenuContext();
-          makeContextMenu(e);
-        }}
-        role="presentation"
-        onClick={() => (menu.y ? clearMenuAndMenuContext() : null)}
-        onKeyDownCapture={(e) =>
-          e.key === "Escape" ? clearMenuAndMenuContext() : null
-        }
+    <section
+      className="desktopScreen h-full w-full z-10"
+      onContextMenu={(e) => {
+        e.preventDefault();
+        clearMenuAndMenuContext();
+        makeContextMenu(e);
+      }}
+      role="presentation"
+      onClick={() => (menu.y ? clearMenuAndMenuContext() : null)}
+      onKeyDownCapture={(e) =>
+        e.key === "Escape" ? clearMenuAndMenuContext() : null
+      }
+    >
+      <div
+        className=" w-min flex flex-col max-h-screen flex-wrap p-0.5"
+        style={{ height: "inherit" }}
       >
         {state.dirs.desktop.map(
           ({ title, id, icon, handleDoubleClick, handleContextMenu }) => {
@@ -71,7 +74,7 @@ const Desktop = () => {
               );
           }
         )}
-      </section>
+      </div>
       {state.apps?.length ? openApp(state.apps) : null}
       {menu.y ? (
         <ContextMenu
@@ -80,7 +83,7 @@ const Desktop = () => {
           context={{ state, dispatch }}
         />
       ) : null}
-    </>
+    </section>
   );
 };
 export default Desktop;
