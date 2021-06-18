@@ -6,7 +6,8 @@ const Button = ({ Component, close, children, _onClick }) => {
           ? "focus:bg-pop-700 hover:bg-pop-700 active:bg-yellow-500"
           : "focus:bg-blue-400 hover:bg-blue-400 active:bg-blue-400"
       }`}
-      onClick={() => {
+      onClick={(e) => {
+        e.stopPropagation();
         _onClick ? (_onClick(), close()) : close();
       }}
     >

@@ -22,6 +22,7 @@ const Screen = () => {
             unlock={() =>
               dispatch({ type: "updateActiveView", payload: "Desktop" })
             }
+            background={background}
           />
         )
       : activeView === "Desktop"

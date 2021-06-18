@@ -83,16 +83,9 @@ const ContextMenu = ({
                 <Button
                   close={() => {}}
                   _onClick={() =>
-                    desktopContext.e
-                      ? makeMenu(getIconRects(), "rename", (value) =>
-                          renameItem(
-                            dispatch,
-                            value,
-                            desktopContext.id,
-                            whatDir
-                          )
-                        )
-                      : null
+                    makeMenu(getIconRects(), "rename", (value) =>
+                      renameItem(dispatch, value, desktopContext.id, whatDir)
+                    )
                   }
                 >
                   Rename...

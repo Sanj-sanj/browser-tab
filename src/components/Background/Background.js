@@ -21,10 +21,9 @@ const backgrounds = {
   Minimal2,
 };
 
-const Background = ({ background, activeView }) => {
+const Background = ({ background, dimmed }) => {
   const [image, setImage] = useState(null);
   const [alt, setAlt] = useState(null);
-
   useEffect(() => {
     setImage(backgrounds[background]);
     setAlt(bgData.find((bg) => bg.name === background).alt);
@@ -32,10 +31,17 @@ const Background = ({ background, activeView }) => {
 
   return (
     <>
-      <img
-        className={`absolute z-0 h-screen w-max rounded-md top-0 object-cover pointer-events-none ${
-          activeView === "Lock" ? "filter blur-2xl" : ""
+      <div
+        className={`w-full h-full absolute top-0 ${
+          dimmed ? "bg-pop-900 bg-opacity-90 z-10" : ""
         }`}
+      >
+        {" "}
+      </div>
+      <img
+        className={`absolute z-0 h-screen w-max rounded-md top-0 object-cover pointer-events-none
+        ${dimmed ? "filter blur-lg" : ""}
+        `}
         src={image}
         alt={alt}
       />
