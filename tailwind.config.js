@@ -1,5 +1,20 @@
 module.exports = {
-  purge: { content: ["./src/**/*.js"], safelist: ["opacity"] },
+  purge: {
+    content: ["./src/**/*.js"],
+    safelist: [
+      "opacity-0",
+      "opacity-10",
+      "opacity-20",
+      "opacity-30",
+      "opacity-40",
+      "opacity-50",
+      "opacity-60",
+      "opacity-70",
+      "opacity-80",
+      "opacity-90",
+      "opacity-100",
+    ],
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
