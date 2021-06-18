@@ -17,6 +17,7 @@ import Notifications from "../components/Dropdown/Notifications";
 
 import { openSettings, toggleWifi } from "../js/dispatch";
 import Rename from "../components/Dropdown/Rename";
+import Unlock from "../components/svg/Unlock";
 
 const useMenu = (clearAndUnfocusMenu) => {
   const [menu, setMenu] = useState(null);
@@ -91,7 +92,7 @@ const useMenu = (clearAndUnfocusMenu) => {
               Settings
             </Button>
             <Button
-              Component={Setting}
+              Component={Unlock}
               close={clearAndUnfocusMenu}
               _onClick={() => {
                 dispatch({

@@ -2,22 +2,29 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 
 import Background from "../Background/Background";
+import Lock from "../Lock/Lock";
 import Activities from "./Activities/Activities";
 import Desktop from "./Desktop/Desktop";
 
 const Screen = () => {
   const {
-    state: { display, activeView, background },
+    state: { user, display, activeView, background },
+    dispatch,
   } = useContext(UserContext);
   const [view, setView] = useState(null);
 
-  let brightness = display ?? 10;
-  brightness = 10 - parseInt(brightness) + "0";
-
   useEffect(() => {
     let animationTimeout;
-
-    activeView === "Desktop"
+    activeView === "Lock"
+      ? setView(
+          <Lock
+            user={user}
+            unlock={() =>
+              dispatch({ type: "updateActiveView", payload: "Desktop" })
+            }
+          />
+        )
+      : activeView === "Desktop"
       ? setTimeout(() => setView(<Desktop />), 150)
       : activeView === "Activities"
       ? (animationTimeout = setTimeout(
@@ -31,15 +38,16 @@ const Screen = () => {
   return (
     <>
       <div
-        className={`absolute top-0 w-screen h-screen pointer-events-none ${
-          parseInt(brightness) <= 0 ? "bg-transparent" : "bg-black"
-        } ${
-          brightness === "100" ? "bg-opacity-95" : "bg-opacity-" + brightness
-        }`}
-        style={{ zIndex: "100" }}
+        className={`absolute top-0 w-screen h-screen pointer-events-none bg-black`}
+        style={{
+          zIndex: "100",
+          opacity: 1 - (display / 10) * 1 === 1 ? 0.92 : 1 - (display / 10) * 1,
+        }}
       />
-      <div className="flex flex-col justify-center w-full h-screen relative rounded-t-lg overflow-hidden">
-        <Background background={background} />
+      <div
+        className={`flex flex-col justify-center w-full h-screen relative rounded-t-lg overflow-hidden`}
+      >
+        <Background background={background} activeView={activeView} />
         {view}
       </div>
     </>

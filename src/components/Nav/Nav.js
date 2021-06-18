@@ -47,12 +47,16 @@ const Nav = () => {
 
   return (
     <nav
-      className="relative w-full h-7 max-h-7 justify-between text-sm flex font-bold bg-pop-900 text-gray-300 text-center"
+      className={`relative w-full h-7 max-h-7 ${
+        state.activeView === "Lock" ? "justify-end" : "justify-between"
+      } text-sm flex font-bold bg-pop-900 text-gray-300 text-center`}
       onContextMenu={(e) => e.preventDefault()}
     >
       {/* Left menu */}
       <button
-        className={`flex items-center ml-1 pl-2 pr-3 font-bold z-40  focus:outline-none text-white border-b-2 ${
+        className={`${
+          state.activeView === "Lock" ? "hidden" : "flex"
+        } items-center ml-1 pl-2 pr-3 font-bold z-40  focus:outline-none text-white border-b-2 ${
           state.activeView === "Activities" || focused === "left"
             ? " border-yellow-300"
             : "border-transparent"
@@ -89,7 +93,9 @@ const Nav = () => {
       {/* Middle Menu */}
       <div className="w-full h-full flex absolute justify-center ">
         <button
-          className={`border-b-2 transition duration-75 ease-in focus:outline-none  
+          className={`${
+            state.activeView === "Lock" ? "hidden" : ""
+          } border-b-2 transition duration-75 ease-in focus:outline-none  
           ${
             focused === "middle" ? "border-yellow-300" : "border-transparent"
           } z-40 hover:text-white focus:text-white`}

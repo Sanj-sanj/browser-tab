@@ -29,11 +29,17 @@ const FileSystemApp = ({
   const [currentDir, setCurrentDir] = useState(similarDirs[len - 1].dir);
   const [start, [dirsArray]] = getNestedDirs();
   const [menu, makeMenu] = useMenu(clearMenu);
-  const [dirHistory, setDirHistory] = useState([]); //noPurpose yet
-
+  // const [dirHistory, setDirHistory] = useState([]); //noPurpose yet
   useEffect(() => {
     setCurrentDir(similarDirs[len - 1].dir);
   });
+
+  // const makeContextMenu = (e) => {
+  //   const screenRects = document
+  //     .querySelector("section.desktopScreen")
+  //     .getBoundingClientRect();
+  //   setContextMenu({ x: e.pageX, y: e.pageY, screenRects });
+  // };
 
   function clearMenu() {
     makeMenu(null);
@@ -80,13 +86,18 @@ const FileSystemApp = ({
         <section
           className={`bg-pop-900 border border-pop-900 flex flex-col w-3/4 sm:w-176 shadow-2xl overflow-hidden transition-h-w z-20 rounded-t-md`}
           style={{
-            width: fullscreen ? "100%" : "  ",
-            height: fullscreen ? "100%" : "73%",
+            width: fullscreen ? "100%" : " ",
+            height: fullscreen ? "100%" : " ",
             minWidth: fullscreen ? "" : "20rem",
+            minHeight: fullscreen ? "" : "15rem",
             zIndex: state.isFocused === fsId ? "30" : "20",
           }}
           role="presentation"
-          onContextMenu={(e) => (e.preventDefault(), clearMenu())}
+          onContextMenu={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            clearMenu();
+          }}
           onClick={() => {
             menu ? clearMenu() : null;
             setFocus();
@@ -102,13 +113,13 @@ const FileSystemApp = ({
             <span className="flex border bg-pop-800 border-pop-900 rounded mr-1">
               <button
                 className="border-r bg-pop-850 border-pop-900 pr-1 pl-2 py-1.5"
-                // onClick={() => goPrevDir()}
+                // onClick={() => console.log(dirHistory)}
               >
                 <img className="w-5" src={goPrev} alt="button" />
               </button>
               <button
                 className="border-l bg-pop-850 border-pop-900 pl-1 pr-2 py-1.5"
-                onClick={() => console.log(dirHistory)}
+                // onClick={() => console.log(dirHistory)}
               >
                 <img className="w-5" src={goNext} alt="button" />
               </button>
@@ -181,7 +192,7 @@ const FileSystemApp = ({
                 Other Locations
               </AppButton>
             </section>
-            <section className="grid grid-cols-2 sm:grid-cols-4 place-content-start gap-0 w-full h-full">
+            <section className="flex flex-wrap w-full h-full">
               {/* main view area */}
               <>
                 {currentDir === "home"
@@ -193,7 +204,7 @@ const FileSystemApp = ({
                         id,
                         icon,
                         handleDoubleClick,
-                        handleContextMenu,
+                        // handleContextMenu,
                       }) => {
                         if (title)
                           return (
@@ -210,11 +221,15 @@ const FileSystemApp = ({
                                     )
                                   : handleDoubleClick(dispatch);
                               }}
-                              handleContextMenu={() =>
-                                handleContextMenu(dispatch, title, () =>
-                                  handleDoubleClick(dispatch)
-                                )
-                              }
+                              // handleContextMenu={() =>
+                              //   handleContextMenu(
+                              //     dispatch,
+                              //     title,
+                              //     id,
+                              //     currentDir  ,
+                              //     () => handleDoubleClick(dispatch)
+                              //   )
+                              // }
                               place="files"
                               // makeContextMenu={makeContextMenu}
                             />

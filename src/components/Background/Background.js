@@ -21,7 +21,7 @@ const backgrounds = {
   Minimal2,
 };
 
-const Background = ({ background }) => {
+const Background = ({ background, activeView }) => {
   const [image, setImage] = useState(null);
   const [alt, setAlt] = useState(null);
 
@@ -33,7 +33,9 @@ const Background = ({ background }) => {
   return (
     <>
       <img
-        className="absolute z-0 h-screen w-max rounded-md top-0 object-cover pointer-events-none"
+        className={`absolute z-0 h-screen w-max rounded-md top-0 object-cover pointer-events-none ${
+          activeView === "Lock" ? "filter blur-2xl" : ""
+        }`}
         src={image}
         alt={alt}
       />

@@ -16,6 +16,7 @@ const ContextMenu = ({
     state: { desktopContext },
     dispatch,
   },
+  whatDir = "desktop",
   position: { screenRects },
 }) => {
   const [menu, makeMenu] = useMenu(clearAndUnfocusMenu);
@@ -88,7 +89,7 @@ const ContextMenu = ({
                             dispatch,
                             value,
                             desktopContext.id,
-                            desktopContext.dir
+                            whatDir
                           )
                         )
                       : null
@@ -99,12 +100,7 @@ const ContextMenu = ({
                 <Button
                   close={close}
                   _onClick={() => {
-                    moveItem(
-                      dispatch,
-                      desktopContext.id,
-                      desktopContext.dir,
-                      "trash"
-                    );
+                    moveItem(dispatch, desktopContext.id, whatDir, "trash");
                   }}
                 >
                   Move to Trash
@@ -114,7 +110,7 @@ const ContextMenu = ({
                 <hr className="w-full border-pop-900" />
                 <Button
                   close={close}
-                  _onClick={() => openFiles(dispatch, desktopContext.dir)}
+                  _onClick={() => openFiles(dispatch, whatDir)}
                 >
                   Show in Files
                 </Button>
@@ -124,7 +120,7 @@ const ContextMenu = ({
             <>
               <Button
                 close={close}
-                _onClick={() => openNewFolderApp(dispatch, "desktop")}
+                _onClick={() => openNewFolderApp(dispatch, whatDir)}
               >
                 New Folder
               </Button>

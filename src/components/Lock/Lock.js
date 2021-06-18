@@ -12,15 +12,12 @@ const Lock = ({ user, unlock }) => {
     document.body.addEventListener("keydown", listner);
     return () => document.removeEventListener("keydown", listner);
   });
-  const rngTimeout = (max, min) =>
-    parseInt(Math.random() * (max - min) + min)
-      .toFixed(3)
-      .replace(".", "");
+
   return (
-    //eslint-disable-next-line
     <div
-      className="lockScreen w-full h-full z-10 flex flex-col justify-center items-center bg-black bg-opacity-50 border border-black animate-drop-in"
+      className="lockScreen z-10 w-full h-screen min-h-full flex flex-col justify-center items-center bg-pop-900 bg-opacity-95 animate-drop-in"
       onContextMenu={(e) => e.preventDefault()}
+      role="presentation"
       onClick={() => setUnlocked(!unlocked)}
     >
       <div
@@ -58,11 +55,7 @@ const Lock = ({ user, unlock }) => {
             e.preventDefault();
             e.stopPropagation();
           }}
-          onKeyDown={(e) =>
-            e.key === "Enter"
-              ? setTimeout(() => unlock(), rngTimeout(1.5, 1))
-              : null
-          }
+          onKeyDown={(e) => (e.key === "Enter" ? unlock() : null)}
         />
       </div>
     </div>
