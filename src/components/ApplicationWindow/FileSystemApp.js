@@ -6,10 +6,15 @@ import Other from "../svg/fileSystem/Other";
 import Icon from "../Screen/Icons/Icon";
 import NavAppWindow from "./NavAppWindow";
 import AppButton from "./WindowComponents/AppButton";
-import { cdOpenApp, openNewFolderApp } from "../../js/dispatch";
+import {
+  cdOpenApp,
+  clearDesktopContext,
+  openNewFolderApp,
+} from "../../js/dispatch";
 import createFoldersInHomeFolder from "../../js/createFoldersInHomeFolder";
 import makeFileSystemNavButtons from "../../js/makeFileSystemNavButtons";
 import useMenu from "../../hooks/useMenu";
+import ContextMenu from "../ContextMenu/ContextMenu";
 
 const FileSystemApp = ({
   dispatch,
@@ -18,6 +23,7 @@ const FileSystemApp = ({
   toggle,
   setToggle,
   setFocus,
+  clearDesktopMenu,
 }) => {
   const similarDirs = state.apps.filter((app) => app.id === fsId);
   //rename need fix crashes when fs open on rename of same folder
@@ -27,26 +33,22 @@ const FileSystemApp = ({
   );
   const [fullscreen, setFullscreen] = useState(false);
   const [currentDir, setCurrentDir] = useState(similarDirs[len - 1].dir);
+  const [contextMenu, setContextMenu] = useState({ x: 0, y: 0 });
+  // const [dirHistory, setDirHistory] = useState([]); //noPurpose yet
+
   const [start, [dirsArray]] = getNestedDirs();
   const [menu, makeMenu] = useMenu(clearMenu);
-  // const [dirHistory, setDirHistory] = useState([]); //noPurpose yet
+
   useEffect(() => {
     setCurrentDir(similarDirs[len - 1].dir);
   });
 
-  // const makeContextMenu = (e) => {
-  //   const screenRects = document
-  //     .querySelector("section.desktopScreen")
-  //     .getBoundingClientRect();
-  //   setContextMenu({ x: e.pageX, y: e.pageY, screenRects });
-  // };
-
-  function clearMenu() {
-    makeMenu(null);
-  }
-  function updateCurrentDirectory(dir) {
-    cdOpenApp(dispatch, fsId, dir);
-  }
+  const makeContextMenu = (e) => {
+    const screenRects = document
+      .querySelector("section.desktopScreen")
+      .getBoundingClientRect();
+    setContextMenu({ x: e.pageX, y: e.pageY, screenRects });
+  };
 
   function getNestedDirs() {
     if (currentDir.includes("/")) {
@@ -58,7 +60,7 @@ const FileSystemApp = ({
           start = start.find((item) => item[dirsArray[i]])[dirsArray[i]];
         } catch (err) {
           //resets the state.app.dir val when folder is open and renamed while open in the same dir
-          updateCurrentDirectory(dirsArray[0]);
+          cdOpenApp(dispatch, fsId, dirsArray[0]);
         }
       }
       return [start, [dirsArray]];
@@ -73,6 +75,14 @@ const FileSystemApp = ({
   const checkDir = (string) =>
     string.toLowerCase() === currentDir ? true : false;
 
+  function clearMenu() {
+    makeMenu(null);
+  }
+  const clearMenuAndMenuContext = () => {
+    setContextMenu({ x: 0, y: 0 });
+    clearDesktopContext(dispatch);
+  };
+
   return (
     <>
       <Draggable
@@ -84,7 +94,7 @@ const FileSystemApp = ({
         position={fullscreen ? { x: 0, y: 0 } : null}
       >
         <section
-          className={`bg-pop-900 border border-pop-900 flex flex-col w-3/4 sm:w-176 shadow-2xl overflow-hidden transition-h-w z-20 rounded-t-md`}
+          className={`fsApp bg-pop-900 border border-pop-900 flex flex-col w-3/4 sm:w-176 shadow-2xl overflow-hidden transition-h-w z-20 rounded-t-md`}
           style={{
             width: fullscreen ? "100%" : " ",
             height: fullscreen ? "100%" : " ",
@@ -97,10 +107,14 @@ const FileSystemApp = ({
             e.stopPropagation();
             e.preventDefault();
             clearMenu();
+            clearDesktopMenu();
           }}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             menu ? clearMenu() : null;
+            !contextMenu.y ? clearDesktopMenu() : null;
             setFocus();
+            clearMenuAndMenuContext();
           }}
         >
           <NavAppWindow
@@ -204,7 +218,7 @@ const FileSystemApp = ({
                         id,
                         icon,
                         handleDoubleClick,
-                        // handleContextMenu,
+                        handleContextMenu,
                       }) => {
                         if (title)
                           return (
@@ -221,17 +235,18 @@ const FileSystemApp = ({
                                     )
                                   : handleDoubleClick(dispatch);
                               }}
-                              // handleContextMenu={() =>
-                              //   handleContextMenu(
-                              //     dispatch,
-                              //     title,
-                              //     id,
-                              //     currentDir  ,
-                              //     () => handleDoubleClick(dispatch)
-                              //   )
-                              // }
+                              handleContextMenu={(e) =>
+                                handleContextMenu(
+                                  dispatch,
+                                  title,
+                                  id,
+                                  currentDir,
+                                  e,
+                                  () => handleDoubleClick(dispatch)
+                                )
+                              }
                               place="files"
-                              // makeContextMenu={makeContextMenu}
+                              makeContextMenu={makeContextMenu}
                             />
                           );
                       }
@@ -242,6 +257,14 @@ const FileSystemApp = ({
         </section>
       </Draggable>
       {menu ? menu : null}
+      {contextMenu.y ? (
+        <ContextMenu
+          position={contextMenu}
+          close={() => clearMenuAndMenuContext()}
+          context={{ state, dispatch }}
+          whatDir={currentDir}
+        />
+      ) : null}
     </>
   );
 };

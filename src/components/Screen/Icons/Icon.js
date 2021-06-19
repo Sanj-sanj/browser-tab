@@ -53,7 +53,10 @@ const Icon = ({
           //e is passed for context menu to get rects of icon for modals inside of contextMenu
         }}
         title={title}
-        onTouchStart={onTouchStart}
+        onTouchStart={(e) => {
+          e.stopPropagation();
+          onTouchStart(e);
+        }}
       >
         <span className="text-white">
           {Icon ? <Icon /> : <img src={appIcon} alt="icon" />}

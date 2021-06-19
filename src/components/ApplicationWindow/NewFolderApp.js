@@ -11,7 +11,6 @@ const NewFolderApp = ({
   whichDir,
   id,
   setFocus,
-  state,
 }) => {
   const [value, setValue] = useState("");
 
@@ -19,7 +18,7 @@ const NewFolderApp = ({
     //autofocus on jsx doesnt work, perhaps component is made before injected into the dom via portal?
     // this timeout is here as a workaround to this
     const delayFocus = setTimeout(() => {
-      document.querySelector("input.newFolder").focus();
+      document.querySelector("input.newFolderInput").focus();
     }, 100);
     return () => clearTimeout(delayFocus);
   }, [dispatch]);
@@ -34,7 +33,7 @@ const NewFolderApp = ({
   return (
     <Draggable
       bounds={"parent"}
-      cancel=".exit"
+      cancel=".exit, .newFolderInput"
       defaultClassName={`${
         toggle ? "animate-pop-out-inside " : "animate-fade-out"
       }`}
@@ -61,7 +60,7 @@ const NewFolderApp = ({
         </button>
         <div className="w-72 py-4 px-0.5 flex justify-center items-center bg-pop-850">
           <input
-            className="newFolder w-full text-white px-2 rounded focus:outline-none bg-pop-900 border-2 border-transparent focus:border-yellow-500"
+            className="newFolderInput w-full text-white px-2 rounded focus:outline-none bg-pop-900 border-2 border-transparent focus:border-yellow-500"
             type="text"
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={(e) =>

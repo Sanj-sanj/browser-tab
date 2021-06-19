@@ -26,7 +26,6 @@ const ApplicationWindow = ({
     elRef.current.className =
       "w-full h-full absolute flex justify-center items-center";
     elRef.current.style.top = "1.7rem";
-    elRef.current.onclick = clearDesktopContext;
   }
   const setFocus = (fsID) => {
     dispatch({
@@ -86,6 +85,7 @@ const ApplicationWindow = ({
           toggle={toggle}
           setToggle={setToggle}
           setFocus={() => setFocus(id)}
+          clearDesktopMenu={clearDesktopContext}
         />
       ) : type === "New Folder" ? (
         <NewFolderApp

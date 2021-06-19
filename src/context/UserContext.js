@@ -15,7 +15,7 @@ const folderIcon = () => (
 export const UserContext = createContext({
   user: "Guest",
   wifi: true,
-  activeView: "Lock",
+  activeView: "Desktop",
   volume: 50,
   display: 10,
   apps: [],
@@ -171,12 +171,51 @@ export const reducer = (state, action) => {
       }
       return { ...state };
     case "renameItem":
-      // if(payload.dir.includes('/')) {
-      //   const path =payload.dir.split('/')
-      //   const destination = state.dirs[path[0]]
-      //   const folder = state.dirs[[path[0]]][path[1]]
-      //   folder.find(obj => )
-      // }
+      console.log(payload);
+      if (payload.dir.includes("/")) {
+        const path = payload.dir.split("/");
+        const startingDir = path.shift();
+        const destination = state.dirs[startingDir];
+        let folder;
+        for (let i = 0; i < path.length; i++) {
+          console.log(`loop #${i}`, folder);
+          folder = [...destination.find((obj) => obj[path[i]])[path[i]]];
+        }
+        console.log("end of loop", folder);
+        const mutatedFile = folder.find((obj) => obj.id === payload.id);
+        const file = { ...folder.find((obj) => obj.id === payload.id) };
+        const mutatedDir = folder.find((obj) => obj[file.title]);
+        const dir = { ...folder.find((obj) => obj[file.title]) };
+        mutatedFile.title = payload.newTitle;
+        mutatedFile.handleDoubleClick = () =>
+          payload.dispatch({
+            type: "openApp",
+            payload: {
+              title: "Files",
+              type: "Files",
+              dir: `${payload.dir}/${payload.newTitle}`,
+              src: null,
+              active: true,
+              id: payload.id,
+            },
+          });
+        const oldKey = Object.keys(mutatedDir);
+        Object.assign(mutatedDir, { [payload.newTitle]: mutatedDir[oldKey] })[
+          oldKey
+        ];
+        delete mutatedDir[oldKey];
+        console.log("end of operation", folder);
+        console.log("operation", { file, dir });
+        //this shit mutates and shit not coolioli, we dont do that in react
+        // let returnVal = [...destination]
+        // for(let i =0; i < path.length; i++) {
+        //   let tempFolder = [...destination.find((obj) => obj[path[i]])[path[i]]]
+        //   returnVal = [...returnVal,   ]
+        // }
+        // console.log(folder.find((obj) => obj));
+
+        return { ...state };
+      }
       if (payload.dir) {
         const destination = payload.dir;
         const toModify = state.dirs[destination].find(

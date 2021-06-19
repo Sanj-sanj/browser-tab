@@ -1,14 +1,19 @@
-import ApplicationWindow from "../../ApplicationWindow/ApplicationWindow";
-import Icon from "../Icons/Icon";
-import ContextMenu from "../../ContextMenu/ContextMenu";
 import { useState, useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
 import { clearDesktopContext } from "../../../js/dispatch";
+import Icon from "../Icons/Icon";
+import ApplicationWindow from "../../ApplicationWindow/ApplicationWindow";
+import ContextMenu from "../../ContextMenu/ContextMenu";
+import useMobileEventHandler from "../../../hooks/useMobileEventHandlers";
 
 const Desktop = () => {
   const { state, dispatch } = useContext(UserContext);
   const [menu, setMenu] = useState({ x: 0, y: 0 });
 
+  const [onTouchStart] = useMobileEventHandler(null, (e) => {
+    clearMenuAndMenuContext();
+    makeContextMenu(e.targetTouches[0]);
+  });
   const clearMenuAndMenuContext = () => {
     setMenu({ x: 0, y: 0 });
     clearDesktopContext(dispatch);
@@ -50,6 +55,7 @@ const Desktop = () => {
       onKeyDownCapture={(e) =>
         e.key === "Escape" ? clearMenuAndMenuContext() : null
       }
+      onTouchStart={onTouchStart}
     >
       <div
         className=" w-min flex flex-col max-h-screen flex-wrap p-0.5"

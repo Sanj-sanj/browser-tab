@@ -1,9 +1,4 @@
-Added new menu case in useMenu for fileSystem, used when clicking on dirnames to add folder.
-UserContext: RenameItem: Updates items onClickHandler, otherwise closer on the old file name causes crash. The 'folder' array gets its name duplicated, renamed then deleted with Obj.assign. MoveItem: newely added, just used for deleting stuff. Context has isFocused property now, it binds the id of the currently clicked on App, this lets us switch which item comes to the front of the others. Added dirs into the directory items, doesnt do anything yet.
-Nav: changed width styles of the top right bar. 
-Dropdown: added case handlings for new dropdown items, Rename and File system.
-Rename: added regex to remove any '/' from the name.
-ContextMenu: added move to trash and open in files onClicks to respective buttons.
-ApplicationWindow: added setFocus(), writes the id of the current app to context, which is passed into each app View. along with id and state
-All App's have the setFocus function which is set onClick of the window. 
-NavApp window has rounded borders for the first div, this is for the border applied to parent component when focused.
+Deskotp: added useMobileTouchHandler hook to desktop,
+AppWindow: removed elref onclick handler, now pass clearDesktopContext as prop, the onclick was interfering with the contextMenu inside of the filesystem. (click open or rename, resets state onclick) Filesystem now has contextmenu for icons enabled. newFolderApp now working for mobile.
+Icon: e.stopPropagation added.
+style.css: added * [vendor-pre]user-select 'none' and 'text' to inputs. 
