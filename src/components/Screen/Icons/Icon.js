@@ -1,6 +1,7 @@
 import { useState } from "react";
 import appIcon from "url:../../../images/application-x-executable.png";
 import Draggable from "react-draggable";
+import useMobileEventHandler from "../../../hooks/useMobileEventHandlers";
 
 const Icon = ({
   title,
@@ -11,6 +12,12 @@ const Icon = ({
   place,
 }) => {
   const [toggle, setToggle] = useState(false);
+
+  const onLongPress = (e) => {
+    handleContextMenu(e);
+    makeContextMenu(e.targetTouches[0]);
+  };
+  const [onTouchStart] = useMobileEventHandler(handleDoubleClick, onLongPress);
 
   return (
     <Draggable
@@ -28,7 +35,6 @@ const Icon = ({
              : "border border-transparent bg-transparent hover:bg-gray-500 hover:bg-opacity-60 bg-opacity-70"
          }`}
         onDoubleClick={handleDoubleClick}
-        // onTouchEnd={console.log} make a custom event, firsst tap record time stamp, setTimeout > 700ms, after timeout reset timestamp record, before timeout end, execute dblclick
         onKeyDown={(e) => (e.key === "Enter" ? handleDoubleClick() : null)}
         onClick={() =>
           place === "activities"
@@ -47,6 +53,7 @@ const Icon = ({
           //e is passed for context menu to get rects of icon for modals inside of contextMenu
         }}
         title={title}
+        onTouchStart={onTouchStart}
       >
         <span className="text-white">
           {Icon ? <Icon /> : <img src={appIcon} alt="icon" />}
