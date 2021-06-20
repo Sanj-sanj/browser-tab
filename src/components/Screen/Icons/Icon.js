@@ -37,7 +37,9 @@ const Icon = ({
         onDoubleClick={handleDoubleClick}
         onKeyDown={(e) => (e.key === "Enter" ? handleDoubleClick() : null)}
         onClick={() =>
-          place === "activities"
+          place === "files"
+            ? null // prevent highlighting for mobile because onBlur doesnt seem to work.
+            : place === "activities"
             ? handleDoubleClick()
             : toggle
             ? setToggle(true)

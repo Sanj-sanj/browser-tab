@@ -33,7 +33,7 @@ const NewFolderApp = ({
   return (
     <Draggable
       bounds={"parent"}
-      cancel=".exit, .newFolderInput"
+      cancel=".exit, .newFolderInput, .newFolderButton "
       defaultClassName={`${
         toggle ? "animate-pop-out-inside " : "animate-fade-out"
       }`}
@@ -46,7 +46,7 @@ const NewFolderApp = ({
       >
         <NavAppWindow setToggle={setToggle} name={name} thickBar={true} />
         <button
-          className={`absolute border border-pop-800 top-1 left-1 rounded py-1 px-3  ${
+          className={`newFolderButton absolute border border-pop-800 top-1 left-1 rounded py-1 px-3  ${
             value
               ? "bg-pop-700 hover:bg-pop-850 text-white"
               : "bg-pop-700 text-gray-500"

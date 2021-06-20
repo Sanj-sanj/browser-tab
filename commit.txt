@@ -1,4 +1,6 @@
-Deskotp: added useMobileTouchHandler hook to desktop,
-AppWindow: removed elref onclick handler, now pass clearDesktopContext as prop, the onclick was interfering with the contextMenu inside of the filesystem. (click open or rename, resets state onclick) Filesystem now has contextmenu for icons enabled. newFolderApp now working for mobile.
-Icon: e.stopPropagation added.
-style.css: added * [vendor-pre]user-select 'none' and 'text' to inputs. 
+Icon: added ternary check for onClick, stops onCLick from applying on files	
+Lock: added padding to better vertically center contents.
+Desktop: onTouchStart checks to see if user is touching desktop or not then delegates event.
+AppButton: received styles for mobile view.
+App's: added more selectors for Draggable cancel prop, this is for mobile use.
+

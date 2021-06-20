@@ -41,7 +41,7 @@ const SettingsApp = ({
   return (
     <Draggable
       bounds={"parent"}
-      cancel=".exit"
+      cancel=".exit, button"
       defaultClassName={`${
         toggle ? "animate-pop-out-inside " : "animate-fade-out"
       }`}

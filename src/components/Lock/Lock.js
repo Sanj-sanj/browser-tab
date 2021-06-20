@@ -16,7 +16,7 @@ const Lock = ({ user, unlock, background }) => {
 
   return (
     <div
-      className={`lockScreen z-10 w-full h-screen min-h-full flex flex-col justify-center items-center animate-drop-in `}
+      className={`lockScreen absolute top-0 pb-12 overflow-hidden z-10 w-full h-screen min-h-full flex flex-col justify-center items-center animate-drop-in `}
       onContextMenu={(e) => e.preventDefault()}
       role="presentation"
       onClick={() => setUnlocked(!unlocked)}

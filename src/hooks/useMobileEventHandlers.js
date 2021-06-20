@@ -3,6 +3,7 @@ import { useRef } from "react";
 const useMobileEventHandler = (onDoubleClick, onLongPress) => {
   const timeRef = useRef(0);
   const targetRef = useRef();
+  const { set, clear } = resetTime();
 
   function resetTime() {
     let timeoutRef;
@@ -15,7 +16,6 @@ const useMobileEventHandler = (onDoubleClick, onLongPress) => {
     const clear = () => clearTimeout(timeoutRef);
     return { set, clear };
   }
-  const { set, clear } = resetTime();
 
   const longPressHandler = (e) => {
     // timer activates at the end of the first touch click, sets a timer to reset the timer to 0

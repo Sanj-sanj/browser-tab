@@ -10,10 +10,13 @@ const Desktop = () => {
   const { state, dispatch } = useContext(UserContext);
   const [menu, setMenu] = useState({ x: 0, y: 0 });
 
-  const [onTouchStart] = useMobileEventHandler(null, (e) => {
-    clearMenuAndMenuContext();
-    makeContextMenu(e.targetTouches[0]);
-  });
+  const [onTouchStart] = useMobileEventHandler(
+    () => console.log(":)"),
+    (e) => {
+      clearMenuAndMenuContext();
+      makeContextMenu(e.targetTouches[0]);
+    }
+  );
   const clearMenuAndMenuContext = () => {
     setMenu({ x: 0, y: 0 });
     clearDesktopContext(dispatch);
@@ -55,7 +58,9 @@ const Desktop = () => {
       onKeyDownCapture={(e) =>
         e.key === "Escape" ? clearMenuAndMenuContext() : null
       }
-      onTouchStart={onTouchStart}
+      onTouchStart={(e) => {
+        e.target.classList.contains("desktopScreen") ? onTouchStart(e) : null;
+      }}
     >
       <div
         className=" w-min flex flex-col max-h-screen flex-wrap p-0.5"
