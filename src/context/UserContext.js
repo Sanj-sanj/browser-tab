@@ -261,16 +261,67 @@ export const reducer = (state, action) => {
       }
       return { ...state };
     case "moveItem":
+      console.log(payload);
+      if (payload.dir && payload.dir.includes("/")) {
+        const path = payload.dir.split("/");
+        const startingDir = path.shift();
+        const destination = state.dirs[startingDir];
+        let dir;
+        for (let i = 0; i < path.length; i++) {
+          dir = destination.find((obj) => obj[path[i]])[path[i]];
+        }
+
+        const file = dir.find((file) => file.id === payload.id);
+        const folder = dir.find((dir) => dir[file.title]);
+        for (let i = 0; i < path.length; i++) {
+          destination.map((obj) => {
+            if (obj[path[i]]) {
+              const modifiedObj = obj[path[i]].filter((item) =>
+                item === file || item === folder ? null : item
+              );
+              obj[path[i]] = modifiedObj;
+            }
+            return obj;
+          });
+        }
+        file.dir = payload.newDir;
+
+        const newDestinationReturnVal = [
+          ...state.dirs[payload.newDir],
+          file,
+          folder,
+        ];
+        return {
+          ...state,
+          dirs: {
+            ...state.dirs,
+            [payload.newDir]: newDestinationReturnVal,
+          },
+        };
+      }
       if (payload.dir) {
         const newDestination = payload.newDir;
         const destination = payload.dir;
-        const itemToMove = state.dirs[destination].find(
+        const fileToMove = state.dirs[destination].find(
           (obj) => obj.id === payload.id
         );
-        const modifiedDirReturnValue = state.dirs[destination].filter((obj) =>
-          obj === itemToMove ? false : obj
+        const dirToMove = state.dirs[destination].find(
+          (obj) => obj[fileToMove.title]
         );
-        const newDirReturnValue = [...state.dirs[newDestination], itemToMove];
+        const modifiedDirReturnValue = state.dirs[destination].filter((obj) =>
+          obj === fileToMove ? false : obj
+        );
+
+        fileToMove.dir = payload.newDir;
+        let newDirReturnValue = [...state.dirs[newDestination], fileToMove];
+        if (dirToMove) {
+          //if the file is a dir, then we return the dir with the file, else just return the file
+          newDirReturnValue = [
+            ...state.dirs[newDestination],
+            fileToMove,
+            dirToMove,
+          ];
+        }
         return {
           ...state,
           dirs: {
