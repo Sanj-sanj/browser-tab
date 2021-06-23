@@ -180,7 +180,7 @@ const FileSystemApp = ({
                   style={{ maxWidth: "7.75rem" }}
                   onClick={(e) => {
                     !Array.isArray(dirsArray) ||
-                    (Array.isArray(dirsArray) && dirsArray.length < 3)
+                    (Array.isArray(dirsArray) && dirsArray.length < 3) // can go up to 5? breaks othe shit thoouh
                       ? makeMenu(e.target, "file system", () =>
                           openNewFolderApp(dispatch, currentDir)
                         )
@@ -220,7 +220,7 @@ const FileSystemApp = ({
               <>
                 {currentDir === "home"
                   ? foldersRef.current
-                  : start?.map(
+                  : start.map(
                       ({
                         title,
                         type,
@@ -230,34 +230,35 @@ const FileSystemApp = ({
                         handleContextMenu,
                       }) => {
                         if (title)
-                          return (
-                            <Icon
-                              title={title}
-                              key={id}
-                              Icon={icon}
-                              handleDoubleClick={() => {
-                                type === "folder"
-                                  ? cdOpenApp(
-                                      dispatch,
-                                      fsId,
-                                      `${currentDir}/${title}`
-                                    )
-                                  : handleDoubleClick(dispatch);
-                              }}
-                              handleContextMenu={(e) =>
-                                handleContextMenu(
-                                  dispatch,
-                                  title,
-                                  id,
-                                  currentDir,
-                                  e,
-                                  () => handleDoubleClick(dispatch)
-                                )
-                              }
-                              place="files"
-                              makeContextMenu={makeContextMenu}
-                            />
-                          );
+                          if (title === "Files" && id === "001") return;
+                        return (
+                          <Icon
+                            title={title}
+                            key={id}
+                            Icon={icon}
+                            handleDoubleClick={() => {
+                              type === "folder"
+                                ? cdOpenApp(
+                                    dispatch,
+                                    fsId,
+                                    `${currentDir}/${title}`
+                                  )
+                                : handleDoubleClick(dispatch);
+                            }}
+                            handleContextMenu={(e) =>
+                              handleContextMenu(
+                                dispatch,
+                                title,
+                                id,
+                                currentDir,
+                                e,
+                                () => handleDoubleClick(dispatch)
+                              )
+                            }
+                            place="files"
+                            makeContextMenu={makeContextMenu}
+                          />
+                        );
                       }
                     )}
               </>

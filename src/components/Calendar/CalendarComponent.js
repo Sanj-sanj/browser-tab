@@ -16,14 +16,14 @@ const CalendarComponent = () => {
       nextLabel={
         <div className="text-xl p-2 ">
           <span className="hover:bg-gray-600 active:bg-gray-500 flex items-center justify-center w-8 h-8 rounded-md ">
-            🢒
+            ▸
           </span>
         </div>
       }
       prevLabel={
         <div className="text-xl p-2">
           <span className="hover:bg-gray-600 active:bg-gray-500 flex items-center justify-center w-8 h-8 rounded-md">
-            🢐
+            ◂
           </span>
         </div>
       }

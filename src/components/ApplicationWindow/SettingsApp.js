@@ -12,12 +12,14 @@ import Sunset from "url:../../images/sunset-sm.jpeg?as=webp";
 import Minimal1 from "url:../../images/min1-sm.jpeg?as=webp";
 import Minimal2 from "url:../../images/min2-sm.jpeg?as=webp";
 import Sunrise from "url:../../images/sunrise-painting-sm.jpeg?as=webp";
+import Pop_Horizon from "url:../../images/pop-horizon-sm.jpeg?as=webp";
 /* eslint-enable */
 
 //order effects order in client
 const backgrounds = {
   Mountain,
   Honeycomb,
+  Pop_Horizon,
   Robot,
   Dragisa,
   Sunset,

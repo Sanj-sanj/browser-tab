@@ -15,7 +15,7 @@ const folderIcon = () => (
 export const UserContext = createContext({
   user: "Guest",
   wifi: true,
-  activeView: "Desktop",
+  activeView: "Lock",
   volume: 50,
   display: 10,
   apps: [],
@@ -109,41 +109,77 @@ export const reducer = (state, action) => {
       if (payload.whichDir.includes("/")) {
         const path = payload.whichDir.split("/");
         const startDir = path.shift();
-        const copyPath2 = [...path];
-        let destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
-        let item;
-        while (path.length) {
-          const currDir = path.shift();
-          item = !item
-            ? destination.find((obj) => obj[currDir])[currDir]
-            : item.find((obj) => obj[currDir])[currDir];
+        const path2 = [...path];
+        const destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
+        let folder = [];
+        const toAdd = [
+          {
+            title: payload.title,
+            icon: folderIcon,
+            id: payload.id,
+            handleDoubleClick: payload.handleDoubleClick,
+            handleContextMenu: desktopContext,
+            type: "folder",
+            dir: payload.whichDir,
+          },
+          {
+            [payload.title]: [],
+          },
+        ];
+        for (let i = 0; i < path.length; i++) {
+          if (i > 0) {
+            const thisDir = path2[i];
+            // folder = folder.find((dir) => dir[thisDir])[thisDir];
+            let temp = folder.find((dir) => dir[thisDir])[thisDir];
+            temp ? (folder = temp) : null;
+            break;
+          }
+          if (i === 0) {
+            folder = destination.find((dir) => dir[path[i]])[path[i]];
+          }
         }
-        if (!path.length) {
-          item = [
-            ...item,
-            {
-              title: payload.title,
-              icon: folderIcon,
-              id: payload.id,
-              handleDoubleClick: payload.handleDoubleClick,
-              handleContextMenu: desktopContext,
-              type: "folder",
-              dir: payload.whichDir,
-            },
-            {
-              [payload.title]: [],
-            },
-          ];
-        }
-        while (copyPath2.length) {
-          const currDir = copyPath2.shift();
-          const index = destination.indexOf(
-            destination.find((obj) => obj[currDir])
-          );
-          destination[index][currDir] = item;
-        }
+        folder.push(...toAdd);
         return { ...state };
       }
+      //old
+      // if (payload.whichDir.includes("/")) {
+      //   const path = payload.whichDir.split("/");
+      //   const startDir = path.shift();
+      //   const copyPath2 = [...path];
+      //   let destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
+      //   let item;
+      //   while (path.length) {
+      //     const currDir = path.shift();
+      //     item = !item
+      //       ? destination.find((obj) => obj[currDir])[currDir]
+      //       : item.find((obj) => obj[currDir])[currDir];
+      //   }
+      //   if (!path.length) {
+      //     item = [
+      //       ...item,
+      //       {
+      //         title: payload.title,
+      //         icon: folderIcon,
+      //         id: payload.id,
+      //         handleDoubleClick: payload.handleDoubleClick,
+      //         handleContextMenu: desktopContext,
+      //         type: "folder",
+      //         dir: payload.whichDir,
+      //       },
+      //       {
+      //         [payload.title]: [],
+      //       },
+      //     ];
+      //   }
+      //   while (copyPath2.length) {
+      //     const currDir = copyPath2.shift();
+      //     const index = destination.indexOf(
+      //       destination.find((obj) => obj[currDir])
+      //     );
+      //     destination[index][currDir] = item;
+      //   }
+      //   return { ...state };
+      // }
       if (payload.whichDir) {
         const destination = payload.whichDir;
         return {

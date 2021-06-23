@@ -8,6 +8,10 @@ const bgData = [
     alt: "A fractal honeycomb background by Kate-Hazen of System76.",
   },
   {
+    name: "Pop_Horizon",
+    alt: "A space man overlookin the horizon background by System76.",
+  },
+  {
     name: "Robot",
     alt: "A minimal Robot background by Kate-Hazen of System76.",
   },

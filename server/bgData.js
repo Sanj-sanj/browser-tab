@@ -39,5 +39,10 @@ const bgData = [
     src: "/images/min2-converted.webp",
     alt: "A snowy minmalist art looking at a mountain background.",
   },
+  {
+    name: "Pop-Horizon",
+    src: "/images/Pop_Horizon.jpeg",
+    alt: "A snowy minmalist art looking at a mountain background.",
+  },
 ];
 module.exports = bgData;
