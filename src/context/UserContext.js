@@ -20,7 +20,7 @@ export const UserContext = createContext({
   display: 10,
   apps: [],
   background: "Mountain",
-  isFocused: "", //app.id
+  isFocused: {}, //app obj
   desktopContext: { title: "", id: "", dir: "", e: "", onClick: () => {} },
   dirs: {
     recent: [],
@@ -109,7 +109,6 @@ export const reducer = (state, action) => {
       if (payload.whichDir.includes("/")) {
         const path = payload.whichDir.split("/");
         const startDir = path.shift();
-        const copyPath = [...path];
         const copyPath2 = [...path];
         let destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
         let item;
@@ -342,7 +341,7 @@ export const reducer = (state, action) => {
       }
       return { ...state };
     case "openApp":
-      return { ...state, apps: [...state.apps, payload] };
+      return { ...state, apps: [...state.apps, payload], isFocused: payload };
     case "closeApp":
       if (state.apps.some((app) => app.id == payload.id)) {
         const newAppState = state.apps.map((app) => {
@@ -351,7 +350,7 @@ export const reducer = (state, action) => {
           }
           return app;
         });
-        return { ...state, apps: newAppState };
+        return { ...state, apps: newAppState, isFocused: {} };
       }
       return { ...state };
     default:

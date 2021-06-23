@@ -34,7 +34,7 @@ const SettingsApp = ({
   toggle,
   id,
   setFocus,
-  state,
+  state: { isFocused },
 }) => {
   const bgsRef = useRef(createThumbnails(dispatch, backgrounds));
   const [fullscreen, setFullscreen] = useState(false);
@@ -48,13 +48,13 @@ const SettingsApp = ({
       position={fullscreen ? { x: 0, y: 0 } : null}
     >
       <section
-        className={`bg-pop-700 flex flex-col border border-pop-900 w-72 sm:w-176 shadow-2xl transition-h-w z-20 rounded-t-md ${
+        className={`bg-pop-700 flex flex-col border border-pop-900 w-80 sm:w-176 shadow-2xl transition-h-w z-20 rounded-t-md ${
           !toggle ? "opacity-100" : ""
         }`}
         style={{
           width: fullscreen ? "100%" : "  ",
           height: fullscreen ? "100%" : "37rem",
-          zIndex: state.isFocused === id ? "30" : "20",
+          zIndex: isFocused.id === id ? "30" : "20",
         }}
         role="presentation"
         onContextMenu={(e) => e.preventDefault()}

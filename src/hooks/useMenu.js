@@ -132,6 +132,17 @@ const useMenu = (clearAndUnfocusMenu) => {
           </Dropdown>
         );
         break;
+      case "program":
+        setMenu(
+          <Dropdown rects={getRects(currentTarget)} caller={"file system"}>
+            <div className="px-3">
+              <Button close={clearAndUnfocusMenu} _onClick={clickHandler}>
+                W.I.P.
+              </Button>
+            </div>
+          </Dropdown>
+        );
+        break;
       default:
         setMenu(null);
         break;

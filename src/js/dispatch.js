@@ -45,6 +45,18 @@ const openFiles = (dispatch, location) =>
       id: uuid(),
     },
   });
+const openTerminal = (dispatch, location) =>
+  dispatch({
+    type: "openApp",
+    payload: {
+      title: "Terminal",
+      type: "Terminal",
+      dir: location,
+      src: null,
+      active: true,
+      id: uuid(),
+    },
+  });
 
 const openNewFolderApp = (dispatch, newDir) =>
   dispatch({
@@ -111,6 +123,7 @@ export {
   openSettings,
   openNewFolderApp,
   openFiles,
+  openTerminal,
   toggleWifi,
   mkdir,
   cdOpenApp,

@@ -39,7 +39,7 @@ const Screen = () => {
   return (
     <>
       <div
-        className={`absolute top-0 w-screen h-screen pointer-events-none bg-black`}
+        className={`absolute top-0 w-screen h-screen pointer-events-none bg-black transition-opacity`}
         style={{
           zIndex: "100",
           opacity: 1 - (display / 10) * 1 === 1 ? 0.92 : 1 - (display / 10) * 1,

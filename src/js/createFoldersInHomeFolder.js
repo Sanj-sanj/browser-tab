@@ -37,6 +37,7 @@ const createFoldersInHomeFolder = (dispatch, id, dirs) => {
                 alt={`Icon for the ${formattedDir} folder`}
               />
             )}
+            place="files"
           />
         );
   }

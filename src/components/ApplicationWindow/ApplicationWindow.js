@@ -5,6 +5,7 @@ import NewFolderApp from "./NewFolderApp";
 import FileSystemApp from "./FileSystemApp";
 import IframeApp from "./IframeApp";
 import "./ApplicationWindow.modules.css";
+import TerminalApp from "./TerminalApp";
 
 const appRoot = document.getElementById("window");
 
@@ -24,13 +25,13 @@ const ApplicationWindow = ({
   if (!elRef.current) {
     elRef.current = document.createElement("div");
     elRef.current.className =
-      "w-full h-full absolute flex justify-center items-center";
+      "w-full h-screen absolute flex justify-center items-center";
     elRef.current.style.top = "1.7rem";
   }
   const setFocus = (fsID) => {
     dispatch({
       type: "isFocused",
-      payload: { id: state.apps.find((obj) => obj.id === fsID).id },
+      payload: { id: state.apps.find((obj) => obj.id === fsID) },
     });
   };
   useEffect(() => {
@@ -97,6 +98,18 @@ const ApplicationWindow = ({
           toggle={toggle}
           whichDir={apps.find((app) => app.id === id)?.dir}
           setFocus={() => setFocus(id)}
+        />
+      ) : type === "Terminal" ? (
+        <TerminalApp
+          state={state}
+          dispatch={dispatch}
+          id={id}
+          clearDesktopMenu={clearDesktopContext}
+          setFocus={() => setFocus(id)}
+          setToggle={setToggle}
+          toggle={toggle}
+          whichDir={apps.find((app) => app.id === id)?.dir}
+          name={name}
         />
       ) : null}
     </>,

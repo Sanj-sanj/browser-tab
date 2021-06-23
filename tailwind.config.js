@@ -100,7 +100,11 @@ module.exports = {
         30: "7.5rem/*120px */",
         82: "21rem/*336px */",
         88: "22rem/*352px */",
+        132: "33rem/*528px */",
         176: "44rem/*704px */",
+      },
+      height: {
+        min: "min-content",
       },
       transitionProperty: {
         "h-w": "height, width",

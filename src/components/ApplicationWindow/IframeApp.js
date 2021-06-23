@@ -11,7 +11,7 @@ const IframeApp = ({
   setToggle,
   setFocus,
   id,
-  state,
+  state: { isFocused },
 }) => {
   const [value, setValue] = useState(src);
   const [fullscreen, setFullscreen] = useState(false);
@@ -38,7 +38,7 @@ const IframeApp = ({
             : name === "Javascript-Racer"
             ? "545px"
             : "60%",
-          zIndex: state.isFocused === id ? "30" : "20",
+          zIndex: isFocused.id === id ? "30" : "20",
         }}
         role="presentation"
         onContextMenu={(e) => e.preventDefault()}

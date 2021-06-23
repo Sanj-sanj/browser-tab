@@ -68,7 +68,7 @@ const Icon = ({
           style={{ height: "inherit" }}
         >
           <p
-            className="text-white text-sm leading-none"
+            className="text-white text-sm overflow-hidden leading-tight"
             style={{
               display: "-webkit-box",
               WebkitLineClamp: "2",

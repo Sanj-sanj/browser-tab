@@ -4,6 +4,7 @@ import {
   openSettings,
   openNewFolderApp,
   openFiles,
+  openTerminal,
   renameItem,
   moveItem,
 } from "../../js/dispatch";
@@ -128,7 +129,12 @@ const ContextMenu = ({
               >
                 Show Desktop in Files
               </Button>
-              <Button close={close}>Open in Terminal</Button>
+              <Button
+                close={close}
+                _onClick={() => openTerminal(dispatch, whatDir)}
+              >
+                Open in Terminal
+              </Button>
               <hr className="w-full border-pop-900" />
               <Button close={close} _onClick={() => openSettings(dispatch)}>
                 Change Background...
