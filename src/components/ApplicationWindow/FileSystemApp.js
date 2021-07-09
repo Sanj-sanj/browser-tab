@@ -27,9 +27,6 @@ const FileSystemApp = ({
   clearDesktopMenu,
 }) => {
   const currentOpenApp = state.apps.find((app) => app.id === fsId);
-  console.log(currentOpenApp);
-  //rename need fix crashes when fs open on rename of same folder
-  // const items = currentOpenApp.length;
   const foldersRef = useRef(
     createFoldersInHomeFolder(dispatch, fsId, state.dirs)
   );
@@ -37,11 +34,10 @@ const FileSystemApp = ({
   const [currentDir, setCurrentDir] = useState(currentOpenApp.dir);
   const [contextMenu, setContextMenu] = useState({ x: 0, y: 0 });
   // const [dirHistory, setDirHistory] = useState([]); //noPurpose yet
-  const [onTouchStart] = useMobileEventHandlers(goToHomeDirectory);
+  // const [onTouchStart] = useMobileEventHandlers(goToHomeDirectory);
   const [start, [dirsArray]] = getNestedDirs();
   const [menu, makeMenu] = useMenu(clearMenu);
 
-  console.log(start, dirsArray);
   useEffect(() => {
     setCurrentDir(currentOpenApp.dir);
   });
@@ -230,35 +226,35 @@ const FileSystemApp = ({
                         handleContextMenu,
                       }) => {
                         if (title)
-                          if (title === "Files" && id === "001") return;
-                        return (
-                          <Icon
-                            title={title}
-                            key={id}
-                            Icon={icon}
-                            handleDoubleClick={() => {
-                              type === "folder"
-                                ? cdOpenApp(
-                                    dispatch,
-                                    fsId,
-                                    `${currentDir}/${title}`
-                                  )
-                                : handleDoubleClick(dispatch);
-                            }}
-                            handleContextMenu={(e) =>
-                              handleContextMenu(
-                                dispatch,
-                                title,
-                                id,
-                                currentDir,
-                                e,
-                                () => handleDoubleClick(dispatch)
-                              )
-                            }
-                            place="files"
-                            makeContextMenu={makeContextMenu}
-                          />
-                        );
+                          // if (type === "folder" && id === "001") return null;
+                          return (
+                            <Icon
+                              title={title}
+                              key={id}
+                              Icon={icon}
+                              handleDoubleClick={() => {
+                                type === "folder"
+                                  ? cdOpenApp(
+                                      dispatch,
+                                      fsId,
+                                      `${currentDir}/${title}`
+                                    )
+                                  : handleDoubleClick(dispatch);
+                              }}
+                              handleContextMenu={(e) =>
+                                handleContextMenu(
+                                  dispatch,
+                                  title,
+                                  id,
+                                  currentDir,
+                                  e,
+                                  () => handleDoubleClick(dispatch)
+                                )
+                              }
+                              place="files"
+                              makeContextMenu={makeContextMenu}
+                            />
+                          );
                       }
                     )}
               </>

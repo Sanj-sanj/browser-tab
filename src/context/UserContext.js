@@ -32,6 +32,7 @@ export const UserContext = createContext({
         handleContextMenu: desktopContext,
         id: "001",
         type: "app",
+        visible: false,
       },
       {
         title: "JS Racer",
@@ -141,45 +142,7 @@ export const reducer = (state, action) => {
         folder.push(...toAdd);
         return { ...state };
       }
-      //old
-      // if (payload.whichDir.includes("/")) {
-      //   const path = payload.whichDir.split("/");
-      //   const startDir = path.shift();
-      //   const copyPath2 = [...path];
-      //   let destination = state.dirs[startDir]; //start point (state.dirs.desktop, state.dirs.videos)
-      //   let item;
-      //   while (path.length) {
-      //     const currDir = path.shift();
-      //     item = !item
-      //       ? destination.find((obj) => obj[currDir])[currDir]
-      //       : item.find((obj) => obj[currDir])[currDir];
-      //   }
-      //   if (!path.length) {
-      //     item = [
-      //       ...item,
-      //       {
-      //         title: payload.title,
-      //         icon: folderIcon,
-      //         id: payload.id,
-      //         handleDoubleClick: payload.handleDoubleClick,
-      //         handleContextMenu: desktopContext,
-      //         type: "folder",
-      //         dir: payload.whichDir,
-      //       },
-      //       {
-      //         [payload.title]: [],
-      //       },
-      //     ];
-      //   }
-      //   while (copyPath2.length) {
-      //     const currDir = copyPath2.shift();
-      //     const index = destination.indexOf(
-      //       destination.find((obj) => obj[currDir])
-      //     );
-      //     destination[index][currDir] = item;
-      //   }
-      //   return { ...state };
-      // }
+
       if (payload.whichDir) {
         const destination = payload.whichDir;
         return {
@@ -206,21 +169,21 @@ export const reducer = (state, action) => {
       }
       return { ...state };
     case "renameItem":
-      console.log(payload);
+      // console.log(payload);
       if (payload.dir.includes("/")) {
         const path = payload.dir.split("/");
         const startingDir = path.shift();
         const destination = state.dirs[startingDir];
         let folder;
         for (let i = 0; i < path.length; i++) {
-          console.log(`loop #${i}`, folder);
+          // console.log(`loop #${i}`, folder);
           folder = [...destination.find((obj) => obj[path[i]])[path[i]]];
         }
-        console.log("end of loop", folder);
+        // console.log("end of loop", folder);
         const mutatedFile = folder.find((obj) => obj.id === payload.id);
         const file = { ...folder.find((obj) => obj.id === payload.id) };
         const mutatedDir = folder.find((obj) => obj[file.title]);
-        const dir = { ...folder.find((obj) => obj[file.title]) };
+        // const dir = { ...folder.find((obj) => obj[file.title]) };
         mutatedFile.title = payload.newTitle;
         mutatedFile.handleDoubleClick = () =>
           payload.dispatch({
@@ -239,8 +202,8 @@ export const reducer = (state, action) => {
           oldKey
         ];
         delete mutatedDir[oldKey];
-        console.log("end of operation", folder);
-        console.log("operation", { file, dir });
+        // console.log("end of operation", folder);
+        // console.log("operation", { file, dir });
         //this shit mutates and shit not coolioli, we dont do that in react
         // let returnVal = [...destination]
         // for(let i =0; i < path.length; i++) {
@@ -263,7 +226,7 @@ export const reducer = (state, action) => {
           //if True file is a folder, need to rename the directory.
           //update the onclick handler otherwise it points to oldlocation due to closure
           //rename once, file opens fine, rename twice doesnt work unless you open somethign different
-          console.log(toModify, destination);
+          // console.log(toModify, destination);
           toModify.handleDoubleClick = () =>
             payload.dispatch({
               type: "openApp",
@@ -296,7 +259,7 @@ export const reducer = (state, action) => {
       }
       return { ...state };
     case "moveItem":
-      console.log(payload);
+      // console.log(payload);
       if (payload.dir && payload.dir.includes("/")) {
         const path = payload.dir.split("/");
         const startingDir = path.shift();

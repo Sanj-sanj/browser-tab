@@ -128,7 +128,7 @@ const useTerminal = (
 ) => {
   // console.log({ state.user, folder, path, exitFunc, currentDir });
   let ps2 = `${state.user}@pop-os`;
-  console.log("1", folder, path);
+  // console.log("1", folder, path);
 
   const [userCommand, setUserCommand] = useState("");
   const [commandResult, setCommandResult] = useState("");
@@ -177,10 +177,6 @@ const useTerminal = (
         for (let i = 0; i < path.length; i++) {
           searchedFolder = folder.find((directory) => directory[dir]);
         }
-        console.log("here");
-        console.log(searchedFolder);
-        console.log("here", currentDir);
-        console.log("here", path);
         if (searchedFolder[dir]) {
           cdOpenApp(dispatch, id, `${currentDir}/${dir}`);
           setCommandResult("I forbid you from going deeper than this");
@@ -212,7 +208,6 @@ const useTerminal = (
     };
 
     if (!Array.isArray(folder)) {
-      console.log("in home dir");
       setCommandResult(
         "W: permission denied, you will be reported to the appropriate authorities"
       );
@@ -252,7 +247,6 @@ const useTerminal = (
   };
   const exit = () => exitFunc();
   const log = () => {
-    console.log(folder, path);
     setCommandResult("check console");
   };
 

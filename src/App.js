@@ -9,7 +9,7 @@ const App = () => {
   const initial = useContext(UserContext);
   const [state, dispatch] = useReducer(reducer, initial);
 
-  console.log(state);
+  // console.log(state);
 
   return (
     <>

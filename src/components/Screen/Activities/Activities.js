@@ -48,7 +48,7 @@ const Activities = () => {
             activeView === "Desktop" ? "animate-slide-out-right" : ""
           }`}
         >
-          {console.log(apps)}
+          {/* {console.log(apps)} */}
         </section>
       </div>
     </div>

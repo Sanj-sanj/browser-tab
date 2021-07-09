@@ -6,6 +6,20 @@
   -moz-user-select: none;
   -webkit-user-select: none;
 }
+
+::-webkit-scrollbar-thumb {
+  background-color: #615d5a;
+  border-radius: 0.5rem;
+}
+::-webkit-scrollbar-track {
+  background-color: #252220;
+}
+::-webkit-scrollbar-track-piece {
+  border: 2px solid #252220;
+}
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
 input {
   user-select: text;
   -moz-user-select: text;
